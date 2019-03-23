@@ -1,0 +1,21 @@
+AllCops:
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  ExtraDetails: false
+  TargetRubyVersion: 2.6.2
+
+  Exclude:
+    - 'bin/**/*'
+    - 'config/**/*'
+
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context', 'feature', 'resource', 'desc']
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/MixinUsage:
+  Enabled: false
