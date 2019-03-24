@@ -3,6 +3,7 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
 abort('Your current environment is production!') if Rails.env.production?
 require 'rspec/rails'
+require 'apipie/rspec/response_validation_helper'
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
