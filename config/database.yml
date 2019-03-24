@@ -10,9 +10,14 @@ development:
   password: <%= Figaro.env.database_password %>
   host: localhost
   port: 5432
+
 test:
   <<: *default
   database: finances_test
+  username: <%= Figaro.env.database_username %>
+  password: <%= Figaro.env.database_password %>
+  host: localhost
+  port: 5432
 
 production:
   <<: *default
