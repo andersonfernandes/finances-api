@@ -13,9 +13,7 @@ module V1
     param :email, String, desc: 'User email', required: true
     param :password, String, desc: 'User password', required: true
     returns code: 200, desc: 'Successful response' do
-      property :data, Hash, desc: 'Response data' do
-        property :token, String, desc: 'Authenticated user token'
-      end
+      property :token, String, desc: 'Authenticated user token'
     end
     def authenticate
       command = ::Users::Authenticate.call(authenticate_params)
