@@ -15,6 +15,7 @@ class User < ApplicationRecord
 
   has_and_belongs_to_many :categories
   has_many :expenses
+  has_many :budgets
 
   validates :name, :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }

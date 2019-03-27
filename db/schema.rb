@@ -10,10 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_26_132500) do
+ActiveRecord::Schema.define(version: 2019_03_27_022603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "budget_items", force: :cascade do |t|
+    t.string "description", null: false
+    t.decimal "amount", null: false
+    t.decimal "min_amount", null: false
+    t.bigint "budget_id"
+    t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["budget_id"], name: "index_budget_items_on_budget_id"
+    t.index ["category_id"], name: "index_budget_items_on_category_id"
+  end
+
+  create_table "budgets", force: :cascade do |t|
+    t.string "description", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_budgets_on_user_id"
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string "description", null: false
@@ -28,6 +48,19 @@ ActiveRecord::Schema.define(version: 2019_03_26_132500) do
     t.index ["user_id"], name: "index_categories_users_on_user_id"
   end
 
+  create_table "expenses", force: :cascade do |t|
+    t.string "description", null: false
+    t.decimal "amount", null: false
+    t.date "spent_on", null: false
+    t.integer "payment_method", null: false
+    t.bigint "user_id"
+    t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_expenses_on_category_id"
+    t.index ["user_id"], name: "index_expenses_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -36,6 +69,11 @@ ActiveRecord::Schema.define(version: 2019_03_26_132500) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "budget_items", "budgets"
+  add_foreign_key "budget_items", "categories"
+  add_foreign_key "budgets", "users"
   add_foreign_key "categories_users", "categories"
   add_foreign_key "categories_users", "users"
+  add_foreign_key "expenses", "categories"
+  add_foreign_key "expenses", "users"
 end

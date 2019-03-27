@@ -1,11 +1,10 @@
 FactoryBot.define do
-  factory :expense do
+  factory :budget_item do
     description { Faker::Lorem.sentence(3, true) }
     amount { Faker::Number.decimal(2, 2) }
-    payment_methodend { :debit }
-    spent_on { Faker::Date.backward(1) }
+    min_amount { Faker::Number.decimal(2, 2) }
 
-    user { FactoryBot.build(:user) }
+    budget { FactoryBot.build(:budget) }
     category { FactoryBot.build(:category) }
   end
 end
