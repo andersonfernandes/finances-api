@@ -5,6 +5,7 @@ RSpec.describe User, type: :model do
 
   context 'relations' do
     it { should have_and_belong_to_many(:categories) }
+    it { should have_many(:expenses) }
   end
 
   context 'validations' do

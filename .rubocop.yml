@@ -10,7 +10,7 @@ AllCops:
     - 'db/schema.rb'
 
 Metrics/BlockLength:
-  ExcludedMethods: ['describe', 'context', 'feature', 'resource', 'desc']
+  ExcludedMethods: ['describe', 'context', 'feature', 'resource', 'desc', 'task']
 
 Style/Documentation:
   Enabled: false

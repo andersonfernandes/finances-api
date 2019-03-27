@@ -26,4 +26,9 @@
 class Expense < ApplicationRecord
   belongs_to :user
   belongs_to :category
+
+  enum payment_method: %i[debit credit_card money]
+
+  validates :amount, numericality: true
+  validates :amount, :description, :payment_method, :spent_on, presence: true
 end
