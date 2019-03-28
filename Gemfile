@@ -21,7 +21,6 @@ end
 group :test do
   gem 'factory_bot_rails'
   gem 'faker'
-  gem 'fuubar'
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 3.8'
   gem 'shoulda-matchers'
@@ -33,5 +32,3 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
-
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
