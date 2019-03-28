@@ -36,10 +36,7 @@ module V1
       if category.save
         render json: category_response(category), status: :created
       else
-        render json: {
-          message: 'Could not save the category',
-          errors: category.errors.messages
-        }, status: 422
+        render error_response(:unprocessable_entity, category.errors.messages)
       end
     end
 

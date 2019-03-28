@@ -31,9 +31,8 @@ RSpec.describe V1::AuthenticationController, '#authenticate',
   context 'when the user credentials are invalid' do
     let(:email) { 'invalid@mail.com' }
     let(:password) { 'wrong_password' }
-    let(:expected_message) { 'Credentials were missing or incorrect' }
 
     it { expect(response).to have_http_status(:unauthorized) }
-    it { expect(body).to include('message' => expected_message) }
+    it { expect(body).to include('message' => 'Unauthorized') }
   end
 end

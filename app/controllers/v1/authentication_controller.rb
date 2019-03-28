@@ -21,8 +21,7 @@ module V1
       if command.success?
         render json: { token: command.result }, status: :ok
       else
-        message = 'Credentials were missing or incorrect'
-        render json: { message: message }, status: :unauthorized
+        render error_response(:unauthorized)
       end
     end
 
