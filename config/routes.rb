@@ -3,6 +3,6 @@ Rails.application.routes.draw do
   namespace :v1 do
     post 'authenticate' => 'authentication#authenticate'
 
-    resources :categories, only: %i[create]
+    resources :categories, only: %i[index create]
   end
 end
