@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe V1::AuthenticationController, '#authenticate',
-               type: :controller do
+               type: :request do
   let(:params) { { email: email, password: password } }
   let(:body) { JSON.parse(response.body) }
   let(:setup) {}
 
   before do
     setup
-    get :authenticate, params: params
+    post v1_authenticate_path, params: params
   end
 
   context 'when the params are missing' do
