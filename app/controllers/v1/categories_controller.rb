@@ -1,6 +1,6 @@
 module V1
   class CategoriesController < ApplicationController
-    before_action :set_category, only: %i[update destroy]
+    before_action :set_category, only: %i[show update destroy]
 
     resource_description do
       short 'Categories Actions'
@@ -25,6 +25,14 @@ module V1
       categories_response = categories.map { |c| category_response(c) }
 
       render json: categories_response, status: :ok
+    end
+
+    api :GET, '/v1/categories:id', 'Returns a category'
+    returns code: 200, desc: 'Successful response' do
+      param_group :category
+    end
+    def show
+      render json: category_response(@category), status: :ok
     end
 
     api :POST, '/v1/categories', 'Creates a category'
