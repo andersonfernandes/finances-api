@@ -1,11 +1,12 @@
 module V1
   class CategoriesController < ApplicationController
-    before_action :set_category, only: :update
+    before_action :set_category, only: %i[update destroy]
 
     resource_description do
       short 'Categories Actions'
       error code: 401, desc: 'Unauthorized'
       error code: 400, desc: 'Bad Request'
+      error code: 404, desc: 'Not Found'
       error code: 422, desc: 'Unprocessable Entity'
       formats ['json']
     end
@@ -42,7 +43,7 @@ module V1
       end
     end
 
-    api :PUT, '/v1/categories', 'Updates a category'
+    api :PUT, '/v1/categories/:id', 'Updates a category'
     param :description, String, desc: 'Category description', required: true
     returns code: 200, desc: 'Successful response' do
       param_group :category
@@ -52,6 +53,18 @@ module V1
 
       if @category.update(category_params)
         render json: category_response(@category), status: :ok
+      else
+        render error_response(:unprocessable_entity, @category.errors.messages)
+      end
+    end
+
+    api :DELETE, '/v1/categories/:id', 'Delete a category'
+    returns code: 204, desc: 'Successful response'
+    def destroy
+      return render_user_category_error unless category_belongs_to_current_user
+
+      if @category.destroy
+        render json: {}, status: :no_content
       else
         render error_response(:unprocessable_entity, @category.errors.messages)
       end

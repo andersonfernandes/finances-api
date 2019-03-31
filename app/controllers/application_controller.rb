@@ -2,6 +2,10 @@ class ApplicationController < ActionController::API
   before_action :authenticate_request
   attr_reader :current_user
 
+  rescue_from ActiveRecord::RecordNotFound do |e|
+    render error_response(:not_found, e.message)
+  end
+
   rescue_from Apipie::ParamMissing do |e|
     render error_response(:bad_request, e.message)
   end
@@ -28,6 +32,7 @@ class ApplicationController < ActionController::API
     templates = {
       bad_request: { message: 'Bad Request', errors: errors },
       unauthorized: { message: 'Unauthorized' },
+      not_found: { message: 'Not Found', errors: errors },
       unprocessable_entity: { message: 'Unprocessable Entity', errors: errors }
     }
     templates[http_error]
