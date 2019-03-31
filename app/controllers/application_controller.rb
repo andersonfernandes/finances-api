@@ -12,11 +12,9 @@ class ApplicationController < ActionController::API
 
   def error_response(http_error, errors = {})
     template = error_template(http_error, errors)
+    return { json: {}, status: :internal_server_error } if template.nil?
 
-    response_with_template  = { json: template, status: http_error }
-    internal_server_error   = { json: {}, status: :internal_server_error }
-
-    template.nil? ? internal_server_error : response_with_template
+    { json: template, status: http_error }
   end
 
   private

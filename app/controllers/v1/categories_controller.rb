@@ -1,5 +1,7 @@
 module V1
   class CategoriesController < ApplicationController
+    before_action :set_category, only: :update
+
     resource_description do
       short 'Categories Actions'
       error code: 401, desc: 'Unauthorized'
@@ -40,6 +42,21 @@ module V1
       end
     end
 
+    api :PUT, '/v1/categories', 'Updates a category'
+    param :description, String, desc: 'Category description', required: true
+    returns code: 200, desc: 'Successful response' do
+      param_group :category
+    end
+    def update
+      return render_user_category_error unless category_belongs_to_current_user
+
+      if @category.update(category_params)
+        render json: category_response(@category), status: :ok
+      else
+        render error_response(:unprocessable_entity, @category.errors.messages)
+      end
+    end
+
     private
 
     def category_params
@@ -48,6 +65,19 @@ module V1
 
     def category_response(category)
       category.as_json(only: %i[id description])
+    end
+
+    def set_category
+      @category = Category.find(params[:id])
+    end
+
+    def category_belongs_to_current_user
+      @category.users.include?(current_user)
+    end
+
+    def render_user_category_error
+      errors = { category_user: 'The user cannot update another user cateory' }
+      render error_response(:unprocessable_entity, errors)
     end
   end
 end
