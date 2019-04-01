@@ -2,7 +2,7 @@ AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
   ExtraDetails: false
-  TargetRubyVersion: 2.6.2
+  TargetRubyVersion: 2.6
 
   Exclude:
     - 'bin/**/*'

@@ -3,6 +3,11 @@ language: ruby
 rvm:
   - 2.6.2
 before_install: gem install bundler
+before_script:
+  - export database_user=postgres
+  - psql -c 'create database finances_test;' -U postgres
 script:
   - bundle exec rubocop
   - bundle exec rspec
+services:
+  - postgresql
