@@ -37,7 +37,7 @@ RSpec.describe Expense, type: :model do
       expect(expense.to_response).to include('id' => expense.id)
         .and include('description' => expense.description)
         .and include('amount' => expense.amount)
-        .and include('spent_on' => expense.spent_on)
+        .and include('spent_on' => expense.spent_on.to_time.iso8601)
         .and include('payment_method' => expense.payment_method)
         .and include('category' => expense.category.to_response)
     end

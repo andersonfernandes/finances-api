@@ -38,9 +38,9 @@ class Expense < ApplicationRecord
     exposed_fields = %i[id
                         description
                         amount
-                        spent_on
                         payment_method]
     as_json(only: exposed_fields)
-      .merge('category' => category_to_response)
+      .merge('category' => category_to_response,
+             'spent_on' => spent_on.to_time.iso8601)
   end
 end
