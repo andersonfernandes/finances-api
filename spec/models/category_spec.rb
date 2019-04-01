@@ -12,4 +12,13 @@ RSpec.describe Category, type: :model do
       it { should validate_presence_of(:description) }
     end
   end
+
+  describe '#to_response' do
+    let(:category) { create(:category) }
+
+    it do
+      expect(category.to_response).to include('id' => category.id)
+        .and include('description' => category.description)
+    end
+  end
 end

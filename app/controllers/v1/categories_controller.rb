@@ -22,9 +22,8 @@ module V1
       categories = Category
                    .joins(:users)
                    .where(categories_users: { user_id: current_user.id })
-      categories_response = categories.map { |c| category_response(c) }
 
-      render json: categories_response, status: :ok
+      render json: categories.map(&:to_response), status: :ok
     end
 
     api :GET, '/v1/categories:id', 'Returns a category'
@@ -32,7 +31,7 @@ module V1
       param_group :category
     end
     def show
-      render json: category_response(@category), status: :ok
+      render json: @category.to_response, status: :ok
     end
 
     api :POST, '/v1/categories', 'Creates a category'
@@ -45,7 +44,7 @@ module V1
       category.users << current_user
 
       if category.save
-        render json: category_response(category), status: :created
+        render json: category.to_response, status: :created
       else
         render error_response(:unprocessable_entity, category.errors.messages)
       end
@@ -60,7 +59,7 @@ module V1
       return render_user_category_error unless category_belongs_to_current_user
 
       if @category.update(category_params)
-        render json: category_response(@category), status: :ok
+        render json: @category.to_response, status: :ok
       else
         render error_response(:unprocessable_entity, @category.errors.messages)
       end
@@ -82,10 +81,6 @@ module V1
 
     def category_params
       params.permit(:description)
-    end
-
-    def category_response(category)
-      category.as_json(only: %i[id description])
     end
 
     def set_category

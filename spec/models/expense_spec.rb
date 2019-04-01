@@ -25,4 +25,21 @@ RSpec.describe Expense, type: :model do
       it { should validate_presence_of(:spent_on) }
     end
   end
+
+  context 'delegators' do
+    it { should delegate_method(:to_response).to(:category).with_prefix }
+  end
+
+  describe 'to_response' do
+    let(:expense) { create(:expense) }
+
+    it do
+      expect(expense.to_response).to include('id' => expense.id)
+        .and include('description' => expense.description)
+        .and include('amount' => expense.amount)
+        .and include('spent_on' => expense.spent_on)
+        .and include('payment_method' => expense.payment_method)
+        .and include('category' => expense.category.to_response)
+    end
+  end
 end

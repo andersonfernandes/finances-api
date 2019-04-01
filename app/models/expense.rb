@@ -31,4 +31,16 @@ class Expense < ApplicationRecord
 
   validates :amount, numericality: true
   validates :amount, :description, :payment_method, :spent_on, presence: true
+
+  delegate :to_response, to: :category, prefix: true
+
+  def to_response
+    exposed_fields = %i[id
+                        description
+                        amount
+                        spent_on
+                        payment_method]
+    as_json(only: exposed_fields)
+      .merge('category' => category_to_response)
+  end
 end

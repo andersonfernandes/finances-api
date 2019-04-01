@@ -14,4 +14,8 @@ class Category < ApplicationRecord
   has_many :budget_items
 
   validates :description, presence: true
+
+  def to_response
+    as_json(only: %i[id description])
+  end
 end
