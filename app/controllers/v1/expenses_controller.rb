@@ -24,7 +24,11 @@ module V1
     api :POST, '/v1/expenses', 'Creates a expense'
     param :description, String, desc: 'Expense description', required: true
     param :amount, :decimal, desc: 'Amount spent', required: true
-    param :spent_on, /(\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2})[+-](\d{2})\:(\d{2})/, desc: 'Spent date in ISO-8601 format', required: true
+    param(:spent_on,
+          :iso8601_date,
+          desc: 'Date in ISO-8601 format',
+          required: true,
+          base_class: Date)
     param :payment_method, Expense.payment_methods.keys, required: true
     param :category_id, :number, required: true
     returns code: 201, desc: 'Successful response' do
