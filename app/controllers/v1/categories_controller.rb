@@ -26,7 +26,7 @@ module V1
       render json: categories.map(&:to_response), status: :ok
     end
 
-    api :GET, '/v1/categories:id', 'Returns a category'
+    api :GET, '/v1/categories/:id', 'Returns a category'
     returns code: 200, desc: 'Successful response' do
       param_group :category
     end

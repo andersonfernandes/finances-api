@@ -5,6 +5,6 @@ Rails.application.routes.draw do
     post 'authenticate' => 'authentication#authenticate'
 
     resources :categories, only: %i[index show create update destroy]
-    resources :expenses, only: %i[create]
+    resources :expenses, only: %i[show create]
   end
 end
