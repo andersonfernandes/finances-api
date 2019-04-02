@@ -27,6 +27,8 @@ RSpec.describe Expense, type: :model do
   end
 
   context 'delegators' do
+    it { should delegate_method(:id).to(:category).with_prefix }
+    it { should delegate_method(:description).to(:category).with_prefix }
     it { should delegate_method(:to_response).to(:category).with_prefix }
   end
 

@@ -1,6 +1,6 @@
 module V1
   class ExpensesController < ApplicationController
-    before_action :set_expense, only: %i[show]
+    before_action :set_expense, only: %i[show update destroy]
 
     resource_description do
       short 'Expenses Actions'
@@ -26,6 +26,22 @@ module V1
       end
     end
 
+    api :GET, '/v1/expenses', 'List all expenses'
+    returns array_of: :expense, code: 200, desc: 'Successful response'
+    def index
+      expenses = Expense.where(user_id: current_user.id)
+
+      render json: expenses.map(&:to_response), status: :ok
+    end
+
+    api :GET, '/v1/expenses/:id', 'Returns a category'
+    returns code: 200, desc: 'Successful response' do
+      param_group :expense
+    end
+    def show
+      render json: @expense.to_response, status: :ok
+    end
+
     api :POST, '/v1/expenses', 'Creates a expense'
     param :description, String, desc: 'Expense description', required: true
     param :amount, :decimal, desc: 'Amount spent', required: true
@@ -49,12 +65,35 @@ module V1
       end
     end
 
-    api :GET, '/v1/expenses/:id', 'Returns a category'
+    api :PUT, '/v1/expenses/:id', 'Updates a expense'
+    param :description, String, desc: 'Expense description', required: false
+    param :amount, :decimal, desc: 'Amount spent', required: false
+    param(:spent_on,
+          :iso8601_date,
+          desc: 'Date in ISO-8601 format',
+          required: false,
+          base_class: Date)
+    param :payment_method, Expense.payment_methods.keys, required: false
+    param :category_id, :number, required: false
     returns code: 200, desc: 'Successful response' do
       param_group :expense
     end
-    def show
-      render json: @expense.to_response, status: :ok
+    def update
+      if @expense.update(expense_params)
+        render json: @expense.to_response, status: :ok
+      else
+        render error_response(:unprocessable_entity, @expense.errors.messages)
+      end
+    end
+
+    api :DELETE, '/v1/expenses/:id', 'Delete a expense'
+    returns code: 204, desc: 'Successful response'
+    def destroy
+      if @expense.destroy
+        render json: {}, status: :no_content
+      else
+        render error_response(:unprocessable_entity, @expense.errors.messages)
+      end
     end
 
     private

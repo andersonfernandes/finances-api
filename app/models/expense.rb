@@ -32,7 +32,7 @@ class Expense < ApplicationRecord
   validates :amount, numericality: true
   validates :amount, :description, :payment_method, :spent_on, presence: true
 
-  delegate :to_response, to: :category, prefix: true
+  delegate :id, :description, :to_response, to: :category, prefix: true
 
   def to_response
     exposed_fields = %i[id
