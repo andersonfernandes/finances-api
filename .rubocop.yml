@@ -8,6 +8,7 @@ AllCops:
     - 'bin/**/*'
     - 'config/**/*'
     - 'db/schema.rb'
+    - 'vendor/**/*'
 
 Metrics/BlockLength:
   ExcludedMethods: ['describe', 'context', 'feature', 'resource', 'desc', 'task']
