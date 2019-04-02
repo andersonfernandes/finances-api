@@ -5,9 +5,9 @@ RSpec.describe V1::CategoriesController, '#create',
   let(:body) { JSON.parse(response.body) }
   let(:user_01) { create(:user) }
   let(:user_02) { create(:user) }
-  let!(:category_01) { create(:category, users: [user_01]) }
-  let!(:category_02) { create(:category, users: [user_02]) }
-  let!(:category_03) { create(:category, users: [user_01]) }
+  let!(:category_01) { create(:category, user: user_01) }
+  let!(:category_02) { create(:category, user: user_02) }
+  let!(:category_03) { create(:category, user: user_01) }
 
   let(:headers) { authorization_header(user_01.id) }
 

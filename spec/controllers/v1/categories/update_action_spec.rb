@@ -4,8 +4,7 @@ RSpec.describe V1::CategoriesController, '#update',
                type: :request do
   let(:body) { JSON.parse(response.body) }
   let(:user) { create(:user) }
-  let(:users) { [user] }
-  let(:category) { create(:category, users: users) }
+  let(:category) { create(:category, user: user) }
 
   let(:params) { { description: 'Category A' } }
   let(:headers) { authorization_header(user.id) }
@@ -26,11 +25,6 @@ RSpec.describe V1::CategoriesController, '#update',
         error_message = "Couldn't find Category with 'id'=-1"
         expect(body).to include('errors' => error_message)
       end
-    end
-
-    context 'and the category does not belongs to the user' do
-      let(:users) { [create(:user)] }
-      it { expect(response).to have_http_status(:unprocessable_entity) }
     end
   end
 

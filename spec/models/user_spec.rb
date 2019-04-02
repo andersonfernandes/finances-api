@@ -4,7 +4,7 @@ RSpec.describe User, type: :model do
   it { should have_secure_password }
 
   context 'relations' do
-    it { should have_and_belong_to_many(:categories) }
+    it { should have_many(:categories) }
     it { should have_many(:expenses) }
     it { should have_many(:budgets) }
   end

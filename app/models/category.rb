@@ -6,10 +6,19 @@
 #  description :string           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  user_id     :bigint(8)
+#
+# Indexes
+#
+#  index_categories_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
 #
 
 class Category < ApplicationRecord
-  has_and_belongs_to_many :users
+  belongs_to :user
   has_many :expenses
   has_many :budget_items
 

@@ -19,9 +19,7 @@ module V1
     api :GET, '/v1/categories', 'List all categories'
     returns array_of: :category, code: 200, desc: 'Successful response'
     def index
-      categories = Category
-                   .joins(:users)
-                   .where(categories_users: { user_id: current_user.id })
+      categories = Category.where(user_id: current_user.id)
 
       render json: categories.map(&:to_response), status: :ok
     end
@@ -41,7 +39,6 @@ module V1
     end
     def create
       category = Category.new(category_params)
-      category.users << current_user
 
       if category.save
         render json: category.to_response, status: :created
@@ -56,8 +53,6 @@ module V1
       param_group :category
     end
     def update
-      return render_user_category_error unless category_belongs_to_current_user
-
       if @category.update(category_params)
         render json: @category.to_response, status: :ok
       else
@@ -68,8 +63,6 @@ module V1
     api :DELETE, '/v1/categories/:id', 'Delete a category'
     returns code: 204, desc: 'Successful response'
     def destroy
-      return render_user_category_error unless category_belongs_to_current_user
-
       if @category.destroy
         render json: {}, status: :no_content
       else
@@ -80,20 +73,13 @@ module V1
     private
 
     def category_params
-      params.permit(:description)
+      params
+        .permit(:description)
+        .merge(user_id: current_user.id)
     end
 
     def set_category
       @category = Category.find(params[:id])
-    end
-
-    def category_belongs_to_current_user
-      @category.users.include?(current_user)
-    end
-
-    def render_user_category_error
-      errors = { category_user: 'The user cannot update another user cateory' }
-      render error_response(:unprocessable_entity, errors)
     end
   end
 end
