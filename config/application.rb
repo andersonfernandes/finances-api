@@ -17,5 +17,12 @@ module Finances
     config.load_defaults 5.2
     config.autoload_paths << Rails.root.join('lib')
     config.api_only = true
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins 'localhost:8080'
+        resource '*', headers: :any, methods: :any
+      end
+    end
   end
 end
