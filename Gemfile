@@ -12,6 +12,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.2', '>= 5.2.2.1'
 gem 'simple_command'
+gem 'rack-cors'
 
 group :development, :test do
   gem 'pry', '~> 0.12.2'
