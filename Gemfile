@@ -11,12 +11,12 @@ gem 'jwt'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.12'
 gem 'rack-cors', require: 'rack/cors'
-gem 'rails', '~> 5.2.2', '>= 5.2.2.1'
+gem 'rails', '~> 6.0', '>= 6.0.2.2'
 gem 'simple_command'
 
 group :development, :test do
   gem 'pry', '~> 0.12.2'
-  gem 'rubocop', '~> 0.66.0', require: false
+  gem 'rubocop', '~> 0.80.1', require: false
 end
 
 group :test do
