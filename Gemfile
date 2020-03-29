@@ -11,7 +11,7 @@ gem 'jwt'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.12'
 gem 'rack-cors', require: 'rack/cors'
-gem 'rails', '~> 5.2.2', '>= 5.2.2.1'
+gem 'rails', '~> 5.2', '>= 5.2.4.2'
 gem 'simple_command'
 
 group :development, :test do
