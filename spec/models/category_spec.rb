@@ -4,7 +4,6 @@ RSpec.describe Category, type: :model do
   context 'relations' do
     it { should belong_to(:user) }
     it { should have_many(:expenses) }
-    it { should have_many(:budget_items) }
   end
 
   context 'validations' do
