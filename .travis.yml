@@ -1,7 +1,7 @@
 sudo: false
 language: ruby
 rvm:
-  - 2.6.2
+  - 2.6.5
 before_install: gem install bundler
 before_script:
   - export database_user=postgres
