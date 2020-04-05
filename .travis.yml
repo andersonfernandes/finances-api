@@ -2,6 +2,8 @@ sudo: false
 language: ruby
 rvm:
   - 2.6.5
+env:
+  - SECRET_KEY_BASE="jQTTcSfTmCunpVgMmQu1UkYYzA2b0mvR4eormkUkMtxxpSeSKJWTYJJSU6vQwqG"
 before_install: gem install bundler
 before_script:
   - export database_user=postgres
