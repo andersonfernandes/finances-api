@@ -3,6 +3,7 @@
 This application provides a REST API to manage your financial life. Keep track of your expenses, incomes and transfers between accounts.
 
 **Demo:** http://financesapi.herokuapp.com/
+
 **Frontend project:** https://github.com/ayslanmarcelino/finances-front
 
 ## Developer Setup
@@ -11,7 +12,7 @@ This application provides a REST API to manage your financial life. Keep track o
 2. Install Bundler to manager dependencies: `gem install bundler`
 3. Setup the database: `rails db:migrate`
 4. Seed the database: `rails db:seed`
-5. Start the application: `rails s`
+5. Start the application: `rails server`
 
 ## Commands
 - `rubocop` - Run the full suite of linters on the codebase.
@@ -40,6 +41,7 @@ This project logs all work needed and work being actively worked on via GitHub I
 If you are working on something related to an existing GitHub Issue that already has an assignee, talk with them first (we don't want to waste your time). If there is no assignee, assign yourself (if you have permissions) or post a comment stating that you're working on it.
 
 Read those posts about good practices using git: [Part I](https://medium.com/stantmob/good-practices-using-github-part-i-7ab1985751eb) and [Part II](https://medium.com/stantmob/good-practices-using-github-part-ii-baf416811c9d)
+
 To work on your code submission, follow:
 
 1. Branch or Fork
