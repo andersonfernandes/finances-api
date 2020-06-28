@@ -8,16 +8,17 @@ development:
   database: finances_development
   username: <%= Figaro.env.database_username %>
   password: <%= Figaro.env.database_password %>
-  host: localhost
-  port: 5432
+  host: <%= Figaro.env.database_host %>
+  port: <%= Figaro.env.database_port %>
+
 
 test:
   <<: *default
   database: finances_test
   username: <%= Figaro.env.database_username %>
   password: <%= Figaro.env.database_password %>
-  host: localhost
-  port: 5432
+  host: <%= Figaro.env.database_host %>
+  port: <%= Figaro.env.database_port %>
 
 production:
   <<: *default
