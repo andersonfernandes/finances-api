@@ -8,15 +8,26 @@ This application provides a REST API to manage your financial life. Keep track o
 
 ## Developer Setup
 
+If you want to use Docker(Recomended):
+
+1. Install docker and docker-compose
+2. Run `docker-compose up -d` to start the development server at [localhost:5000](http://localhost:5000)
+3. Run `docker attach finances-api_web_1` to attach your terminal with the server process
+
+If you don't want to use Docker:
+
 1. Install Ruby 2.6.5. (It is suggested to use a Ruby version manager such as [rvm](https://rvm.io/) and then to [install Ruby 2.6.5](https://rvm.io/rubies/installing)).
 2. Install Bundler to manager dependencies: `gem install bundler`
 3. Setup the database: `rails db:migrate`
 4. Seed the database: `rails db:seed`
-5. Start the application: `rails server`
+5. Start the application with `rails server` and the server will be running at [localhost:5000](http://localhost:5000)
 
 ## Commands
-- `rubocop` - Run the full suite of linters on the codebase.
-- `rspec` - Run the tests on the codebase.
+
+- `bundle exec rubocop` - Run the full suite of linters on the codebase.
+- `bundle exec rspec` - Run the tests on the codebase.
+
+To run the commands inside the docker container, prepend it with: `docker-compose exec web`
 
 ## Contributing
 
