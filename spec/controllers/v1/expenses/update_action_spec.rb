@@ -24,7 +24,9 @@ RSpec.describe V1::ExpensesController, '#update',
       it do
         expected_category = {
           'id' => expense.category_id,
-          'description' => expense.category_description
+          'description' => expense.category_description,
+          'parent_category_id' => nil,
+          'child_categories' => []
         }
         expect(body).to include('description' => params[:description])
           .and include('amount' => params[:amount].to_s)

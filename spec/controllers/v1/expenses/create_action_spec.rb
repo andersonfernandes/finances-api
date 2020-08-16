@@ -35,7 +35,9 @@ RSpec.describe V1::ExpensesController, '#create',
       it do
         expected_category = {
           'id' => category.id,
-          'description' => category.description
+          'description' => category.description,
+          'parent_category_id' => nil,
+          'child_categories' => []
         }
         expect(body).to include('description' => params[:description])
           .and include('amount' => params[:amount].to_s)

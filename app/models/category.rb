@@ -32,6 +32,11 @@ class Category < ApplicationRecord
   validates :description, presence: true
 
   def to_response
-    as_json(only: %i[id description])
+    attrs_to_expose = %i[id description]
+    as_json(only: attrs_to_expose,
+            include: { parent_category: { only: attrs_to_expose },
+                       child_categories: {
+                         only: attrs_to_expose.push(:parent_category_id)
+                       } })
   end
 end
