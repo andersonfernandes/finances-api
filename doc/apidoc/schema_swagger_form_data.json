@@ -1,0 +1,982 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Finances API (params in:formData)",
+    "description": "\n<p>Another API description</p>\n",
+    "version": "1.0",
+    "x-copyright": null
+  },
+  "basePath": "",
+  "consumes": [
+    "application/x-www-form-urlencoded",
+    "multipart/form-data"
+  ],
+  "paths": {
+    "/v1/categories": {
+      "get": {
+        "tags": [
+          "categories"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "get_v1_categories",
+        "summary": "List all categories",
+        "parameters": [
+
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/category"
+              }
+            }
+          }
+        },
+        "description": ""
+      },
+      "post": {
+        "tags": [
+          "categories"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "post_v1_categories",
+        "summary": "Creates a category",
+        "parameters": [
+          {
+            "name": "description",
+            "type": "string",
+            "in": "formData",
+            "required": true,
+            "description": "Category description"
+          },
+          {
+            "name": "parent_category_id",
+            "type": "number",
+            "in": "formData",
+            "description": "Parent category id"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "201": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "Category id"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Category description"
+                },
+                "parent_category_id": {
+                  "type": "number",
+                  "description": "Parent category id"
+                },
+                "parent_category": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "Category id"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Category description"
+                    },
+                    "parent_category_id": {
+                      "type": "number",
+                      "description": "Parent category id"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "description",
+                    "parent_category_id"
+                  ]
+                },
+                "child_categories": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "description",
+                "parent_category_id",
+                "parent_category",
+                "child_categories"
+              ]
+            }
+          }
+        },
+        "description": ""
+      }
+    },
+    "/v1/categories/{id}": {
+      "get": {
+        "tags": [
+          "categories"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "get_v1_categories_id",
+        "summary": "Returns a category",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "Category id"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Category description"
+                },
+                "parent_category_id": {
+                  "type": "number",
+                  "description": "Parent category id"
+                },
+                "parent_category": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "Category id"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Category description"
+                    },
+                    "parent_category_id": {
+                      "type": "number",
+                      "description": "Parent category id"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "description",
+                    "parent_category_id"
+                  ]
+                },
+                "child_categories": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "description",
+                "parent_category_id",
+                "parent_category",
+                "child_categories"
+              ]
+            }
+          }
+        },
+        "description": ""
+      },
+      "put": {
+        "tags": [
+          "categories"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "put_v1_categories_id",
+        "summary": "Updates a category",
+        "parameters": [
+          {
+            "name": "description",
+            "type": "string",
+            "in": "formData",
+            "required": true,
+            "description": "Category description"
+          },
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "Category id"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Category description"
+                },
+                "parent_category_id": {
+                  "type": "number",
+                  "description": "Parent category id"
+                },
+                "parent_category": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "Category id"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Category description"
+                    },
+                    "parent_category_id": {
+                      "type": "number",
+                      "description": "Parent category id"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "description",
+                    "parent_category_id"
+                  ]
+                },
+                "child_categories": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "description",
+                "parent_category_id",
+                "parent_category",
+                "child_categories"
+              ]
+            }
+          }
+        },
+        "description": ""
+      },
+      "delete": {
+        "tags": [
+          "categories"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "delete_v1_categories_id",
+        "summary": "Delete a category",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "204": {
+            "description": "Successful response"
+          }
+        },
+        "description": ""
+      }
+    },
+    "/v1/authenticate": {
+      "post": {
+        "tags": [
+          "authentication"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "post_v1_authenticate",
+        "summary": "Authenticates the user to the application",
+        "parameters": [
+          {
+            "name": "password",
+            "type": "string",
+            "in": "formData",
+            "required": true,
+            "description": "User password"
+          },
+          {
+            "name": "email",
+            "type": "string",
+            "in": "formData",
+            "required": true,
+            "description": "User email"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string",
+                  "description": "Authenticated user token"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "token"
+              ]
+            }
+          }
+        },
+        "description": ""
+      }
+    },
+    "/v1/expenses": {
+      "get": {
+        "tags": [
+          "expenses"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "get_v1_expenses",
+        "summary": "List all expenses",
+        "parameters": [
+
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/expense"
+              }
+            }
+          }
+        },
+        "description": ""
+      },
+      "post": {
+        "tags": [
+          "expenses"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "post_v1_expenses",
+        "summary": "Creates a expense",
+        "parameters": [
+          {
+            "name": "category_id",
+            "type": "number",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "name": "payment_method",
+            "type": "string",
+            "enum": [
+              "debit",
+              "credit_card",
+              "money"
+            ],
+            "in": "formData",
+            "required": true
+          },
+          {
+            "name": "spent_on",
+            "type": "string",
+            "in": "formData",
+            "required": true,
+            "description": "Date in ISO-8601 format"
+          },
+          {
+            "name": "amount",
+            "type": "string",
+            "in": "formData",
+            "required": true,
+            "description": "Amount spent"
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "in": "formData",
+            "required": true,
+            "description": "Expense description"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "201": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Expense description"
+                },
+                "amount": {
+                  "type": "string",
+                  "description": "Amount spent"
+                },
+                "spent_on": {
+                  "type": "string",
+                  "description": "Date in ISO-8601 format"
+                },
+                "payment_method": {
+                  "type": "string",
+                  "enum": [
+                    "debit",
+                    "credit_card",
+                    "money"
+                  ]
+                },
+                "category": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "Category id"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Category description"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "description"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "description",
+                "amount",
+                "spent_on",
+                "payment_method",
+                "category"
+              ]
+            }
+          }
+        },
+        "description": ""
+      }
+    },
+    "/v1/expenses/{id}": {
+      "get": {
+        "tags": [
+          "expenses"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "get_v1_expenses_id",
+        "summary": "Returns a category",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Expense description"
+                },
+                "amount": {
+                  "type": "string",
+                  "description": "Amount spent"
+                },
+                "spent_on": {
+                  "type": "string",
+                  "description": "Date in ISO-8601 format"
+                },
+                "payment_method": {
+                  "type": "string",
+                  "enum": [
+                    "debit",
+                    "credit_card",
+                    "money"
+                  ]
+                },
+                "category": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "Category id"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Category description"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "description"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "description",
+                "amount",
+                "spent_on",
+                "payment_method",
+                "category"
+              ]
+            }
+          }
+        },
+        "description": ""
+      },
+      "put": {
+        "tags": [
+          "expenses"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "put_v1_expenses_id",
+        "summary": "Updates a expense",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "in": "formData",
+            "description": "Expense description"
+          },
+          {
+            "name": "amount",
+            "type": "string",
+            "in": "formData",
+            "description": "Amount spent"
+          },
+          {
+            "name": "spent_on",
+            "type": "string",
+            "in": "formData",
+            "description": "Date in ISO-8601 format"
+          },
+          {
+            "name": "payment_method",
+            "type": "string",
+            "enum": [
+              "debit",
+              "credit_card",
+              "money"
+            ],
+            "in": "formData"
+          },
+          {
+            "name": "category_id",
+            "type": "number",
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Expense description"
+                },
+                "amount": {
+                  "type": "string",
+                  "description": "Amount spent"
+                },
+                "spent_on": {
+                  "type": "string",
+                  "description": "Date in ISO-8601 format"
+                },
+                "payment_method": {
+                  "type": "string",
+                  "enum": [
+                    "debit",
+                    "credit_card",
+                    "money"
+                  ]
+                },
+                "category": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "Category id"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Category description"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "description"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "description",
+                "amount",
+                "spent_on",
+                "payment_method",
+                "category"
+              ]
+            }
+          }
+        },
+        "description": ""
+      },
+      "delete": {
+        "tags": [
+          "expenses"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "delete_v1_expenses_id",
+        "summary": "Delete a expense",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "204": {
+            "description": "Successful response"
+          }
+        },
+        "description": ""
+      }
+    }
+  },
+  "definitions": {
+    "category": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "description": "Category id"
+        },
+        "description": {
+          "type": "string",
+          "description": "Category description"
+        },
+        "parent_category_id": {
+          "type": "number",
+          "description": "Parent category id"
+        },
+        "parent_category": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "description": "Category id"
+            },
+            "description": {
+              "type": "string",
+              "description": "Category description"
+            },
+            "parent_category_id": {
+              "type": "number",
+              "description": "Parent category id"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "description",
+            "parent_category_id"
+          ]
+        },
+        "child_categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "description",
+        "parent_category_id",
+        "parent_category",
+        "child_categories"
+      ]
+    },
+    "expense": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "description": {
+          "type": "string",
+          "description": "Expense description"
+        },
+        "amount": {
+          "type": "string",
+          "description": "Amount spent"
+        },
+        "spent_on": {
+          "type": "string",
+          "description": "Date in ISO-8601 format"
+        },
+        "payment_method": {
+          "type": "string",
+          "enum": [
+            "debit",
+            "credit_card",
+            "money"
+          ]
+        },
+        "category": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "description": "Category id"
+            },
+            "description": {
+              "type": "string",
+              "description": "Category description"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "description"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "description",
+        "amount",
+        "spent_on",
+        "payment_method",
+        "category"
+      ]
+    }
+  },
+  "tags": [
+    {
+      "name": "categories",
+      "description": ""
+    },
+    {
+      "name": "authentication",
+      "description": ""
+    },
+    {
+      "name": "expenses",
+      "description": ""
+    }
+  ],
+  "host": "localhost:3000"
+}
