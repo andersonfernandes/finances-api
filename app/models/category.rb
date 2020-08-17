@@ -21,9 +21,20 @@ class Category < ApplicationRecord
   belongs_to :user
   has_many :expenses
 
+  belongs_to :parent_category,
+             class_name: 'Category',
+             foreign_key: :parent_category_id,
+             optional: true
+  has_many :child_categories,
+           class_name: 'Category',
+           foreign_key: :parent_category_id
+
   validates :description, presence: true
 
   def to_response
-    as_json(only: %i[id description])
+    attrs_to_expose = %i[id description parent_category_id]
+    as_json(only: attrs_to_expose,
+            include: { child_categories: { only: attrs_to_expose },
+                       parent_category: { only: attrs_to_expose } })
   end
 end

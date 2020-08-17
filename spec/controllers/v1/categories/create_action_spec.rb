@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe V1::CategoriesController, '#create',
-               type: :request do
+RSpec.describe V1::CategoriesController, '#create', type: :request do
   let(:body) { JSON.parse(response.body) }
   let(:setup) {}
   let(:user) { create(:user) }
@@ -22,14 +21,35 @@ RSpec.describe V1::CategoriesController, '#create',
     end
 
     context 'with valid params' do
-      it { expect(response).to have_http_status(:created) }
-      it { expect(body).to include('description' => params[:description]) }
-    end
-  end
+      context 'and no parent category' do
+        it do
+          expect(response).to have_http_status(:created)
+          expect(body).to include('description' => params[:description])
+            .and include('parent_category_id' => nil)
+        end
+      end
 
-  context 'when the user is not authenticated' do
-    let(:headers) { {} }
-    it { expect(response).to have_http_status(:unauthorized) }
-    it { expect(body).to include('message' => 'Unauthorized') }
+      context 'and a parent category' do
+        let(:parent_category) { create(:category) }
+        let(:params) do
+          {
+            description: 'Category B',
+            parent_category_id: parent_category.id
+          }
+        end
+
+        it do
+          expect(response).to have_http_status(:created)
+          expect(body).to include('description' => params[:description])
+            .and include('parent_category_id' => parent_category.id)
+        end
+      end
+    end
+
+    context 'when the user is not authenticated' do
+      let(:headers) { {} }
+      it { expect(response).to have_http_status(:unauthorized) }
+      it { expect(body).to include('message' => 'Unauthorized') }
+    end
   end
 end
