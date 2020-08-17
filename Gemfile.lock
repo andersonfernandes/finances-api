@@ -59,7 +59,7 @@ GEM
     annotate (3.1.1)
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 14.0)
-    apipie-rails (0.5.17)
+    apipie-rails (0.5.18)
       rails (>= 4.1)
     ast (2.4.0)
     bcrypt (3.1.13)
@@ -212,7 +212,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
-  apipie-rails
+  apipie-rails (~> 0.5.18)
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.1.0)
   factory_bot_rails

@@ -4,7 +4,9 @@ RSpec.describe V1::CategoriesController, '#update',
                type: :request do
   let(:body) { JSON.parse(response.body) }
   let(:user) { create(:user) }
-  let(:category) { create(:category, user: user) }
+  let(:category) do
+    create(:category, user: user, parent_category: create(:category))
+  end
 
   let(:params) { { description: 'Category A' } }
   let(:headers) { authorization_header(user.id) }
@@ -13,8 +15,11 @@ RSpec.describe V1::CategoriesController, '#update',
 
   context 'when the user is authenticated' do
     context 'and the category belongs to the current user' do
-      it { expect(response).to have_http_status(:ok) }
-      it { expect(body).to include('description' => params[:description]) }
+      it do
+        expect(response).to have_http_status(:ok)
+        expect(body).to include('description' => params[:description])
+          .and include('parent_category_id' => category.parent_category_id)
+      end
     end
 
     context 'and the category does not exist' do

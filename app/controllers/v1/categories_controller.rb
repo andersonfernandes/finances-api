@@ -11,9 +11,20 @@ module V1
       formats ['json']
     end
 
-    def_param_group :category do
-      property :id, String, desc: 'Category id'
+    def_param_group :base_category do
+      property :id, :number, desc: 'Category id'
       property :description, String, desc: 'Category description'
+      property :parent_category_id, :number, desc: 'Parent category id'
+    end
+
+    def_param_group :category do
+      param_group :base_category
+      property :parent_category, Hash do
+        param_group :base_category
+      end
+      property :child_categories, Array do
+        param_group :base_category
+      end
     end
 
     api :GET, '/v1/categories', 'List all categories'
@@ -34,6 +45,8 @@ module V1
 
     api :POST, '/v1/categories', 'Creates a category'
     param :description, String, desc: 'Category description', required: true
+    param(:parent_category_id, :number,
+          required: false, desc: 'Parent category id')
     returns code: 201, desc: 'Successful response' do
       param_group :category
     end
@@ -74,7 +87,7 @@ module V1
 
     def category_params
       params
-        .permit(:description)
+        .permit(:description, :parent_category_id)
         .merge(user_id: current_user.id)
     end
 
