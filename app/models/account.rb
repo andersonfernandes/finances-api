@@ -22,5 +22,14 @@
 class Account < ApplicationRecord
   belongs_to :user
 
+  validates(:account_type, :financial_institution, :initial_amount,
+            presence: true)
+
   enum account_type: %i[checking savings other]
+
+  def to_response
+    as_json(
+      only: %i[id description financial_institution initial_amount account_type]
+    )
+  end
 end
