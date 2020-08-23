@@ -21,4 +21,6 @@
 #
 class Account < ApplicationRecord
   belongs_to :user
+
+  enum account_type: %i[checking savings other]
 end
