@@ -2,18 +2,21 @@
 #
 # Table name: categories
 #
-#  id          :bigint(8)        not null, primary key
-#  description :string           not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  user_id     :bigint(8)
+#  id                 :bigint(8)        not null, primary key
+#  description        :string           not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  parent_category_id :bigint(8)
+#  user_id            :bigint(8)
 #
 # Indexes
 #
-#  index_categories_on_user_id  (user_id)
+#  index_categories_on_parent_category_id  (parent_category_id)
+#  index_categories_on_user_id             (user_id)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (parent_category_id => categories.id)
 #  fk_rails_...  (user_id => users.id)
 #
 
