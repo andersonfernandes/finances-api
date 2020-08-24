@@ -8,6 +8,7 @@ RSpec.describe Account, type: :model do
   context 'validations' do
     describe '#account_type' do
       it { should validate_presence_of(:account_type) }
+      it { should define_enum_for(:account_type) }
     end
 
     describe '#financial_institution' do
@@ -16,6 +17,7 @@ RSpec.describe Account, type: :model do
 
     describe '#initial_amount' do
       it { should validate_presence_of(:initial_amount) }
+      it { should validate_numericality_of(:initial_amount) }
     end
   end
 

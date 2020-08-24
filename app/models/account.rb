@@ -22,6 +22,7 @@
 class Account < ApplicationRecord
   belongs_to :user
 
+  validates :initial_amount, numericality: true
   validates(:account_type, :financial_institution, :initial_amount,
             presence: true)
 
