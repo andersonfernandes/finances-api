@@ -1,8 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe V1::CategoriesController, '#destroy',
-               type: :request do
-  let(:body) { JSON.parse(response.body) }
+RSpec.describe V1::CategoriesController, '#destroy', type: :request do
   let(:user) { create(:user) }
   let(:category) { create(:category, user: user) }
 
@@ -22,7 +20,7 @@ RSpec.describe V1::CategoriesController, '#destroy',
       it { expect(response).to have_http_status(:not_found) }
       it do
         error_message = "Couldn't find Category with 'id'=-1"
-        expect(body).to include('errors' => error_message)
+        expect(response_body).to include('errors' => error_message)
       end
     end
   end
@@ -30,6 +28,6 @@ RSpec.describe V1::CategoriesController, '#destroy',
   context 'when the user is not authenticated' do
     let(:headers) { {} }
     it { expect(response).to have_http_status(:unauthorized) }
-    it { expect(body).to include('message' => 'Unauthorized') }
+    it { expect(response_body).to include('message' => 'Unauthorized') }
   end
 end

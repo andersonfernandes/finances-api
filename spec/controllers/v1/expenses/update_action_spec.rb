@@ -1,8 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe V1::ExpensesController, '#update',
-               type: :request do
-  let(:body) { JSON.parse(response.body) }
+RSpec.describe V1::ExpensesController, '#update', type: :request do
   let(:user) { create(:user) }
   let(:expense) { create(:expense, user: user) }
 
@@ -28,7 +26,7 @@ RSpec.describe V1::ExpensesController, '#update',
           'parent_category_id' => nil,
           'child_categories' => []
         }
-        expect(body).to include('description' => params[:description])
+        expect(response_body).to include('description' => params[:description])
           .and include('amount' => params[:amount].to_s)
           .and include('spent_on' => params[:spent_on])
           .and include('payment_method' => params[:payment_method])
@@ -42,7 +40,7 @@ RSpec.describe V1::ExpensesController, '#update',
       it { expect(response).to have_http_status(:not_found) }
       it do
         error_message = "Couldn't find Expense with 'id'=-1"
-        expect(body).to include('errors' => error_message)
+        expect(response_body).to include('errors' => error_message)
       end
     end
   end
@@ -50,6 +48,6 @@ RSpec.describe V1::ExpensesController, '#update',
   context 'when the user is not authenticated' do
     let(:headers) { {} }
     it { expect(response).to have_http_status(:unauthorized) }
-    it { expect(body).to include('message' => 'Unauthorized') }
+    it { expect(response_body).to include('message' => 'Unauthorized') }
   end
 end

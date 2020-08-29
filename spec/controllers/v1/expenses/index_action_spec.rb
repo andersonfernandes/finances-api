@@ -1,8 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe V1::ExpensesController, '#index',
-               type: :request do
-  let(:body) { JSON.parse(response.body) }
+RSpec.describe V1::ExpensesController, '#index', type: :request do
   let(:user_01) { create(:user) }
   let(:user_02) { create(:user) }
   let!(:expense_01) { create(:expense, user: user_01) }
@@ -16,16 +14,16 @@ RSpec.describe V1::ExpensesController, '#index',
   context 'when the user is authenticated' do
     context 'when have 3 expenses and 2 belongs to the user' do
       it { expect(response).to have_http_status(:ok) }
-      it { expect(body.size).to eq 2 }
+      it { expect(response_body.size).to eq 2 }
       it do
-        expect(body.first).to include('id' => expense_01.id)
+        expect(response_body.first).to include('id' => expense_01.id)
           .and include('description' => expense_01.description)
           .and include('amount' => expense_01.amount.to_s)
           .and include('spent_on' => expense_01.spent_on.to_time.iso8601)
           .and include('payment_method' => expense_01.payment_method)
           .and include('category' => expense_01.category.to_response)
 
-        expect(body.second).to include('id' => expense_03.id)
+        expect(response_body.second).to include('id' => expense_03.id)
           .and include('description' => expense_03.description)
           .and include('amount' => expense_03.amount.to_s)
           .and include('spent_on' => expense_03.spent_on.to_time.iso8601)
@@ -38,6 +36,6 @@ RSpec.describe V1::ExpensesController, '#index',
   context 'when the user is not authenticated' do
     let(:headers) { {} }
     it { expect(response).to have_http_status(:unauthorized) }
-    it { expect(body).to include('message' => 'Unauthorized') }
+    it { expect(response_body).to include('message' => 'Unauthorized') }
   end
 end

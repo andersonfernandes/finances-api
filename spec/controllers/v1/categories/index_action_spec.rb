@@ -1,8 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe V1::CategoriesController, '#index',
-               type: :request do
-  let(:body) { JSON.parse(response.body) }
+RSpec.describe V1::CategoriesController, '#index', type: :request do
   let(:user_01) { create(:user) }
   let(:user_02) { create(:user) }
   let!(:category_01) { create(:category, user: user_01) }
@@ -16,12 +14,12 @@ RSpec.describe V1::CategoriesController, '#index',
   context 'when the user is authenticated' do
     context 'when have 3 categories and 2 belongs to the user' do
       it { expect(response).to have_http_status(:ok) }
-      it { expect(body.size).to eq 2 }
+      it { expect(response_body.size).to eq 2 }
       it do
-        expect(body.first)
+        expect(response_body.first)
           .to include('description' => category_01.description)
 
-        expect(body.second)
+        expect(response_body.second)
           .to include('description' => category_03.description)
       end
     end
@@ -30,6 +28,6 @@ RSpec.describe V1::CategoriesController, '#index',
   context 'when the user is not authenticated' do
     let(:headers) { {} }
     it { expect(response).to have_http_status(:unauthorized) }
-    it { expect(body).to include('message' => 'Unauthorized') }
+    it { expect(response_body).to include('message' => 'Unauthorized') }
   end
 end

@@ -1,8 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe V1::ExpensesController, '#create',
-               type: :request do
-  let(:body) { JSON.parse(response.body) }
+RSpec.describe V1::ExpensesController, '#create', type: :request do
   let(:setup) {}
   let(:user) { create(:user) }
   let(:category) { create(:category) }
@@ -39,7 +37,7 @@ RSpec.describe V1::ExpensesController, '#create',
           'parent_category_id' => nil,
           'child_categories' => []
         }
-        expect(body).to include('description' => params[:description])
+        expect(response_body).to include('description' => params[:description])
           .and include('amount' => params[:amount].to_s)
           .and include('spent_on' => params[:spent_on])
           .and include('payment_method' => params[:payment_method])
@@ -51,6 +49,6 @@ RSpec.describe V1::ExpensesController, '#create',
   context 'when the user is not authenticated' do
     let(:headers) { {} }
     it { expect(response).to have_http_status(:unauthorized) }
-    it { expect(body).to include('message' => 'Unauthorized') }
+    it { expect(response_body).to include('message' => 'Unauthorized') }
   end
 end

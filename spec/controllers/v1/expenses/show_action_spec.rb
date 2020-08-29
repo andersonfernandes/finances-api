@@ -1,8 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe V1::ExpensesController, '#show',
-               type: :request do
-  let(:body) { JSON.parse(response.body) }
+RSpec.describe V1::ExpensesController, '#show', type: :request do
   let(:user) { create(:user) }
   let(:expense) { create(:expense, user: user) }
 
@@ -14,7 +12,7 @@ RSpec.describe V1::ExpensesController, '#show',
     context 'and the expense exists' do
       it { expect(response).to have_http_status(:ok) }
       it do
-        expect(body).to include('id' => expense.id)
+        expect(response_body).to include('id' => expense.id)
           .and include('description' => expense.description)
           .and include('amount' => expense.amount.to_s)
           .and include('spent_on' => expense.spent_on.to_time.iso8601)
@@ -29,7 +27,7 @@ RSpec.describe V1::ExpensesController, '#show',
       it { expect(response).to have_http_status(:not_found) }
       it do
         error_message = "Couldn't find Expense with 'id'=-1"
-        expect(body).to include('errors' => error_message)
+        expect(response_body).to include('errors' => error_message)
       end
     end
   end
@@ -37,6 +35,6 @@ RSpec.describe V1::ExpensesController, '#show',
   context 'when the user is not authenticated' do
     let(:headers) { {} }
     it { expect(response).to have_http_status(:unauthorized) }
-    it { expect(body).to include('message' => 'Unauthorized') }
+    it { expect(response_body).to include('message' => 'Unauthorized') }
   end
 end
