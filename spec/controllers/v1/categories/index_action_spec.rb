@@ -11,6 +11,8 @@ RSpec.describe V1::CategoriesController, '#index', type: :request do
 
   before { get v1_categories_path, headers: headers }
 
+  include_context 'when the user is not authenticated'
+
   context 'when the user is authenticated' do
     context 'when have 3 categories and 2 belongs to the user' do
       it { expect(response).to have_http_status(:ok) }
@@ -23,11 +25,5 @@ RSpec.describe V1::CategoriesController, '#index', type: :request do
           .to include('description' => category_03.description)
       end
     end
-  end
-
-  context 'when the user is not authenticated' do
-    let(:headers) { {} }
-    it { expect(response).to have_http_status(:unauthorized) }
-    it { expect(response_body).to include('message' => 'Unauthorized') }
   end
 end

@@ -12,6 +12,8 @@ RSpec.describe V1::AccountsController, '#index',
 
   before { get v1_accounts_path, headers: headers }
 
+  include_context 'when the user is not authenticated'
+
   context 'when the user is authenticated' do
     context 'when have 3 categories and 2 belongs to the user' do
       it { expect(response).to have_http_status(:ok) }
@@ -24,11 +26,5 @@ RSpec.describe V1::AccountsController, '#index',
           .to include('id' => account_03.id)
       end
     end
-  end
-
-  context 'when the user is not authenticated' do
-    let(:headers) { {} }
-    it { expect(response).to have_http_status(:unauthorized) }
-    it { expect(response_body).to include('message' => 'Unauthorized') }
   end
 end

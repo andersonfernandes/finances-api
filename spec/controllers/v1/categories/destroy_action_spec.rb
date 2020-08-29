@@ -8,6 +8,8 @@ RSpec.describe V1::CategoriesController, '#destroy', type: :request do
 
   before { delete v1_category_path(category), headers: headers }
 
+  include_context 'when the user is not authenticated'
+
   context 'when the user is authenticated' do
     context 'and the category belongs to the current user' do
       it { expect(response).to have_http_status(:no_content) }
@@ -23,11 +25,5 @@ RSpec.describe V1::CategoriesController, '#destroy', type: :request do
         expect(response_body).to include('errors' => error_message)
       end
     end
-  end
-
-  context 'when the user is not authenticated' do
-    let(:headers) { {} }
-    it { expect(response).to have_http_status(:unauthorized) }
-    it { expect(response_body).to include('message' => 'Unauthorized') }
   end
 end

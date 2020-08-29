@@ -12,6 +12,8 @@ RSpec.describe V1::CategoriesController, '#create', type: :request do
     post v1_categories_path, params: params, headers: headers
   end
 
+  include_context 'when the user is not authenticated'
+
   context 'when the user is authenticated' do
     context 'with missing params' do
       let(:params) { {} }
@@ -45,12 +47,6 @@ RSpec.describe V1::CategoriesController, '#create', type: :request do
             .and include('parent_category_id' => parent_category.id)
         end
       end
-    end
-
-    context 'when the user is not authenticated' do
-      let(:headers) { {} }
-      it { expect(response).to have_http_status(:unauthorized) }
-      it { expect(response_body).to include('message' => 'Unauthorized') }
     end
   end
 end

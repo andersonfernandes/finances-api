@@ -11,6 +11,8 @@ RSpec.describe V1::CategoriesController, '#update', type: :request do
 
   before { put v1_category_path(category), params: params, headers: headers }
 
+  include_context 'when the user is not authenticated'
+
   context 'when the user is authenticated' do
     context 'and the category belongs to the current user' do
       it do
@@ -29,11 +31,5 @@ RSpec.describe V1::CategoriesController, '#update', type: :request do
         expect(response_body).to include('errors' => error_message)
       end
     end
-  end
-
-  context 'when the user is not authenticated' do
-    let(:headers) { {} }
-    it { expect(response).to have_http_status(:unauthorized) }
-    it { expect(response_body).to include('message' => 'Unauthorized') }
   end
 end

@@ -21,6 +21,8 @@ RSpec.describe V1::ExpensesController, '#create', type: :request do
     post v1_expenses_path, params: params, headers: headers
   end
 
+  include_context 'when the user is not authenticated'
+
   context 'when the user is authenticated' do
     context 'with missing params' do
       let(:params) { {} }
@@ -44,11 +46,5 @@ RSpec.describe V1::ExpensesController, '#create', type: :request do
           .and include('category' => expected_category)
       end
     end
-  end
-
-  context 'when the user is not authenticated' do
-    let(:headers) { {} }
-    it { expect(response).to have_http_status(:unauthorized) }
-    it { expect(response_body).to include('message' => 'Unauthorized') }
   end
 end

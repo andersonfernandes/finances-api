@@ -4,6 +4,8 @@ require File.expand_path('../config/environment', __dir__)
 abort('Your current environment is production!') if Rails.env.production?
 require 'rspec/rails'
 require 'apipie/rspec/response_validation_helper'
+
+require './spec/support/controllers/shared_examples'
 require './spec/support/helpers/request_helpers'
 
 begin
