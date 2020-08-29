@@ -3,4 +3,8 @@ module RequestHelpers
     token = JsonWebToken.encode(user_id: user_id)
     { 'Authorization' => token }
   end
+
+  def response_body
+    JSON.parse(response.body)
+  end
 end

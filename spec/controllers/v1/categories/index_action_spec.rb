@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe V1::CategoriesController, '#create',
+RSpec.describe V1::CategoriesController, '#index',
                type: :request do
   let(:body) { JSON.parse(response.body) }
   let(:user_01) { create(:user) }
