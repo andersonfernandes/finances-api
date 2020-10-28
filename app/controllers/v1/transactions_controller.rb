@@ -29,7 +29,7 @@ module V1
     api :GET, '/v1/transactions', 'List all transactions'
     returns array_of: :transaction, code: 200, desc: 'Successful response'
     def index
-      transactions = Transaction.where(user_id: current_user.id)
+      transactions = current_user.transactions
 
       render json: transactions.map(&:to_response), status: :ok
     end
