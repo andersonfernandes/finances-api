@@ -19,7 +19,7 @@
 
 class Category < ApplicationRecord
   belongs_to :user
-  has_many :expenses
+  has_many :transactions
 
   belongs_to :parent_category,
              class_name: 'Category',

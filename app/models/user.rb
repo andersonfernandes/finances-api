@@ -14,7 +14,7 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :categories
-  has_many :expenses
+  has_many :transactions
 
   validates :name, :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }

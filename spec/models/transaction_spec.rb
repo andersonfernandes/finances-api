@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Expense, type: :model do
+RSpec.describe Transaction, type: :model do
   context 'relations' do
     it { should belong_to(:user) }
     it { should belong_to(:category) }
@@ -33,15 +33,15 @@ RSpec.describe Expense, type: :model do
   end
 
   describe 'to_response' do
-    let(:expense) { create(:expense) }
+    let(:transaction) { create(:transaction) }
 
     it do
-      expect(expense.to_response).to include('id' => expense.id)
-        .and include('description' => expense.description)
-        .and include('amount' => expense.amount.to_s)
-        .and include('spent_on' => expense.spent_on.to_time.iso8601)
-        .and include('payment_method' => expense.payment_method)
-        .and include('category' => expense.category.to_response)
+      expect(transaction.to_response).to include('id' => transaction.id)
+        .and include('description' => transaction.description)
+        .and include('amount' => transaction.amount.to_s)
+        .and include('spent_on' => transaction.spent_on.to_time.iso8601)
+        .and include('payment_method' => transaction.payment_method)
+        .and include('category' => transaction.category.to_response)
     end
   end
 end

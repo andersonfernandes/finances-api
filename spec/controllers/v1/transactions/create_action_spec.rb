@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe V1::ExpensesController, '#create',
+RSpec.describe V1::TransactionsController, '#create',
                type: :request do
   let(:body) { JSON.parse(response.body) }
   let(:setup) {}
@@ -20,7 +20,7 @@ RSpec.describe V1::ExpensesController, '#create',
 
   before do
     setup
-    post v1_expenses_path, params: params, headers: headers
+    post v1_transactions_path, params: params, headers: headers
   end
 
   context 'when the user is authenticated' do
