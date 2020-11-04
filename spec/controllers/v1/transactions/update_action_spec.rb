@@ -16,7 +16,9 @@ RSpec.describe V1::TransactionsController, '#update',
   end
   let(:headers) { authorization_header(user.id) }
 
-  before { put v1_transaction_path(transaction), params: params, headers: headers }
+  before do
+    put(v1_transaction_path(transaction), params: params, headers: headers)
+  end
 
   context 'when the user is authenticated' do
     context 'and the transaction belongs to the current user' do

@@ -61,7 +61,10 @@ module V1
       if transaction.save
         render json: transaction.to_response, status: :created
       else
-        render error_response(:unprocessable_entity, transaction.errors.messages)
+        render error_response(
+          :unprocessable_entity,
+          transaction.errors.messages
+        )
       end
     end
 

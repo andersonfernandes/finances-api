@@ -30,3 +30,6 @@ Style/HashTransformKeys:
 
 Style/HashTransformValues:
   Enabled: true
+
+Metrics/ClassLength:
+  Max: 150
