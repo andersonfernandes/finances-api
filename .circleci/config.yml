@@ -49,10 +49,16 @@ jobs:
           POSTGRES_PASSWORD: ""
 
     steps:
+      - checkout_and_bundle_install
+
       - run:
           name: Update binaries
           command: sudo apt-get update && sudo apt-get install -y ghostscript xvfb libfontconfig wkhtmltopdf
 
       - run:
           name: Run rspec in parallel
-          command: bundle exec rspec
+          command: bundle exec rspec --profile 10 \
+                              --format RspecJunitFormatter \
+                              --out test_results/rspec.xml \
+                              --format progress \
+                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
