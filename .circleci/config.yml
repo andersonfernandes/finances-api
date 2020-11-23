@@ -35,7 +35,7 @@ jobs:
   rspec:
     parallelism: 2
     docker:
-      - image: circleci/ruby:2.7.1-node-browsers
+      - image: circleci/ruby:2.6.5-node-browsers
         environment:
           BUNDLE_JOBS: 2
           BUNDLE_RETRY: 3
