@@ -11,8 +11,8 @@ This application provides a REST API to manage your financial life. Keep track o
 If you want to use Docker(Recomended):
 
 1. Install docker and docker-compose
-2. Run `docker-compose up -d` to start the development server at [localhost:5000](http://localhost:5000)
-3. Run `docker attach finances-api_web_1` to attach your terminal with the server process
+2. Run `docker-compose up -d` to start a detached development server at [localhost:5000](http://localhost:5000)
+3. Run `docker attach finances-api_web_1` to attach your terminal with the server process (this allow you to follow the server logs and use [pry](https://github.com/pry/pry))
 
 If you don't want to use Docker:
 
