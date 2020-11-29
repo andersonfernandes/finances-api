@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Category, type: :model do
   context 'relations' do
     it { should belong_to(:user) }
-    it { should have_many(:expenses) }
+    it { should have_many(:transactions) }
   end
 
   context 'validations' do

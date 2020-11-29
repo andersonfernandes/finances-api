@@ -1,6 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe V1::ExpensesController, '#create', type: :request do
+RSpec.describe V1::TransactionsController, '#create',
+               type: :request do
+  let(:body) { JSON.parse(response.body) }
   let(:setup) {}
   let(:user) { create(:user) }
   let(:category) { create(:category) }
@@ -18,7 +20,7 @@ RSpec.describe V1::ExpensesController, '#create', type: :request do
 
   before do
     setup
-    post v1_expenses_path, params: params, headers: headers
+    post v1_transactions_path, params: params, headers: headers
   end
 
   include_context 'when the user is not authenticated'

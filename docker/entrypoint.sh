@@ -31,6 +31,8 @@ then
   unlock_setup
 
   if [[ "$4" = "s" || "$4" = "server" ]]; then rm -rf /finances-api/tmp/pids/server.pid; fi
+
+  echo "DOCKER_STARTED"
 fi
 
 exec "$@"

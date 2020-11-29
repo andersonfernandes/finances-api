@@ -6,6 +6,6 @@ Rails.application.routes.draw do
 
     resources :accounts, only: %i[index]
     resources :categories, only: %i[index show create update destroy]
-    resources :expenses, only: %i[index show create update destroy]
+    resources :transactions, only: %i[index show create update destroy]
   end
 end

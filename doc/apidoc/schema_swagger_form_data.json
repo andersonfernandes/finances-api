@@ -378,71 +378,17 @@
         "description": ""
       }
     },
-    "/v1/authenticate": {
-      "post": {
-        "tags": [
-          "authentication"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
-        ],
-        "operationId": "post_v1_authenticate",
-        "summary": "Authenticates the user to the application",
-        "parameters": [
-          {
-            "name": "password",
-            "type": "string",
-            "in": "formData",
-            "required": true,
-            "description": "User password"
-          },
-          {
-            "name": "email",
-            "type": "string",
-            "in": "formData",
-            "required": true,
-            "description": "User email"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "200": {
-            "description": "Successful response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "type": "string",
-                  "description": "Authenticated user token"
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "token"
-              ]
-            }
-          }
-        },
-        "description": ""
-      }
-    },
-    "/v1/expenses": {
+    "/v1/transactions": {
       "get": {
         "tags": [
-          "expenses"
+          "transactions"
         ],
         "consumes": [
           "application/x-www-form-urlencoded",
           "multipart/form-data"
         ],
-        "operationId": "get_v1_expenses",
-        "summary": "List all expenses",
+        "operationId": "get_v1_transactions",
+        "summary": "List all transactions",
         "parameters": [
 
         ],
@@ -464,7 +410,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/expense"
+                "$ref": "#/definitions/transaction"
               }
             }
           }
@@ -473,14 +419,14 @@
       },
       "post": {
         "tags": [
-          "expenses"
+          "transactions"
         ],
         "consumes": [
           "application/x-www-form-urlencoded",
           "multipart/form-data"
         ],
-        "operationId": "post_v1_expenses",
-        "summary": "Creates a expense",
+        "operationId": "post_v1_transactions",
+        "summary": "Creates a transaction",
         "parameters": [
           {
             "name": "category_id",
@@ -518,7 +464,7 @@
             "type": "string",
             "in": "formData",
             "required": true,
-            "description": "Expense description"
+            "description": "Transaction description"
           }
         ],
         "responses": {
@@ -544,7 +490,7 @@
                 },
                 "description": {
                   "type": "string",
-                  "description": "Expense description"
+                  "description": "Transaction description"
                 },
                 "amount": {
                   "type": "string",
@@ -596,16 +542,16 @@
         "description": ""
       }
     },
-    "/v1/expenses/{id}": {
+    "/v1/transactions/{id}": {
       "get": {
         "tags": [
-          "expenses"
+          "transactions"
         ],
         "consumes": [
           "application/x-www-form-urlencoded",
           "multipart/form-data"
         ],
-        "operationId": "get_v1_expenses_id",
+        "operationId": "get_v1_transactions_id",
         "summary": "Returns a category",
         "parameters": [
           {
@@ -638,7 +584,7 @@
                 },
                 "description": {
                   "type": "string",
-                  "description": "Expense description"
+                  "description": "Transaction description"
                 },
                 "amount": {
                   "type": "string",
@@ -691,14 +637,14 @@
       },
       "put": {
         "tags": [
-          "expenses"
+          "transactions"
         ],
         "consumes": [
           "application/x-www-form-urlencoded",
           "multipart/form-data"
         ],
-        "operationId": "put_v1_expenses_id",
-        "summary": "Updates a expense",
+        "operationId": "put_v1_transactions_id",
+        "summary": "Updates a transaction",
         "parameters": [
           {
             "name": "id",
@@ -710,7 +656,7 @@
             "name": "description",
             "type": "string",
             "in": "formData",
-            "description": "Expense description"
+            "description": "Transaction description"
           },
           {
             "name": "amount",
@@ -763,7 +709,7 @@
                 },
                 "description": {
                   "type": "string",
-                  "description": "Expense description"
+                  "description": "Transaction description"
                 },
                 "amount": {
                   "type": "string",
@@ -816,14 +762,14 @@
       },
       "delete": {
         "tags": [
-          "expenses"
+          "transactions"
         ],
         "consumes": [
           "application/x-www-form-urlencoded",
           "multipart/form-data"
         ],
-        "operationId": "delete_v1_expenses_id",
-        "summary": "Delete a expense",
+        "operationId": "delete_v1_transactions_id",
+        "summary": "Delete a transaction",
         "parameters": [
           {
             "name": "id",
@@ -847,6 +793,60 @@
           },
           "204": {
             "description": "Successful response"
+          }
+        },
+        "description": ""
+      }
+    },
+    "/v1/authenticate": {
+      "post": {
+        "tags": [
+          "authentication"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "post_v1_authenticate",
+        "summary": "Authenticates the user to the application",
+        "parameters": [
+          {
+            "name": "password",
+            "type": "string",
+            "in": "formData",
+            "required": true,
+            "description": "User password"
+          },
+          {
+            "name": "email",
+            "type": "string",
+            "in": "formData",
+            "required": true,
+            "description": "User email"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string",
+                  "description": "Authenticated user token"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "token"
+              ]
+            }
           }
         },
         "description": ""
@@ -908,7 +908,7 @@
         "child_categories"
       ]
     },
-    "expense": {
+    "transaction": {
       "type": "object",
       "properties": {
         "id": {
@@ -916,7 +916,7 @@
         },
         "description": {
           "type": "string",
-          "description": "Expense description"
+          "description": "Transaction description"
         },
         "amount": {
           "type": "string",
@@ -970,11 +970,11 @@
       "description": ""
     },
     {
-      "name": "authentication",
+      "name": "transactions",
       "description": ""
     },
     {
-      "name": "expenses",
+      "name": "authentication",
       "description": ""
     }
   ],

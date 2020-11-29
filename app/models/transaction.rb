@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: expenses
+# Table name: transactions
 #
 #  id             :bigint(8)        not null, primary key
 #  amount         :decimal(, )      not null
@@ -14,8 +14,8 @@
 #
 # Indexes
 #
-#  index_expenses_on_category_id  (category_id)
-#  index_expenses_on_user_id      (user_id)
+#  index_transactions_on_category_id  (category_id)
+#  index_transactions_on_user_id      (user_id)
 #
 # Foreign Keys
 #
@@ -23,7 +23,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
-class Expense < ApplicationRecord
+class Transaction < ApplicationRecord
   belongs_to :user
   belongs_to :category
 
