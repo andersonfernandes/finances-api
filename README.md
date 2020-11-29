@@ -4,6 +4,8 @@ This application provides a REST API to manage your financial life. Keep track o
 
 **Demo:** http://financesapi.herokuapp.com/
 
+**Swagger Hub:** https://app.swaggerhub.com/apis/andersonfernandes/finances-api/1.0
+
 **Frontend project:** https://github.com/ayslanmarcelino/finances-front
 
 ## Developer Setup
