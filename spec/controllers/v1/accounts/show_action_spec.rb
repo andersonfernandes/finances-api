@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe V1::AccountsController, '#show', type: :request do
   let(:user) { create(:user) }
-  let(:account) { create(:account) }
+  let(:account) { create(:account, user: user) }
 
   let(:headers) { authorization_header(user.id) }
 

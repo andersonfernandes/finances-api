@@ -76,8 +76,8 @@ module V1
       end
     end
 
-    param :id, :number, desc: 'Category id'
     api :DELETE, '/v1/categories/:id', 'Delete a category'
+    param :id, :number, desc: 'Category id'
     returns code: 204, desc: 'Successful response'
     def destroy
       if @category.destroy

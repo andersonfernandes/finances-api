@@ -106,7 +106,7 @@ module V1
       else
         render error_response(
           :unprocessable_entity,
-          @transactions.errors.messages
+          @transaction.errors.messages
         )
       end
     end

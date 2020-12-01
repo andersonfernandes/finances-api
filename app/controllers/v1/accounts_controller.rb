@@ -1,6 +1,6 @@
 module V1
   class AccountsController < ApplicationController
-    before_action :set_account, only: :show
+    before_action :set_account, only: %i[show destroy]
 
     resource_description do
       short 'Accounts Actions'
@@ -56,6 +56,20 @@ module V1
         render json: account.to_response, status: :created
       else
         render error_response(:unprocessable_entity, account.errors.messages)
+      end
+    end
+
+    api :DELETE, '/v1/accounts/:id', 'Delete a account'
+    param :id, :number, desc: 'Account id'
+    returns code: 204, desc: 'Successful response'
+    def destroy
+      if @account.destroy
+        render json: {}, status: :no_content
+      else
+        render error_response(
+          :unprocessable_entity,
+          @account.errors.messages
+        )
       end
     end
 
