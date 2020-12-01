@@ -1,5 +1,7 @@
 module V1
   class AccountsController < ApplicationController
+    before_action :set_account, only: :show
+
     resource_description do
       short 'Accounts Actions'
       error code: 401, desc: 'Unauthorized'
@@ -24,6 +26,21 @@ module V1
       accounts = Account.where(user_id: current_user.id)
 
       render json: accounts.map(&:to_response), status: :ok
+    end
+
+    api :GET, '/v1/accounts/:id', 'Returns an account'
+    param :id, :number, desc: 'Transaction id'
+    returns code: 200, desc: 'Successful response' do
+      param_group :account
+    end
+    def show
+      render json: @account.to_response, status: :ok
+    end
+
+    private
+
+    def set_account
+      @account = Account.find(params[:id])
     end
   end
 end
