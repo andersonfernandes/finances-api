@@ -37,7 +37,36 @@ module V1
       render json: @account.to_response, status: :ok
     end
 
+    api :POST, '/v1/accounts', 'Creates a account'
+    param :description, String, desc: 'Account description',
+                                required: false,
+                                default_value: nil
+    param :account_type, Account.account_types.keys, required: true
+    param :financial_institution, String, desc: 'Account related financial_institution',
+                                          required: true
+    param :initial_amount, :decimal, desc: 'Account initial amount',
+                                     required: true
+    returns code: 201, desc: 'Successful response' do
+      param_group :account
+    end
+    def create
+      account = Account.new(account_params)
+
+      if account.save
+        render json: account.to_response, status: :created
+      else
+        render error_response(:unprocessable_entity, account.errors.messages)
+      end
+    end
+
     private
+
+    def account_params
+      permitted = %i[description account_type financial_institution
+                     initial_amount]
+      params.permit(permitted)
+            .merge(user_id: current_user.id)
+    end
 
     def set_account
       @account = Account.find(params[:id])
