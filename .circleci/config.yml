@@ -47,13 +47,14 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_DB: finances_test
           POSTGRES_PASSWORD: ""
+          SECRET_KEY_BASE: V2ZxX0apQv98WoGLoRwhXE2fURe6sNi6bW2PoONt8AlHZ1OyeZYplYmFB1MVkyD
 
     steps:
       - checkout_and_bundle_install
 
       - run:
           name: Update binaries
-          command: sudo apt-get update && sudo apt-get install -y ghostscript xvfb libfontconfig wkhtmltopdf
+          command: sudo apt-get update && sudo apt-get install -y ghostscript xvfb libfontconfig
 
       - run:
           name: Run rspec in parallel
