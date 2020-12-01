@@ -1,6 +1,6 @@
 module V1
   class AccountsController < ApplicationController
-    before_action :set_account, only: %i[show destroy]
+    before_action :set_account, only: %i[show update destroy]
 
     resource_description do
       short 'Accounts Actions'
@@ -56,6 +56,33 @@ module V1
         render json: account.to_response, status: :created
       else
         render error_response(:unprocessable_entity, account.errors.messages)
+      end
+    end
+
+    api :PUT, '/v1/accounts/:id', 'Updates a account'
+    param :id, :number, desc: 'Account id', required: true
+    param :description, String, desc: 'Account description',
+                                required: false,
+                                default_value: nil
+    param :account_type, Account.account_types.keys, required: false,
+                                                     default_value: nil
+    param :financial_institution, String, desc: 'Account related financial_institution',
+                                          required: false,
+                                          default_value: false
+    param :initial_amount, :decimal, desc: 'Account initial amount',
+                                     required: false,
+                                     default_value: nil
+    returns code: 200, desc: 'Successful response' do
+      param_group :account
+    end
+    def update
+      if @account.update(account_params)
+        render json: @account.to_response, status: :ok
+      else
+        render error_response(
+          :unprocessable_entity,
+          @account.errors.messages
+        )
       end
     end
 
