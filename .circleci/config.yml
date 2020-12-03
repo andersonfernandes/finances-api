@@ -27,7 +27,7 @@ commands:
 orbs:
   bundle-install: toshimaru/bundle-install@0.3.1
 workflows:
-  rspec:
+  build:
     jobs:
       - rubocop
       - rspec
