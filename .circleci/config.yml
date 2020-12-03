@@ -29,9 +29,21 @@ orbs:
 workflows:
   rspec:
     jobs:
+      - rubocop
       - rspec
 
 jobs:
+  rubocop:
+    docker:
+      - image: circleci/ruby:2.6.5-node-browsers
+
+    steps:
+      - checkout_and_bundle_install
+
+      - run:
+          name: Run rubocop checks
+          command: bundle exec rubocop
+          
   rspec:
     parallelism: 2
     docker:
