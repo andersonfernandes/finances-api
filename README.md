@@ -1,4 +1,5 @@
-# Finances API [![Build Status](https://travis-ci.org/andersonfernandes/finances-api.svg?branch=master)](https://travis-ci.org/andersonfernandes/finances-api) [![Maintainability](https://api.codeclimate.com/v1/badges/88419b2509fcfa371c8c/maintainability)](https://codeclimate.com/github/andersonfernandes/finances-api/maintainability)
+# Finances API [![Build](https://circleci.com/gh/andersonfernandes/finances-api.svg?style=shield)](https://circleci.com/gh/andersonfernandes/finances-api)
+ [![Maintainability](https://api.codeclimate.com/v1/badges/88419b2509fcfa371c8c/maintainability)](https://codeclimate.com/github/andersonfernandes/finances-api/maintainability)
 
 This application provides a REST API to manage your financial life. Keep track of your expenses, incomes and transfers between accounts.
 
