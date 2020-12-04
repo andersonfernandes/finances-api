@@ -28,6 +28,7 @@ RSpec.describe Account, type: :model do
       {
         'id' => subject.id,
         'description' => subject.description,
+        'name' => subject.name,
         'financial_institution' => subject.financial_institution,
         'initial_amount' => subject.initial_amount.to_s,
         'account_type' => subject.account_type

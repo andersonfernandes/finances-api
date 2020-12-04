@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 2020_10_25_173124) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "financial_institution", null: false
+    t.string "name"
     t.string "description"
     t.decimal "initial_amount", default: "0.0", null: false
     t.integer "account_type", null: false

@@ -11,6 +11,7 @@ RSpec.describe V1::AccountsController, '#update',
       description: Faker::Lorem.sentence(word_count: 3, supplemental: true),
       account_type: 'checking',
       financial_institution: Faker::Company.name,
+      name: Faker::Company.name,
       initial_amount: Faker::Commerce.price
     }
   end

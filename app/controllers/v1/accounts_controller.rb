@@ -13,6 +13,7 @@ module V1
 
     def_param_group :account do
       property :id, :number, desc: 'Account id'
+      property :name, String, desc: 'Account name'
       property :description, String, desc: 'Account description'
       property :financial_institution,
                String, desc: 'Account related financial_institution'
@@ -38,6 +39,9 @@ module V1
     end
 
     api :POST, '/v1/accounts', 'Creates a account'
+    param :name, String, desc: 'Account name',
+                         required: false,
+                         default_value: nil
     param :description, String, desc: 'Account description',
                                 required: false,
                                 default_value: nil
@@ -61,6 +65,9 @@ module V1
 
     api :PUT, '/v1/accounts/:id', 'Updates a account'
     param :id, :number, desc: 'Account id', required: true
+    param :name, String, desc: 'Account name',
+                         required: false,
+                         default_value: nil
     param :description, String, desc: 'Account description',
                                 required: false,
                                 default_value: nil
@@ -104,7 +111,7 @@ module V1
 
     def account_params
       permitted = %i[description account_type financial_institution
-                     initial_amount]
+                     initial_amount name]
       params.permit(permitted)
             .merge(user_id: current_user.id)
     end

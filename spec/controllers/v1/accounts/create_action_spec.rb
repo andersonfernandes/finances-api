@@ -11,6 +11,7 @@ RSpec.describe V1::AccountsController, '#create',
     {
       description: Faker::Lorem.sentence(word_count: 3, supplemental: true),
       account_type: 'checking',
+      name: Faker::Company.name,
       financial_institution: Faker::Company.name,
       initial_amount: Faker::Commerce.price
     }
@@ -36,6 +37,7 @@ RSpec.describe V1::AccountsController, '#create',
       it do
         expect(response_body).to include('description' => params[:description])
           .and include('initial_amount' => params[:initial_amount].to_s)
+          .and include('name' => params[:name])
           .and include('financial_institution' => params[:financial_institution])
           .and include('account_type' => params[:account_type])
       end
