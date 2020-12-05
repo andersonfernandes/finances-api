@@ -20,6 +20,8 @@ RSpec.describe V1::TransactionsController, '#update',
     put(v1_transaction_path(transaction), params: params, headers: headers)
   end
 
+  include_context 'when the user is not authenticated'
+
   context 'when the user is authenticated' do
     context 'and the transaction belongs to the current user' do
       it { expect(response).to have_http_status(:ok) }
@@ -30,7 +32,7 @@ RSpec.describe V1::TransactionsController, '#update',
           'parent_category_id' => nil,
           'child_categories' => []
         }
-        expect(body).to include('description' => params[:description])
+        expect(response_body).to include('description' => params[:description])
           .and include('amount' => params[:amount].to_s)
           .and include('spent_on' => params[:spent_on])
           .and include('payment_method' => params[:payment_method])
@@ -47,11 +49,5 @@ RSpec.describe V1::TransactionsController, '#update',
         expect(body).to include('errors' => error_message)
       end
     end
-  end
-
-  context 'when the user is not authenticated' do
-    let(:headers) { {} }
-    it { expect(response).to have_http_status(:unauthorized) }
-    it { expect(body).to include('message' => 'Unauthorized') }
   end
 end

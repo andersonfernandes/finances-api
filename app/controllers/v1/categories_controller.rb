@@ -36,6 +36,7 @@ module V1
     end
 
     api :GET, '/v1/categories/:id', 'Returns a category'
+    param :id, :number, desc: 'Category id'
     returns code: 200, desc: 'Successful response' do
       param_group :category
     end
@@ -45,8 +46,9 @@ module V1
 
     api :POST, '/v1/categories', 'Creates a category'
     param :description, String, desc: 'Category description', required: true
-    param(:parent_category_id, :number,
-          required: false, desc: 'Parent category id')
+    param(:parent_category_id, :number, required: false,
+                                        desc: 'Parent category id',
+                                        default_value: nil)
     returns code: 201, desc: 'Successful response' do
       param_group :category
     end
@@ -61,6 +63,7 @@ module V1
     end
 
     api :PUT, '/v1/categories/:id', 'Updates a category'
+    param :id, :number, desc: 'Category id'
     param :description, String, desc: 'Category description', required: true
     returns code: 200, desc: 'Successful response' do
       param_group :category
@@ -74,6 +77,7 @@ module V1
     end
 
     api :DELETE, '/v1/categories/:id', 'Delete a category'
+    param :id, :number, desc: 'Category id'
     returns code: 204, desc: 'Successful response'
     def destroy
       if @category.destroy

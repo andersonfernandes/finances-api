@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe V1::CategoriesController, '#create', type: :request do
-  let(:body) { JSON.parse(response.body) }
   let(:setup) {}
   let(:user) { create(:user) }
 
@@ -12,6 +11,8 @@ RSpec.describe V1::CategoriesController, '#create', type: :request do
     setup
     post v1_categories_path, params: params, headers: headers
   end
+
+  include_context 'when the user is not authenticated'
 
   context 'when the user is authenticated' do
     context 'with missing params' do
@@ -24,7 +25,8 @@ RSpec.describe V1::CategoriesController, '#create', type: :request do
       context 'and no parent category' do
         it do
           expect(response).to have_http_status(:created)
-          expect(body).to include('description' => params[:description])
+          expect(response_body)
+            .to include('description' => params[:description])
             .and include('parent_category_id' => nil)
         end
       end
@@ -40,16 +42,11 @@ RSpec.describe V1::CategoriesController, '#create', type: :request do
 
         it do
           expect(response).to have_http_status(:created)
-          expect(body).to include('description' => params[:description])
+          expect(response_body)
+            .to include('description' => params[:description])
             .and include('parent_category_id' => parent_category.id)
         end
       end
-    end
-
-    context 'when the user is not authenticated' do
-      let(:headers) { {} }
-      it { expect(response).to have_http_status(:unauthorized) }
-      it { expect(body).to include('message' => 'Unauthorized') }
     end
   end
 end

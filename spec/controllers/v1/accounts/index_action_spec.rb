@@ -1,15 +1,16 @@
 require 'rails_helper'
 
-RSpec.describe V1::CategoriesController, '#index', type: :request do
+RSpec.describe V1::AccountsController, '#index',
+               type: :request do
   let(:user_01) { create(:user) }
   let(:user_02) { create(:user) }
-  let!(:category_01) { create(:category, user: user_01) }
-  let!(:category_02) { create(:category, user: user_02) }
-  let!(:category_03) { create(:category, user: user_01) }
+  let!(:account_01) { create(:account, user: user_01) }
+  let!(:account_02) { create(:account, user: user_02) }
+  let!(:account_03) { create(:account, user: user_01) }
 
   let(:headers) { authorization_header(user_01.id) }
 
-  before { get v1_categories_path, headers: headers }
+  before { get v1_accounts_path, headers: headers }
 
   include_context 'when the user is not authenticated'
 
@@ -19,10 +20,10 @@ RSpec.describe V1::CategoriesController, '#index', type: :request do
       it { expect(response_body.size).to eq 2 }
       it do
         expect(response_body.first)
-          .to include('description' => category_01.description)
+          .to include('id' => account_01.id)
 
         expect(response_body.second)
-          .to include('description' => category_03.description)
+          .to include('id' => account_03.id)
       end
     end
   end

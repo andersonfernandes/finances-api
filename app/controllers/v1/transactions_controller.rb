@@ -12,7 +12,7 @@ module V1
     end
 
     def_param_group :transaction do
-      property :id, :number
+      property :id, :number, desc: 'Transaction id'
       property :description, String, desc: 'Transaction description'
       property :amount, :decimal, desc: 'Amount spent'
       property(:spent_on,
@@ -35,6 +35,7 @@ module V1
     end
 
     api :GET, '/v1/transactions/:id', 'Returns a category'
+    param :id, :number, desc: 'Transaction id'
     returns code: 200, desc: 'Successful response' do
       param_group :transaction
     end
@@ -69,15 +70,19 @@ module V1
     end
 
     api :PUT, '/v1/transactions/:id', 'Updates a transaction'
-    param :description, String, desc: 'Transaction description', required: false
-    param :amount, :decimal, desc: 'Amount spent', required: false
-    param(:spent_on,
-          :iso8601_date,
-          desc: 'Date in ISO-8601 format',
-          required: false,
-          base_class: Date)
-    param :payment_method, Transaction.payment_methods.keys, required: false
-    param :category_id, :number, required: false
+    param :id, :number, desc: 'Transaction id'
+    param :description, String, desc: 'Transaction description',
+                                required: false, default_value: nil
+    param :amount, :decimal, desc: 'Amount spent',
+                             required: false,
+                             default_value: nil
+    param :spent_on, :iso8601_date, desc: 'Date in ISO-8601 format',
+                                    required: false,
+                                    base_class: Date,
+                                    default_value: nil
+    param :payment_method, Transaction.payment_methods.keys, required: false,
+                                                             default_value: nil
+    param :category_id, :number, required: false, default_value: nil
     returns code: 200, desc: 'Successful response' do
       param_group :transaction
     end
@@ -93,6 +98,7 @@ module V1
     end
 
     api :DELETE, '/v1/transactions/:id', 'Delete a transaction'
+    param :id, :number, desc: 'Transaction id'
     returns code: 204, desc: 'Successful response'
     def destroy
       if @transaction.destroy
@@ -100,7 +106,7 @@ module V1
       else
         render error_response(
           :unprocessable_entity,
-          @transactions.errors.messages
+          @transaction.errors.messages
         )
       end
     end

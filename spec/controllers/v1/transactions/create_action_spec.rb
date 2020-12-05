@@ -23,6 +23,8 @@ RSpec.describe V1::TransactionsController, '#create',
     post v1_transactions_path, params: params, headers: headers
   end
 
+  include_context 'when the user is not authenticated'
+
   context 'when the user is authenticated' do
     context 'with missing params' do
       let(:params) { {} }
@@ -39,18 +41,12 @@ RSpec.describe V1::TransactionsController, '#create',
           'parent_category_id' => nil,
           'child_categories' => []
         }
-        expect(body).to include('description' => params[:description])
+        expect(response_body).to include('description' => params[:description])
           .and include('amount' => params[:amount].to_s)
           .and include('spent_on' => params[:spent_on])
           .and include('payment_method' => params[:payment_method])
           .and include('category' => expected_category)
       end
     end
-  end
-
-  context 'when the user is not authenticated' do
-    let(:headers) { {} }
-    it { expect(response).to have_http_status(:unauthorized) }
-    it { expect(body).to include('message' => 'Unauthorized') }
   end
 end

@@ -73,7 +73,8 @@
             "name": "parent_category_id",
             "type": "number",
             "in": "formData",
-            "description": "Parent category id"
+            "description": "Parent category id",
+            "default": null
           }
         ],
         "responses": {
@@ -166,7 +167,8 @@
             "name": "id",
             "type": "number",
             "in": "path",
-            "required": true
+            "required": true,
+            "description": "Category id"
           }
         ],
         "responses": {
@@ -264,7 +266,8 @@
             "name": "id",
             "type": "number",
             "in": "path",
-            "required": true
+            "required": true,
+            "description": "Category id"
           }
         ],
         "responses": {
@@ -355,7 +358,8 @@
             "name": "id",
             "type": "number",
             "in": "path",
-            "required": true
+            "required": true,
+            "description": "Category id"
           }
         ],
         "responses": {
@@ -486,7 +490,8 @@
               "type": "object",
               "properties": {
                 "id": {
-                  "type": "number"
+                  "type": "number",
+                  "description": "Transaction id"
                 },
                 "description": {
                   "type": "string",
@@ -558,7 +563,8 @@
             "name": "id",
             "type": "number",
             "in": "path",
-            "required": true
+            "required": true,
+            "description": "Transaction id"
           }
         ],
         "responses": {
@@ -580,7 +586,8 @@
               "type": "object",
               "properties": {
                 "id": {
-                  "type": "number"
+                  "type": "number",
+                  "description": "Transaction id"
                 },
                 "description": {
                   "type": "string",
@@ -650,25 +657,29 @@
             "name": "id",
             "type": "number",
             "in": "path",
-            "required": true
+            "required": true,
+            "description": "Transaction id"
           },
           {
             "name": "description",
             "type": "string",
             "in": "formData",
-            "description": "Transaction description"
+            "description": "Transaction description",
+            "default": null
           },
           {
             "name": "amount",
             "type": "string",
             "in": "formData",
-            "description": "Amount spent"
+            "description": "Amount spent",
+            "default": null
           },
           {
             "name": "spent_on",
             "type": "string",
             "in": "formData",
-            "description": "Date in ISO-8601 format"
+            "description": "Date in ISO-8601 format",
+            "default": null
           },
           {
             "name": "payment_method",
@@ -678,12 +689,14 @@
               "credit_card",
               "money"
             ],
-            "in": "formData"
+            "in": "formData",
+            "default": null
           },
           {
             "name": "category_id",
             "type": "number",
-            "in": "formData"
+            "in": "formData",
+            "default": null
           }
         ],
         "responses": {
@@ -705,7 +718,8 @@
               "type": "object",
               "properties": {
                 "id": {
-                  "type": "number"
+                  "type": "number",
+                  "description": "Transaction id"
                 },
                 "description": {
                   "type": "string",
@@ -775,7 +789,370 @@
             "name": "id",
             "type": "number",
             "in": "path",
+            "required": true,
+            "description": "Transaction id"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "204": {
+            "description": "Successful response"
+          }
+        },
+        "description": ""
+      }
+    },
+    "/v1/accounts": {
+      "get": {
+        "tags": [
+          "accounts"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "get_v1_accounts",
+        "summary": "List all user accounts",
+        "parameters": [
+
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/account"
+              }
+            }
+          }
+        },
+        "description": ""
+      },
+      "post": {
+        "tags": [
+          "accounts"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "post_v1_accounts",
+        "summary": "Creates a account",
+        "parameters": [
+          {
+            "name": "initial_amount",
+            "type": "string",
+            "in": "formData",
+            "required": true,
+            "description": "Account initial amount"
+          },
+          {
+            "name": "financial_institution",
+            "type": "string",
+            "in": "formData",
+            "required": true,
+            "description": "Account related financial_institution"
+          },
+          {
+            "name": "account_type",
+            "type": "string",
+            "enum": [
+              "checking",
+              "savings",
+              "other"
+            ],
+            "in": "formData",
             "required": true
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "in": "formData",
+            "description": "Account description",
+            "default": null
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "201": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "Account id"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Account description"
+                },
+                "financial_institution": {
+                  "type": "string",
+                  "description": "Account related financial_institution"
+                },
+                "initial_amount": {
+                  "type": "string",
+                  "description": "Account initial amount"
+                },
+                "account_type": {
+                  "type": "string",
+                  "enum": [
+                    "checking",
+                    "savings",
+                    "other"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "description",
+                "financial_institution",
+                "initial_amount",
+                "account_type"
+              ]
+            }
+          }
+        },
+        "description": ""
+      }
+    },
+    "/v1/accounts/{id}": {
+      "get": {
+        "tags": [
+          "accounts"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "get_v1_accounts_id",
+        "summary": "Returns an account",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Transaction id"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "Account id"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Account description"
+                },
+                "financial_institution": {
+                  "type": "string",
+                  "description": "Account related financial_institution"
+                },
+                "initial_amount": {
+                  "type": "string",
+                  "description": "Account initial amount"
+                },
+                "account_type": {
+                  "type": "string",
+                  "enum": [
+                    "checking",
+                    "savings",
+                    "other"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "description",
+                "financial_institution",
+                "initial_amount",
+                "account_type"
+              ]
+            }
+          }
+        },
+        "description": ""
+      },
+      "put": {
+        "tags": [
+          "accounts"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "put_v1_accounts_id",
+        "summary": "Updates a account",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Account id"
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "in": "formData",
+            "description": "Account description",
+            "default": null
+          },
+          {
+            "name": "account_type",
+            "type": "string",
+            "enum": [
+              "checking",
+              "savings",
+              "other"
+            ],
+            "in": "formData",
+            "default": null
+          },
+          {
+            "name": "financial_institution",
+            "type": "string",
+            "in": "formData",
+            "description": "Account related financial_institution",
+            "default": false
+          },
+          {
+            "name": "initial_amount",
+            "type": "string",
+            "in": "formData",
+            "description": "Account initial amount",
+            "default": null
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "Account id"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Account description"
+                },
+                "financial_institution": {
+                  "type": "string",
+                  "description": "Account related financial_institution"
+                },
+                "initial_amount": {
+                  "type": "string",
+                  "description": "Account initial amount"
+                },
+                "account_type": {
+                  "type": "string",
+                  "enum": [
+                    "checking",
+                    "savings",
+                    "other"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "description",
+                "financial_institution",
+                "initial_amount",
+                "account_type"
+              ]
+            }
+          }
+        },
+        "description": ""
+      },
+      "delete": {
+        "tags": [
+          "accounts"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "delete_v1_accounts_id",
+        "summary": "Delete a account",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Account id"
           }
         ],
         "responses": {
@@ -912,7 +1289,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "number"
+          "type": "number",
+          "description": "Transaction id"
         },
         "description": {
           "type": "string",
@@ -962,6 +1340,43 @@
         "payment_method",
         "category"
       ]
+    },
+    "account": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "description": "Account id"
+        },
+        "description": {
+          "type": "string",
+          "description": "Account description"
+        },
+        "financial_institution": {
+          "type": "string",
+          "description": "Account related financial_institution"
+        },
+        "initial_amount": {
+          "type": "string",
+          "description": "Account initial amount"
+        },
+        "account_type": {
+          "type": "string",
+          "enum": [
+            "checking",
+            "savings",
+            "other"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "description",
+        "financial_institution",
+        "initial_amount",
+        "account_type"
+      ]
     }
   },
   "tags": [
@@ -971,6 +1386,10 @@
     },
     {
       "name": "transactions",
+      "description": ""
+    },
+    {
+      "name": "accounts",
       "description": ""
     },
     {

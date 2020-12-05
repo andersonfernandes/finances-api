@@ -10,6 +10,8 @@ RSpec.describe V1::TransactionsController, '#show',
 
   before { get v1_transaction_path(transaction), headers: headers }
 
+  include_context 'when the user is not authenticated'
+
   context 'when the user is authenticated' do
     context 'and the transaction exists' do
       it { expect(response).to have_http_status(:ok) }
@@ -32,11 +34,5 @@ RSpec.describe V1::TransactionsController, '#show',
         expect(body).to include('errors' => error_message)
       end
     end
-  end
-
-  context 'when the user is not authenticated' do
-    let(:headers) { {} }
-    it { expect(response).to have_http_status(:unauthorized) }
-    it { expect(body).to include('message' => 'Unauthorized') }
   end
 end
