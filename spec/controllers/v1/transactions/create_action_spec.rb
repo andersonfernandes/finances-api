@@ -5,15 +5,17 @@ RSpec.describe V1::TransactionsController, '#create',
   let(:body) { JSON.parse(response.body) }
   let(:setup) {}
   let(:user) { create(:user) }
-  let(:category) { create(:category) }
+  let(:category) { create(:category, user: user) }
+  let(:account) { create(:account, user: user) }
 
   let(:params) do
     {
       description: 'Super Market',
       amount: 12.5,
-      spent_on: Date.today.to_time.iso8601,
-      payment_method: 'debit',
-      category_id: category.id
+      spent_at: Date.today.to_time.iso8601,
+      transaction_type: 'expense',
+      category_id: category.id,
+      account_id: account.id
     }
   end
   let(:headers) { authorization_header(user.id) }
@@ -41,11 +43,20 @@ RSpec.describe V1::TransactionsController, '#create',
           'parent_category_id' => nil,
           'child_categories' => []
         }
+        expected_account = {
+          'id' => account.id,
+          'name' => account.name,
+          'description' => account.description,
+          'financial_institution' => account.financial_institution,
+          'initial_amount' => account.initial_amount.to_s,
+          'account_type' => account.account_type
+        }
         expect(response_body).to include('description' => params[:description])
           .and include('amount' => params[:amount].to_s)
-          .and include('spent_on' => params[:spent_on])
-          .and include('payment_method' => params[:payment_method])
+          .and include('spent_at' => params[:spent_at])
+          .and include('transaction_type' => params[:transaction_type])
           .and include('category' => expected_category)
+          .and include('account' => expected_account)
       end
     end
   end
