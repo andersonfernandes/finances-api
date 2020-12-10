@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Transaction, type: :model do
   context 'relations' do
-    it { should belong_to(:user) }
+    it { should belong_to(:account) }
     it { should belong_to(:category) }
   end
 
@@ -16,13 +16,13 @@ RSpec.describe Transaction, type: :model do
       it { should validate_presence_of(:description) }
     end
 
-    describe '#payment_method' do
-      it { should validate_presence_of(:payment_method) }
-      it { should define_enum_for(:payment_method) }
+    describe '#transaction_type' do
+      it { should validate_presence_of(:transaction_type) }
+      it { should define_enum_for(:transaction_type) }
     end
 
-    describe '#spent_on' do
-      it { should validate_presence_of(:spent_on) }
+    describe '#spent_at' do
+      it { should validate_presence_of(:spent_at) }
     end
   end
 
@@ -30,6 +30,9 @@ RSpec.describe Transaction, type: :model do
     it { should delegate_method(:id).to(:category).with_prefix }
     it { should delegate_method(:description).to(:category).with_prefix }
     it { should delegate_method(:to_response).to(:category).with_prefix }
+
+    it { should delegate_method(:id).to(:account).with_prefix }
+    it { should delegate_method(:to_response).to(:account).with_prefix }
   end
 
   describe 'to_response' do
@@ -39,9 +42,10 @@ RSpec.describe Transaction, type: :model do
       expect(transaction.to_response).to include('id' => transaction.id)
         .and include('description' => transaction.description)
         .and include('amount' => transaction.amount.to_s)
-        .and include('spent_on' => transaction.spent_on.to_time.iso8601)
-        .and include('payment_method' => transaction.payment_method)
+        .and include('spent_at' => transaction.spent_at.to_time.iso8601)
+        .and include('transaction_type' => transaction.transaction_type)
         .and include('category' => transaction.category.to_response)
+        .and include('account' => transaction.account.to_response)
     end
   end
 end

@@ -2,45 +2,47 @@
 #
 # Table name: transactions
 #
-#  id             :bigint(8)        not null, primary key
-#  amount         :decimal(, )      not null
-#  description    :string           not null
-#  payment_method :integer          not null
-#  spent_on       :date             not null
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  category_id    :bigint(8)
-#  user_id        :bigint(8)
+#  id               :bigint(8)        not null, primary key
+#  amount           :decimal(, )      not null
+#  description      :string           not null
+#  spent_at         :date             not null
+#  transaction_type :integer          not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  account_id       :bigint(8)        not null
+#  category_id      :bigint(8)
 #
 # Indexes
 #
+#  index_transactions_on_account_id   (account_id)
 #  index_transactions_on_category_id  (category_id)
-#  index_transactions_on_user_id      (user_id)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (account_id => accounts.id)
 #  fk_rails_...  (category_id => categories.id)
-#  fk_rails_...  (user_id => users.id)
 #
 
 class Transaction < ApplicationRecord
-  belongs_to :user
+  belongs_to :account
   belongs_to :category
 
-  enum payment_method: %i[debit credit_card money]
+  enum transaction_type: %i[income expense transfer]
 
   validates :amount, numericality: true
-  validates :amount, :description, :payment_method, :spent_on, presence: true
+  validates :amount, :description, :transaction_type, :spent_at, presence: true
 
   delegate :id, :description, :to_response, to: :category, prefix: true
+  delegate :id, :to_response, to: :account, prefix: true
 
   def to_response
     exposed_fields = %i[id
                         description
                         amount
-                        payment_method]
+                        transaction_type]
     as_json(only: exposed_fields)
       .merge('category' => category_to_response,
-             'spent_on' => spent_on.to_time.iso8601)
+             'account' => account_to_response,
+             'spent_at' => spent_at.to_time.iso8601)
   end
 end
