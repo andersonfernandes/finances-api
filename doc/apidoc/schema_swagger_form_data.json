@@ -433,24 +433,30 @@
         "summary": "Creates a transaction",
         "parameters": [
           {
+            "name": "account_id",
+            "type": "number",
+            "in": "formData",
+            "required": true
+          },
+          {
             "name": "category_id",
             "type": "number",
             "in": "formData",
             "required": true
           },
           {
-            "name": "payment_method",
+            "name": "transaction_type",
             "type": "string",
             "enum": [
-              "debit",
-              "credit_card",
-              "money"
+              "income",
+              "expense",
+              "transfer"
             ],
             "in": "formData",
             "required": true
           },
           {
-            "name": "spent_on",
+            "name": "spent_at",
             "type": "string",
             "in": "formData",
             "required": true,
@@ -501,16 +507,16 @@
                   "type": "string",
                   "description": "Amount spent"
                 },
-                "spent_on": {
+                "spent_at": {
                   "type": "string",
                   "description": "Date in ISO-8601 format"
                 },
-                "payment_method": {
+                "transaction_type": {
                   "type": "string",
                   "enum": [
-                    "debit",
-                    "credit_card",
-                    "money"
+                    "income",
+                    "expense",
+                    "transfer"
                   ]
                 },
                 "category": {
@@ -530,6 +536,24 @@
                     "id",
                     "description"
                   ]
+                },
+                "account": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "Account id"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Account name"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "name"
+                  ]
                 }
               },
               "additionalProperties": false,
@@ -537,9 +561,10 @@
                 "id",
                 "description",
                 "amount",
-                "spent_on",
-                "payment_method",
-                "category"
+                "spent_at",
+                "transaction_type",
+                "category",
+                "account"
               ]
             }
           }
@@ -557,7 +582,7 @@
           "multipart/form-data"
         ],
         "operationId": "get_v1_transactions_id",
-        "summary": "Returns a category",
+        "summary": "Returns a transaction",
         "parameters": [
           {
             "name": "id",
@@ -597,16 +622,16 @@
                   "type": "string",
                   "description": "Amount spent"
                 },
-                "spent_on": {
+                "spent_at": {
                   "type": "string",
                   "description": "Date in ISO-8601 format"
                 },
-                "payment_method": {
+                "transaction_type": {
                   "type": "string",
                   "enum": [
-                    "debit",
-                    "credit_card",
-                    "money"
+                    "income",
+                    "expense",
+                    "transfer"
                   ]
                 },
                 "category": {
@@ -626,6 +651,24 @@
                     "id",
                     "description"
                   ]
+                },
+                "account": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "Account id"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Account name"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "name"
+                  ]
                 }
               },
               "additionalProperties": false,
@@ -633,9 +676,10 @@
                 "id",
                 "description",
                 "amount",
-                "spent_on",
-                "payment_method",
-                "category"
+                "spent_at",
+                "transaction_type",
+                "category",
+                "account"
               ]
             }
           }
@@ -675,19 +719,19 @@
             "default": null
           },
           {
-            "name": "spent_on",
+            "name": "spent_at",
             "type": "string",
             "in": "formData",
             "description": "Date in ISO-8601 format",
             "default": null
           },
           {
-            "name": "payment_method",
+            "name": "transaction_type",
             "type": "string",
             "enum": [
-              "debit",
-              "credit_card",
-              "money"
+              "income",
+              "expense",
+              "transfer"
             ],
             "in": "formData",
             "default": null
@@ -729,16 +773,16 @@
                   "type": "string",
                   "description": "Amount spent"
                 },
-                "spent_on": {
+                "spent_at": {
                   "type": "string",
                   "description": "Date in ISO-8601 format"
                 },
-                "payment_method": {
+                "transaction_type": {
                   "type": "string",
                   "enum": [
-                    "debit",
-                    "credit_card",
-                    "money"
+                    "income",
+                    "expense",
+                    "transfer"
                   ]
                 },
                 "category": {
@@ -758,6 +802,24 @@
                     "id",
                     "description"
                   ]
+                },
+                "account": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "Account id"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Account name"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "name"
+                  ]
                 }
               },
               "additionalProperties": false,
@@ -765,9 +827,10 @@
                 "id",
                 "description",
                 "amount",
-                "spent_on",
-                "payment_method",
-                "category"
+                "spent_at",
+                "transaction_type",
+                "category",
+                "account"
               ]
             }
           }
@@ -889,6 +952,13 @@
             "required": true
           },
           {
+            "name": "name",
+            "type": "string",
+            "in": "formData",
+            "description": "Account name",
+            "default": null
+          },
+          {
             "name": "description",
             "type": "string",
             "in": "formData",
@@ -918,6 +988,10 @@
                   "type": "number",
                   "description": "Account id"
                 },
+                "name": {
+                  "type": "string",
+                  "description": "Account name"
+                },
                 "description": {
                   "type": "string",
                   "description": "Account description"
@@ -942,6 +1016,7 @@
               "additionalProperties": false,
               "required": [
                 "id",
+                "name",
                 "description",
                 "financial_institution",
                 "initial_amount",
@@ -995,6 +1070,10 @@
                   "type": "number",
                   "description": "Account id"
                 },
+                "name": {
+                  "type": "string",
+                  "description": "Account name"
+                },
                 "description": {
                   "type": "string",
                   "description": "Account description"
@@ -1019,6 +1098,7 @@
               "additionalProperties": false,
               "required": [
                 "id",
+                "name",
                 "description",
                 "financial_institution",
                 "initial_amount",
@@ -1046,6 +1126,13 @@
             "in": "path",
             "required": true,
             "description": "Account id"
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "in": "formData",
+            "description": "Account name",
+            "default": null
           },
           {
             "name": "description",
@@ -1102,6 +1189,10 @@
                   "type": "number",
                   "description": "Account id"
                 },
+                "name": {
+                  "type": "string",
+                  "description": "Account name"
+                },
                 "description": {
                   "type": "string",
                   "description": "Account description"
@@ -1126,6 +1217,7 @@
               "additionalProperties": false,
               "required": [
                 "id",
+                "name",
                 "description",
                 "financial_institution",
                 "initial_amount",
@@ -1300,16 +1392,16 @@
           "type": "string",
           "description": "Amount spent"
         },
-        "spent_on": {
+        "spent_at": {
           "type": "string",
           "description": "Date in ISO-8601 format"
         },
-        "payment_method": {
+        "transaction_type": {
           "type": "string",
           "enum": [
-            "debit",
-            "credit_card",
-            "money"
+            "income",
+            "expense",
+            "transfer"
           ]
         },
         "category": {
@@ -1329,6 +1421,24 @@
             "id",
             "description"
           ]
+        },
+        "account": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "description": "Account id"
+            },
+            "name": {
+              "type": "string",
+              "description": "Account name"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "name"
+          ]
         }
       },
       "additionalProperties": false,
@@ -1336,9 +1446,10 @@
         "id",
         "description",
         "amount",
-        "spent_on",
-        "payment_method",
-        "category"
+        "spent_at",
+        "transaction_type",
+        "category",
+        "account"
       ]
     },
     "account": {
@@ -1347,6 +1458,10 @@
         "id": {
           "type": "number",
           "description": "Account id"
+        },
+        "name": {
+          "type": "string",
+          "description": "Account name"
         },
         "description": {
           "type": "string",
@@ -1372,6 +1487,7 @@
       "additionalProperties": false,
       "required": [
         "id",
+        "name",
         "description",
         "financial_institution",
         "initial_amount",
