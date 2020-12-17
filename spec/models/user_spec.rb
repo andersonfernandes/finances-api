@@ -5,7 +5,7 @@ RSpec.describe User, type: :model do
 
   context 'relations' do
     it { should have_many(:categories) }
-    it { should have_many(:transactions) }
+    it { should have_many(:accounts) }
   end
 
   context 'validations' do

@@ -4,7 +4,7 @@ RSpec.describe V1::TransactionsController, '#destroy',
                type: :request do
   let(:body) { JSON.parse(response.body) }
   let(:user) { create(:user) }
-  let(:transaction) { create(:transaction, user: user) }
+  let(:transaction) { create(:transaction, account: create(:account, user: user)) }
 
   let(:headers) { authorization_header(user.id) }
 

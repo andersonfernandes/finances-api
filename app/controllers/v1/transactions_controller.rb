@@ -15,26 +15,30 @@ module V1
       property :id, :number, desc: 'Transaction id'
       property :description, String, desc: 'Transaction description'
       property :amount, :decimal, desc: 'Amount spent'
-      property(:spent_on,
+      property(:spent_at,
                :iso8601_date,
                desc: 'Date in ISO-8601 format',
                base_class: Date)
-      property :payment_method, Transaction.payment_methods.keys
+      property :transaction_type, Transaction.transaction_types.keys
       property :category, Hash do
         property :id, :number, desc: 'Category id'
         property :description, String, desc: 'Category description'
+      end
+      property :account, Hash do
+        property :id, :number, desc: 'Account id'
+        property :name, String, desc: 'Account name'
       end
     end
 
     api :GET, '/v1/transactions', 'List all transactions'
     returns array_of: :transaction, code: 200, desc: 'Successful response'
     def index
-      transactions = current_user.transactions
+      transactions = Transaction.joins(account: :user).where(accounts: { user_id: current_user.id })
 
       render json: transactions.map(&:to_response), status: :ok
     end
 
-    api :GET, '/v1/transactions/:id', 'Returns a category'
+    api :GET, '/v1/transactions/:id', 'Returns a transaction'
     param :id, :number, desc: 'Transaction id'
     returns code: 200, desc: 'Successful response' do
       param_group :transaction
@@ -46,13 +50,14 @@ module V1
     api :POST, '/v1/transactions', 'Creates a transaction'
     param :description, String, desc: 'Transaction description', required: true
     param :amount, :decimal, desc: 'Amount spent', required: true
-    param(:spent_on,
+    param(:spent_at,
           :iso8601_date,
           desc: 'Date in ISO-8601 format',
           required: true,
           base_class: Date)
-    param :payment_method, Transaction.payment_methods.keys, required: true
+    param :transaction_type, Transaction.transaction_types.keys, required: true
     param :category_id, :number, required: true
+    param :account_id, :number, required: true
     returns code: 201, desc: 'Successful response' do
       param_group :transaction
     end
@@ -76,12 +81,12 @@ module V1
     param :amount, :decimal, desc: 'Amount spent',
                              required: false,
                              default_value: nil
-    param :spent_on, :iso8601_date, desc: 'Date in ISO-8601 format',
+    param :spent_at, :iso8601_date, desc: 'Date in ISO-8601 format',
                                     required: false,
                                     base_class: Date,
                                     default_value: nil
-    param :payment_method, Transaction.payment_methods.keys, required: false,
-                                                             default_value: nil
+    param :transaction_type, Transaction.transaction_types.keys, required: false,
+                                                                 default_value: nil
     param :category_id, :number, required: false, default_value: nil
     returns code: 200, desc: 'Successful response' do
       param_group :transaction
@@ -114,9 +119,7 @@ module V1
     private
 
     def transaction_params
-      params
-        .permit(%i[description amount spent_on payment_method category_id])
-        .merge(user_id: current_user.id)
+      params.permit(%i[description amount spent_at transaction_type category_id account_id])
     end
 
     def set_transaction

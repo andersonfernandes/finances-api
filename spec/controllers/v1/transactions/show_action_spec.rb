@@ -4,7 +4,7 @@ RSpec.describe V1::TransactionsController, '#show',
                type: :request do
   let(:body) { JSON.parse(response.body) }
   let(:user) { create(:user) }
-  let(:transaction) { create(:transaction, user: user) }
+  let(:transaction) { create(:transaction, account: create(:account, user: user)) }
 
   let(:headers) { authorization_header(user.id) }
 
@@ -19,9 +19,10 @@ RSpec.describe V1::TransactionsController, '#show',
         expect(body).to include('id' => transaction.id)
           .and include('description' => transaction.description)
           .and include('amount' => transaction.amount.to_s)
-          .and include('spent_on' => transaction.spent_on.to_time.iso8601)
-          .and include('payment_method' => transaction.payment_method)
+          .and include('spent_at' => transaction.spent_at.to_time.iso8601)
+          .and include('transaction_type' => transaction.transaction_type)
           .and include('category' => transaction.category.to_response)
+          .and include('account' => transaction.account.to_response)
       end
     end
 

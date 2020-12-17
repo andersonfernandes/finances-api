@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_25_173124) do
+ActiveRecord::Schema.define(version: 2020_12_10_004347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,14 +40,14 @@ ActiveRecord::Schema.define(version: 2020_10_25_173124) do
   create_table "transactions", force: :cascade do |t|
     t.string "description", null: false
     t.decimal "amount", null: false
-    t.date "spent_on", null: false
-    t.integer "payment_method", null: false
-    t.bigint "user_id"
+    t.date "spent_at", null: false
+    t.integer "transaction_type", null: false
     t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "account_id", null: false
+    t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["category_id"], name: "index_transactions_on_category_id"
-    t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -61,6 +61,6 @@ ActiveRecord::Schema.define(version: 2020_10_25_173124) do
   add_foreign_key "accounts", "users"
   add_foreign_key "categories", "categories", column: "parent_category_id"
   add_foreign_key "categories", "users"
+  add_foreign_key "transactions", "accounts"
   add_foreign_key "transactions", "categories"
-  add_foreign_key "transactions", "users"
 end
