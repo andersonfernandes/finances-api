@@ -34,7 +34,7 @@ workflows:
 
 jobs:
   rubocop:
-    parallelism: 2
+    parallelism: 1
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
 
@@ -46,7 +46,7 @@ jobs:
           command: bundle exec rubocop
           
   rspec:
-    parallelism: 2
+    parallelism: 1
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
         environment:
