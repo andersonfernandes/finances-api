@@ -10,13 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_13_185619) do
+ActiveRecord::Schema.define(version: 2021_03_13_192506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "accounts", force: :cascade do |t|
-    t.string "financial_institution", null: false
     t.string "name"
     t.string "description"
     t.decimal "initial_amount", default: "0.0", null: false
@@ -24,6 +23,8 @@ ActiveRecord::Schema.define(version: 2021_03_13_185619) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "financial_institution_id", null: false
+    t.index ["financial_institution_id"], name: "index_accounts_on_financial_institution_id"
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
@@ -65,6 +66,7 @@ ActiveRecord::Schema.define(version: 2021_03_13_185619) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "accounts", "financial_institutions"
   add_foreign_key "accounts", "users"
   add_foreign_key "categories", "categories", column: "parent_category_id"
   add_foreign_key "categories", "users"

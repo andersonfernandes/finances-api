@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe FinancialInstitution, type: :model do
   context 'relations' do
-    # it { should have_many(:transactions) }
+    it { should have_many(:accounts) }
   end
 
   context 'validations' do
