@@ -934,13 +934,6 @@
             "description": "Account initial amount"
           },
           {
-            "name": "financial_institution",
-            "type": "string",
-            "in": "formData",
-            "required": true,
-            "description": "Account related financial_institution"
-          },
-          {
             "name": "account_type",
             "type": "string",
             "enum": [
@@ -963,6 +956,13 @@
             "type": "string",
             "in": "formData",
             "description": "Account description",
+            "default": null
+          },
+          {
+            "name": "financial_institution_id",
+            "type": "number",
+            "in": "formData",
+            "description": "Financial Institution id",
             "default": null
           }
         ],
@@ -997,8 +997,22 @@
                   "description": "Account description"
                 },
                 "financial_institution": {
-                  "type": "string",
-                  "description": "Account related financial_institution"
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Financial Institution name"
+                    },
+                    "logo_url": {
+                      "type": "string",
+                      "description": "Financial Institution logo url"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "logo_url"
+                  ]
                 },
                 "initial_amount": {
                   "type": "string",
@@ -1079,8 +1093,22 @@
                   "description": "Account description"
                 },
                 "financial_institution": {
-                  "type": "string",
-                  "description": "Account related financial_institution"
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Financial Institution name"
+                    },
+                    "logo_url": {
+                      "type": "string",
+                      "description": "Financial Institution logo url"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "logo_url"
+                  ]
                 },
                 "initial_amount": {
                   "type": "string",
@@ -1153,18 +1181,18 @@
             "default": null
           },
           {
-            "name": "financial_institution",
-            "type": "string",
-            "in": "formData",
-            "description": "Account related financial_institution",
-            "default": false
-          },
-          {
             "name": "initial_amount",
             "type": "string",
             "in": "formData",
             "description": "Account initial amount",
             "default": null
+          },
+          {
+            "name": "financial_institution_id",
+            "type": "number",
+            "in": "formData",
+            "description": "Account related financial_institution id",
+            "default": false
           }
         ],
         "responses": {
@@ -1198,8 +1226,22 @@
                   "description": "Account description"
                 },
                 "financial_institution": {
-                  "type": "string",
-                  "description": "Account related financial_institution"
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Financial Institution name"
+                    },
+                    "logo_url": {
+                      "type": "string",
+                      "description": "Financial Institution logo url"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "logo_url"
+                  ]
                 },
                 "initial_amount": {
                   "type": "string",
@@ -1468,8 +1510,22 @@
           "description": "Account description"
         },
         "financial_institution": {
-          "type": "string",
-          "description": "Account related financial_institution"
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Financial Institution name"
+            },
+            "logo_url": {
+              "type": "string",
+              "description": "Financial Institution logo url"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "logo_url"
+          ]
         },
         "initial_amount": {
           "type": "string",
