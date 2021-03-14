@@ -6,14 +6,15 @@ RSpec.describe V1::AccountsController, '#create',
   let(:setup) {}
   let(:user) { create(:user) }
   let(:account) { create(:account) }
+  let(:financial_institution) { create(:financial_institution) }
 
   let(:params) do
     {
       description: Faker::Lorem.sentence(word_count: 3, supplemental: true),
       account_type: 'checking',
       name: Faker::Company.name,
-      financial_institution: Faker::Company.name,
-      initial_amount: Faker::Commerce.price
+      initial_amount: Faker::Commerce.price,
+      financial_institution_id: financial_institution.id
     }
   end
   let(:headers) { authorization_header(user.id) }
@@ -38,8 +39,10 @@ RSpec.describe V1::AccountsController, '#create',
         expect(response_body).to include('description' => params[:description])
           .and include('initial_amount' => params[:initial_amount].to_s)
           .and include('name' => params[:name])
-          .and include('financial_institution' => params[:financial_institution])
-          .and include('account_type' => params[:account_type])
+          .and include('financial_institution' => {
+                         'name' => financial_institution.name,
+                         'logo_url' => financial_institution.logo_url
+                       }).and include('account_type' => params[:account_type])
       end
     end
   end

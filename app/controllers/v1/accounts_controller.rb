@@ -11,12 +11,18 @@ module V1
       formats ['json']
     end
 
+    def_param_group :financial_institution do
+      property :name, String, desc: 'Financial Institution name'
+      property :logo_url, String, desc: 'Financial Institution logo url'
+    end
+
     def_param_group :account do
       property :id, :number, desc: 'Account id'
       property :name, String, desc: 'Account name'
       property :description, String, desc: 'Account description'
-      property :financial_institution,
-               String, desc: 'Account related financial_institution'
+      property :financial_institution, Hash do
+        param_group :financial_institution
+      end
       property :initial_amount, :decimal, desc: 'Account initial amount'
       property :account_type, Account.account_types.keys
     end
@@ -46,10 +52,11 @@ module V1
                                 required: false,
                                 default_value: nil
     param :account_type, Account.account_types.keys, required: true
-    param :financial_institution, String, desc: 'Account related financial_institution',
-                                          required: true
     param :initial_amount, :decimal, desc: 'Account initial amount',
                                      required: true
+    param(:financial_institution_id, :number, required: false,
+                                              desc: 'Financial Institution id',
+                                              default_value: nil)
     returns code: 201, desc: 'Successful response' do
       param_group :account
     end
@@ -73,12 +80,13 @@ module V1
                                 default_value: nil
     param :account_type, Account.account_types.keys, required: false,
                                                      default_value: nil
-    param :financial_institution, String, desc: 'Account related financial_institution',
-                                          required: false,
-                                          default_value: false
     param :initial_amount, :decimal, desc: 'Account initial amount',
                                      required: false,
                                      default_value: nil
+    param(:financial_institution_id, :number,
+          desc: 'Account related financial_institution id',
+          required: false,
+          default_value: false)
     returns code: 200, desc: 'Successful response' do
       param_group :account
     end
@@ -110,7 +118,7 @@ module V1
     private
 
     def account_params
-      permitted = %i[description account_type financial_institution
+      permitted = %i[description account_type financial_institution_id
                      initial_amount name]
       params.permit(permitted)
             .merge(user_id: current_user.id)

@@ -16,10 +16,12 @@ RSpec.describe V1::AccountsController, '#show', type: :request do
       it do
         expect(response_body).to include('description' => account.description)
           .and include('id' => account.id)
-          .and include('financial_institution' => account.financial_institution)
           .and include('initial_amount' => account.initial_amount.to_s)
-          .and include('account_type' => account.account_type)
           .and include('name' => account.name)
+          .and include('financial_institution' => {
+                         'name' => account.financial_institution_name,
+                         'logo_url' => account.financial_institution_logo_url
+                       }).and include('account_type' => account.account_type)
       end
     end
 
