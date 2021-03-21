@@ -62,7 +62,7 @@ GEM
     apipie-rails (0.5.18)
       rails (>= 4.1)
     ast (2.4.0)
-    bcrypt (3.1.13)
+    bcrypt (3.1.16)
     bootsnap (1.4.6)
       msgpack (~> 1.0)
     builder (3.2.4)
@@ -215,7 +215,7 @@ PLATFORMS
 DEPENDENCIES
   annotate
   apipie-rails (~> 0.5.18)
-  bcrypt (~> 3.1.7)
+  bcrypt (~> 3.1.16)
   bootsnap (>= 1.1.0)
   factory_bot_rails
   faker
@@ -239,4 +239,4 @@ RUBY VERSION
    ruby 2.6.5p114
 
 BUNDLED WITH
-   2.1.4
+   2.2.15
