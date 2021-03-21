@@ -5,7 +5,7 @@ ruby '2.6.5'
 
 gem 'apipie-rails', '~> 0.5.18'
 gem 'bcrypt', '~> 3.1.16'
-gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bootsnap', '~> 1.7', '>= 1.7.2', require: false
 gem 'figaro'
 gem 'jwt'
 gem 'pg', '>= 0.18', '< 2.0'
