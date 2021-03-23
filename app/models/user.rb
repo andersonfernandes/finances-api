@@ -15,6 +15,7 @@ class User < ApplicationRecord
 
   has_many :categories
   has_many :accounts
+  has_many :refresh_tokens
 
   validates :name, :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
