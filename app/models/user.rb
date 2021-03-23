@@ -15,7 +15,7 @@ class User < ApplicationRecord
 
   has_many :categories
   has_many :accounts
-  has_many :refresh_tokens
+  has_one :refresh_token, -> { where(refresh_tokens: { status: :active }) }
 
   validates :name, :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
