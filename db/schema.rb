@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_23_015822) do
+ActiveRecord::Schema.define(version: 2021_03_27_185612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,17 @@ ActiveRecord::Schema.define(version: 2021_03_23_015822) do
     t.index ["user_id"], name: "index_refresh_tokens_on_user_id"
   end
 
+  create_table "tokens", force: :cascade do |t|
+    t.string "jwt_id", null: false
+    t.integer "status", null: false
+    t.datetime "expiry_at", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["jwt_id"], name: "index_tokens_on_jwt_id", unique: true
+    t.index ["user_id"], name: "index_tokens_on_user_id"
+  end
+
   create_table "transactions", force: :cascade do |t|
     t.string "description", null: false
     t.decimal "amount", null: false
@@ -80,6 +91,7 @@ ActiveRecord::Schema.define(version: 2021_03_23_015822) do
   add_foreign_key "categories", "categories", column: "parent_category_id"
   add_foreign_key "categories", "users"
   add_foreign_key "refresh_tokens", "users"
+  add_foreign_key "tokens", "users"
   add_foreign_key "transactions", "accounts"
   add_foreign_key "transactions", "categories"
 end
