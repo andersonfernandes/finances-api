@@ -6,19 +6,14 @@ RSpec.describe RefreshToken, type: :model do
   end
 
   context 'validations' do
-    describe '#token' do
-      it { should validate_presence_of(:token) }
+    describe '#encrypted_token' do
+      it { should validate_presence_of(:encrypted_token) }
 
       context 'uniqueness' do
         subject { build(:refresh_token) }
 
-        it { should validate_uniqueness_of(:token) }
+        it { should validate_uniqueness_of(:encrypted_token) }
       end
-    end
-
-    describe '#status' do
-      it { should validate_presence_of(:status) }
-      it { should define_enum_for(:status) }
     end
   end
 end

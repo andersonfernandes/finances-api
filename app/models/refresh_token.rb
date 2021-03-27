@@ -2,18 +2,16 @@
 #
 # Table name: refresh_tokens
 #
-#  id         :bigint(8)        not null, primary key
-#  revoked_at :datetime
-#  status     :integer          not null
-#  token      :string           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :bigint(8)        not null
+#  id              :bigint(8)        not null, primary key
+#  encrypted_token :string           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  user_id         :bigint(8)        not null
 #
 # Indexes
 #
-#  index_refresh_tokens_on_token    (token) UNIQUE
-#  index_refresh_tokens_on_user_id  (user_id)
+#  index_refresh_tokens_on_encrypted_token  (encrypted_token) UNIQUE
+#  index_refresh_tokens_on_user_id          (user_id)
 #
 # Foreign Keys
 #
@@ -22,8 +20,6 @@
 class RefreshToken < ApplicationRecord
   belongs_to :user
 
-  enum status: %i[active revoked]
-
-  validates :token, uniqueness: true, allow_nil: false
-  validates :token, :status, presence: true
+  validates :encrypted_token, uniqueness: true, allow_nil: false
+  validates :encrypted_token, presence: true
 end

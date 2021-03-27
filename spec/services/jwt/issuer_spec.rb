@@ -11,7 +11,7 @@ describe Jwt::Issuer do
     end
 
     context 'when the user have a active refresh_token associated' do
-      let!(:refresh_token) { create(:refresh_token, status: :active, user: user) }
+      let!(:refresh_token) { create(:refresh_token, user: user) }
 
       it 'should not create a new refresh token' do
         expect { subject.call }
@@ -19,7 +19,7 @@ describe Jwt::Issuer do
       end
 
       it 'should include the existing token on the response' do
-        expect(subject.call).to include(refresh_token: refresh_token.token)
+        expect(subject.call).to include(refresh_token: refresh_token.encrypted_token)
       end
     end
 
@@ -33,7 +33,7 @@ describe Jwt::Issuer do
         response = subject.call
         created_refresh_token = RefreshToken.last
 
-        expect(response).to include(refresh_token: created_refresh_token.token)
+        expect(response).to include(refresh_token: created_refresh_token.encrypted_token)
       end
     end
   end

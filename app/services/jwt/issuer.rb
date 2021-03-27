@@ -25,15 +25,14 @@ module Jwt
     end
 
     def refresh_token
-      return @user.refresh_token.token if @user.refresh_token
+      return @user.refresh_token.encrypted_token if @user.refresh_token
 
-      create_refresh_token.token
+      create_refresh_token.encrypted_token
     end
 
     def create_refresh_token
       @user.create_refresh_token(
-        token: Digest::SHA256.hexdigest(SecureRandom.hex),
-        status: :active
+        encrypted_token: Digest::SHA256.hexdigest(SecureRandom.hex),
       )
     end
   end
