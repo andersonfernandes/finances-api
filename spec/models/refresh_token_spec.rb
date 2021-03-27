@@ -7,13 +7,19 @@ RSpec.describe RefreshToken, type: :model do
 
   context 'validations' do
     describe '#encrypted_token' do
-      it { should validate_presence_of(:encrypted_token) }
+      subject { build(:refresh_token) }
 
-      context 'uniqueness' do
-        subject { build(:refresh_token) }
+      it { should validate_uniqueness_of(:encrypted_token) }
+    end
+  end
 
-        it { should validate_uniqueness_of(:encrypted_token) }
-      end
+  context 'encrypted_token auto generation' do
+    subject { described_class.new(user: build(:user)) }
+
+    before { subject.save }
+
+    it 'when saving the subject, the encrypted_token should be auto generated' do
+      expect(subject.encrypted_token).not_to be_blank
     end
   end
 end

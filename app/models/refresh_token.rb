@@ -21,5 +21,12 @@ class RefreshToken < ApplicationRecord
   belongs_to :user
 
   validates :encrypted_token, uniqueness: true, allow_nil: false
-  validates :encrypted_token, presence: true
+
+  before_create :generate_encrypted_token
+
+  private
+
+  def generate_encrypted_token
+    self.encrypted_token = Digest::SHA256.hexdigest(SecureRandom.hex)
+  end
 end

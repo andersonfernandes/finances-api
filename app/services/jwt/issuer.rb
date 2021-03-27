@@ -27,13 +27,8 @@ module Jwt
     def refresh_token
       return @user.refresh_token.encrypted_token if @user.refresh_token
 
-      create_refresh_token.encrypted_token
-    end
-
-    def create_refresh_token
-      @user.create_refresh_token(
-        encrypted_token: Digest::SHA256.hexdigest(SecureRandom.hex),
-      )
+      refresh_token = @user.create_refresh_token
+      refresh_token.encrypted_token
     end
   end
 end
