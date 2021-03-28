@@ -24,7 +24,7 @@ RSpec.describe Token, type: :model do
   end
 
   describe '#access_token_payload' do
-    subject { create(:token) } 
+    subject { create(:token) }
 
     let(:expected_payload) do
       {

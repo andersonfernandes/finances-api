@@ -13,15 +13,8 @@ module Jwt
 
     private
 
-    ACCESS_TOKEN_EXPIRY = 2.hours.from_now.to_i
-
     def access_token
-      payload = {
-        exp: ACCESS_TOKEN_EXPIRY,
-        user_id: @user.id
-      }
-
-      JWT.encode(payload, Figaro.env.secret_key_base)
+      ::Jwt::Encoder.new(@user).call
     end
 
     def refresh_token
