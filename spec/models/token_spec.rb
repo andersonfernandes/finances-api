@@ -22,4 +22,19 @@ RSpec.describe Token, type: :model do
       it { should validate_presence_of(:expiry_at) }
     end
   end
+
+  describe '#access_token_payload' do
+    subject { create(:token) } 
+
+    let(:expected_payload) do
+      {
+        user_id: subject.user_id,
+        jti: subject.jwt_id,
+        iat: subject.updated_at.to_i,
+        exp: subject.expiry_at.to_i
+      }
+    end
+
+    it { expect(subject.access_token_payload).to eq(expected_payload) }
+  end
 end

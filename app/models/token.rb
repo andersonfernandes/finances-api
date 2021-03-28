@@ -26,4 +26,13 @@ class Token < ApplicationRecord
 
   validates :jwt_id, :status, :expiry_at, presence: true
   validates :jwt_id, uniqueness: true
+
+  def access_token_payload
+    {
+      user_id: user_id,
+      jti: jwt_id,
+      iat: updated_at.to_i,
+      exp: expiry_at.to_i
+    }
+  end
 end
