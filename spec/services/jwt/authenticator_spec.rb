@@ -29,7 +29,7 @@ describe Jwt::Authenticator do
       end
 
       it do
-        expect(subject.call).to eq(user)
+        expect(subject.call).to match_array([user, token])
       end
     end
 

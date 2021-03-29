@@ -28,7 +28,7 @@ module Jwt
       token = Token.find_by(jwt_id: jwt_id)
       raise Jwt::Errors::RevokedToken if token.revoked?
 
-      User.find(user_id)
+      [User.find(user_id), token]
     end
   end
 end
