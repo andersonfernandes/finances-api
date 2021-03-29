@@ -4,7 +4,7 @@ describe Jwt::Decoder do
   describe '#call' do
     context 'with an valid access_token' do
       let(:user) { create(:user) }
-      let(:access_token) do 
+      let(:access_token) do
         JWT.encode(
           {
             user_id: user.id,
@@ -33,7 +33,7 @@ describe Jwt::Decoder do
 
     context 'with an expired access_token' do
       let(:user) { create(:user) }
-      let(:access_token) do 
+      let(:access_token) do
         JWT.encode(
           {
             user_id: user.id,
@@ -44,7 +44,7 @@ describe Jwt::Decoder do
       end
 
       it do
-        expect { subject.call(access_token)}.to raise_error(Jwt::Errors::ExpiredToken)
+        expect { subject.call(access_token) }.to raise_error(Jwt::Errors::ExpiredToken)
       end
     end
   end
