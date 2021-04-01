@@ -1,53 +1,41 @@
 require 'rails_helper'
 
 describe Jwt::Authenticator do
-  subject { described_class.new(headers) }
-
   context 'when the access_token is missing' do
-    let(:headers) { {} }
+    let(:access_token) { nil }
 
     it do
-      expect { subject.call }.to raise_error(Jwt::Errors::MissingToken)
+      expect { subject.call(access_token) }.to raise_error(Jwt::Errors::MissingToken)
     end
   end
 
   context 'when the access_token is present' do
     let(:user) { create(:user) }
-    let(:headers) { { 'Authorization' => "Baerer #{access_token}" } }
+    let(:token) { create(:token, user: user, status: token_status) }
+    let(:access_token) do
+      JWT.encode(
+        {
+          user_id: user.id,
+          exp: 2.days.from_now.to_i,
+          jti: token.jwt_id
+        },
+        Figaro.env.secret_key_base
+      )
+    end
 
     context 'and the access_token is valid' do
-      let(:token) { create(:token, user: user, status: :active) }
-      let(:access_token) do
-        JWT.encode(
-          {
-            user_id: user.id,
-            exp: 2.days.from_now.to_i,
-            jti: token.jwt_id
-          },
-          Figaro.env.secret_key_base
-        )
-      end
+      let(:token_status) { :active }
 
       it do
-        expect(subject.call).to match_array([user, token])
+        expect(subject.call(access_token)).to match_array([user, token])
       end
     end
 
     context 'and the token have a revoked status' do
-      let(:token) { create(:token, user: user, status: :revoked) }
-      let(:access_token) do
-        JWT.encode(
-          {
-            user_id: user.id,
-            exp: 2.days.from_now.to_i,
-            jti: token.jwt_id
-          },
-          Figaro.env.secret_key_base
-        )
-      end
+      let(:token_status) { :revoked }
 
       it do
-        expect { subject.call }.to raise_error(Jwt::Errors::RevokedToken)
+        expect { subject.call(access_token) }.to raise_error(Jwt::Errors::RevokedToken)
       end
     end
   end

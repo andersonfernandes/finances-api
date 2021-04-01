@@ -1,24 +1,13 @@
 module Jwt
   class Authenticator
-    def initialize(headers = {})
-      @headers = headers
-    end
+    def call(access_token)
+      raise Jwt::Errors::MissingToken unless access_token
 
-    def call
-      access_token = access_token_from_header
       decoded_token = Jwt::Decoder.new.call(access_token)
-
       authenticate_user_from_token(decoded_token)
     end
 
     private
-
-    def access_token_from_header
-      authorization_present = @headers['Authorization'].present?
-      raise Jwt::Errors::MissingToken unless authorization_present
-
-      @headers['Authorization'].split(' ').last
-    end
 
     def authenticate_user_from_token(decoded_token)
       jwt_id = decoded_token[:jti]

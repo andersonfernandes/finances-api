@@ -4,7 +4,7 @@ describe Jwt::Refresher do
   let!(:user) { create(:user) }
   let!(:refresh_token) { create(:refresh_token, user: user) }
   let(:access_token) do
-    access_token = JWT.encode(
+    JWT.encode(
       {
         user_id: user.id,
         exp: 2.days.from_now.to_i,
@@ -12,11 +12,9 @@ describe Jwt::Refresher do
       },
       Figaro.env.secret_key_base
     )
-
-    "Bearer #{access_token}"
   end
 
-  subject { described_class.new(user.refresh_token, { 'Authorization' => access_token }) }
+  subject { described_class.new(user.refresh_token, access_token) }
 
   context 'with a valid access_token and refresh_token' do
     let(:user) { create(:user) }
