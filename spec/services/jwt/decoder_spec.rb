@@ -17,7 +17,6 @@ describe Jwt::Decoder do
         user_id: user.id,
         exp: token_expiry_at
       }
-
     end
 
     context 'with an valid access_token' do
