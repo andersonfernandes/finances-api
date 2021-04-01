@@ -12,7 +12,6 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.12'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 6.0', '>= 6.0.3.5'
-gem 'simple_command'
 
 group :development, :test do
   gem 'pry', '~> 0.12.2'
