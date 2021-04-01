@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   apipie
 
   namespace :v1 do
-    post 'authenticate' => 'authentication#authenticate'
+    post 'auth/access_token' => 'authentication#access_token'
 
     resources :accounts, only: %i[index show create update destroy]
     resources :categories, only: %i[index show create update destroy]
