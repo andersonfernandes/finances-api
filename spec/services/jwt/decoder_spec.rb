@@ -12,33 +12,38 @@ describe Jwt::Decoder do
         Figaro.env.secret_key_base
       )
     end
+    let(:valid_token_expected_decode) do
+      {
+        user_id: user.id,
+        exp: token_expiry_at
+      }
+
+    end
 
     context 'with an valid access_token' do
       let(:token_expiry_at) { 2.days.from_now.to_i }
 
-      it do
-        expected_result = {
-          user_id: user.id,
-          exp: 2.days.from_now.to_i
-        }
-
-        expect(subject.call(access_token)).to eq(expected_result)
-      end
+      it { expect(subject.call(access_token)).to eq(valid_token_expected_decode) }
     end
 
     context 'with an invalid access_token' do
       let(:access_token) { 'invalid_access_token' }
 
-      it do
-        expect { subject.call(access_token) }.to raise_error(Jwt::Errors::InvalidToken)
-      end
+      it { expect { subject.call(access_token) }.to raise_error(Jwt::Errors::InvalidToken) }
     end
 
     context 'with an expired access_token' do
       let(:token_expiry_at) { 2.days.ago.to_i }
 
-      it do
-        expect { subject.call(access_token) }.to raise_error(Jwt::Errors::ExpiredToken)
+      context 'and expiration verification set to true' do
+        it { expect { subject.call(access_token) }.to raise_error(Jwt::Errors::ExpiredToken) }
+      end
+
+      context 'and expiration verification set to false' do
+        it do
+          expect(subject.call(access_token, verify_expiration: false))
+            .to eq(valid_token_expected_decode)
+        end
       end
     end
   end
