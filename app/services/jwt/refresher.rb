@@ -1,12 +1,7 @@
 module Jwt
   class Refresher
-    def initialize(refresh_token, access_token)
-      @refresh_token = refresh_token
-      @access_token = access_token
-    end
-
-    def call
-      user, token = Jwt::Authenticator.new.call(@access_token)
+    def call(refresh_token, access_token)
+      user, token = Jwt::Authenticator.new.call(access_token)
       raise Jwt::Errors::InvalidRefreshToken unless user.refresh_token
 
       token.update(status: :revoked)

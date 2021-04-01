@@ -14,22 +14,20 @@ describe Jwt::Refresher do
     )
   end
 
-  subject { described_class.new(user.refresh_token, access_token) }
-
   context 'with a valid access_token and refresh_token' do
     let(:user) { create(:user) }
     let!(:token) { create(:token, user: user, status: :active) }
 
     it 'the refresh_token should not change' do
-      expect(subject.call).to include(refresh_token: user.refresh_token.encrypted_token)
+      expect(subject.call(user.refresh_token, access_token)).to include(refresh_token: user.refresh_token.encrypted_token)
     end
 
     it 'a new token should be created on the database' do
-      expect { subject.call }.to change { Token.count }.from(1).to(2)
+      expect { subject.call(user.refresh_token, access_token) }.to change { Token.count }.from(1).to(2)
     end
 
     it 'the old token should be revoked' do
-      subject.call
+      subject.call(user.refresh_token, access_token)
       expect(token.reload.status).to eq('revoked')
     end
   end
@@ -38,7 +36,7 @@ describe Jwt::Refresher do
     let!(:token) { create(:token, user: user, status: :revoked) }
 
     it do
-      expect { subject.call }.to raise_error(Jwt::Errors::RevokedToken)
+      expect { subject.call(user.refresh_token, access_token) }.to raise_error(Jwt::Errors::RevokedToken)
     end
   end
 
@@ -48,7 +46,7 @@ describe Jwt::Refresher do
     before { user.refresh_token.destroy }
 
     it do
-      expect { subject.call }.to raise_error(Jwt::Errors::InvalidRefreshToken)
+      expect { subject.call(user.refresh_token, access_token) }.to raise_error(Jwt::Errors::InvalidRefreshToken)
     end
   end
 end
