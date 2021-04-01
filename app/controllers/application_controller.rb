@@ -2,20 +2,20 @@ class ApplicationController < ActionController::API
   before_action :authenticate_request
   attr_reader :current_user
 
+  rescue_from Jwt::Errors::InvalidToken do
+    render error_response(:unauthorized)
+  end
+
   rescue_from ActiveRecord::RecordNotFound do |e|
     render error_response(:not_found, e.message)
   end
 
-  rescue_from Apipie::ParamMissing do |e|
+  rescue_from Apipie::ParamMissing, Jwt::Errors::MissingToken do |e|
     render error_response(:bad_request, e.message)
   end
 
   rescue_from Apipie::ParamInvalid do |e|
     render error_response(:unprocessable_entity, e.message)
-  end
-
-  rescue_from Jwt::Errors::InvalidToken do
-    render error_response(:unauthorized)
   end
 
   def error_response(http_error, errors = {})
