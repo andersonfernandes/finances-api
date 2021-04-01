@@ -14,7 +14,7 @@ module Jwt
     private
 
     def access_token
-      ::Jwt::Encoder.new(@user).call
+      Jwt::Encoder.new.call(@user)
     end
 
     def refresh_token
