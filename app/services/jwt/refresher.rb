@@ -10,7 +10,7 @@ module Jwt
       raise Jwt::Errors::InvalidRefreshToken unless user.refresh_token
 
       token.update(status: :revoked)
-      Jwt::Issuer.new(user).call
+      Jwt::Issuer.new.call(user)
     end
   end
 end

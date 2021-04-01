@@ -1,26 +1,22 @@
 module Jwt
   class Issuer
-    def initialize(user)
-      @user = user
-    end
-
-    def call
+    def call(user)
       {
-        access_token: access_token,
-        refresh_token: refresh_token
+        access_token: access_token(user),
+        refresh_token: refresh_token(user)
       }
     end
 
     private
 
-    def access_token
-      Jwt::Encoder.new.call(@user)
+    def access_token(user)
+      Jwt::Encoder.new.call(user)
     end
 
-    def refresh_token
-      return @user.refresh_token.encrypted_token if @user.refresh_token
+    def refresh_token(user)
+      return user.refresh_token.encrypted_token if user.refresh_token
 
-      refresh_token = @user.create_refresh_token
+      refresh_token = user.create_refresh_token
       refresh_token.encrypted_token
     end
   end
