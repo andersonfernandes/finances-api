@@ -5,7 +5,7 @@ RSpec.describe V1::CategoriesController, '#create', type: :request do
   let(:user) { create(:user) }
 
   let(:params) { { description: 'Category A' } }
-  let(:headers) { authorization_header(user.id) }
+  let(:headers) { authorization_header(user) }
 
   before do
     setup

@@ -7,7 +7,7 @@ RSpec.describe V1::CategoriesController, '#update', type: :request do
   end
 
   let(:params) { { description: 'Category A' } }
-  let(:headers) { authorization_header(user.id) }
+  let(:headers) { authorization_header(user) }
 
   before { put v1_category_path(category), params: params, headers: headers }
 

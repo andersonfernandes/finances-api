@@ -7,7 +7,7 @@ RSpec.describe V1::CategoriesController, '#index', type: :request do
   let!(:category_02) { create(:category, user: user_02) }
   let!(:category_03) { create(:category, user: user_01) }
 
-  let(:headers) { authorization_header(user_01.id) }
+  let(:headers) { authorization_header(user_01) }
 
   before { get v1_categories_path, headers: headers }
 

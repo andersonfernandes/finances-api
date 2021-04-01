@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe V1::AuthenticationController, '#access_token', type: :request do
   let(:params) { { email: email, password: password } }
   let(:body) { JSON.parse(response.body) }
-  let(:setup) { }
+  let(:setup) {}
 
   before do
     setup

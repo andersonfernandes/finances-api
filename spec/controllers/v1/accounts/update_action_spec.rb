@@ -16,7 +16,7 @@ RSpec.describe V1::AccountsController, '#update',
       initial_amount: Faker::Commerce.price
     }
   end
-  let(:headers) { authorization_header(user.id) }
+  let(:headers) { authorization_header(user) }
 
   before do
     put(v1_account_path(account), params: params, headers: headers)

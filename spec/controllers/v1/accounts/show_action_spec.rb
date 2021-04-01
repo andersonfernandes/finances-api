@@ -4,7 +4,7 @@ RSpec.describe V1::AccountsController, '#show', type: :request do
   let(:user) { create(:user) }
   let(:account) { create(:account, user: user) }
 
-  let(:headers) { authorization_header(user.id) }
+  let(:headers) { authorization_header(user) }
 
   before { get v1_account_path(account), headers: headers }
 

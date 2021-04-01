@@ -6,7 +6,7 @@ RSpec.describe V1::AccountsController, '#destroy',
   let(:user) { create(:user) }
   let(:account) { create(:account, user: user) }
 
-  let(:headers) { authorization_header(user.id) }
+  let(:headers) { authorization_header(user) }
 
   before { delete v1_account_path(account), headers: headers }
 

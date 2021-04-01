@@ -7,7 +7,7 @@ RSpec.describe V1::FinancialInstitutionsController, '#index', type: :request do
   let!(:financial_institution_02) { create(:financial_institution) }
   let!(:financial_institution_03) { create(:financial_institution) }
 
-  let(:headers) { authorization_header(user.id) }
+  let(:headers) { authorization_header(user) }
 
   before { get v1_financial_institutions_path, headers: headers }
 

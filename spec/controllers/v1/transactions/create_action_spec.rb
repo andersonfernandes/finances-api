@@ -18,7 +18,7 @@ RSpec.describe V1::TransactionsController, '#create',
       account_id: account.id
     }
   end
-  let(:headers) { authorization_header(user.id) }
+  let(:headers) { authorization_header(user) }
 
   before do
     setup

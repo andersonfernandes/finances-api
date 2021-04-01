@@ -9,9 +9,11 @@ RSpec.describe V1::TransactionsController, '#index',
   let!(:transaction_02) { create(:transaction, account: create(:account, user: user_02)) }
   let!(:transaction_03) { create(:transaction, account: create(:account, user: user_01)) }
 
-  let(:headers) { authorization_header(user_01.id) }
+  let(:headers) { authorization_header(user_01) }
 
   before { get v1_transactions_path, headers: headers }
+
+  include_context 'when the user is not authenticated'
 
   context 'when the user is authenticated' do
     context 'when have 3 transactions and 2 belongs to the user' do
@@ -35,11 +37,5 @@ RSpec.describe V1::TransactionsController, '#index',
           .and include('account' => transaction_03.account.to_response)
       end
     end
-  end
-
-  context 'when the user is not authenticated' do
-    let(:headers) { {} }
-    it { expect(response).to have_http_status(:unauthorized) }
-    it { expect(body).to include('message' => 'Unauthorized') }
   end
 end

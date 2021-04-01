@@ -14,6 +14,10 @@ class ApplicationController < ActionController::API
     render error_response(:unprocessable_entity, e.message)
   end
 
+  rescue_from Jwt::Errors::InvalidToken do
+    render error_response(:unauthorized)
+  end
+
   def error_response(http_error, errors = {})
     template = error_template(http_error, errors)
     return { json: {}, status: :internal_server_error } if template.nil?
@@ -24,8 +28,11 @@ class ApplicationController < ActionController::API
   private
 
   def authenticate_request
-    @current_user = Users::Authorize.call(request.headers).result
-    render error_response(:unauthorized) unless @current_user
+    @current_user, = Jwt::Authenticator.new.call(access_token_from_auth_header)
+  end
+
+  def access_token_from_auth_header
+    request.headers.fetch('Authorization', '').split(' ').last
   end
 
   def error_template(http_error, errors)

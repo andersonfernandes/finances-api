@@ -6,7 +6,7 @@ RSpec.describe V1::TransactionsController, '#show',
   let(:user) { create(:user) }
   let(:transaction) { create(:transaction, account: create(:account, user: user)) }
 
-  let(:headers) { authorization_header(user.id) }
+  let(:headers) { authorization_header(user) }
 
   before { get v1_transaction_path(transaction), headers: headers }
 

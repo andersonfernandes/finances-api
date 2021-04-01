@@ -1,7 +1,12 @@
 module RequestHelpers
-  def authorization_header(user_id)
-    token = JsonWebToken.encode(user_id: user_id)
-    { 'Authorization' => token }
+  def authorization_header(user)
+    token = create(:token, user: user, status: :active)
+    access_token = JWT.encode(
+      token.access_token_payload,
+      Figaro.env.secret_key_base
+    )
+
+    { 'Authorization' => "Bearer #{access_token}" }
   end
 
   def response_body
