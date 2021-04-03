@@ -1309,7 +1309,7 @@
         "description": ""
       }
     },
-    "/v1/authenticate": {
+    "/v1/auth/access_token": {
       "post": {
         "tags": [
           "authentication"
@@ -1318,8 +1318,8 @@
           "application/x-www-form-urlencoded",
           "multipart/form-data"
         ],
-        "operationId": "post_v1_authenticate",
-        "summary": "Authenticates the user to the application",
+        "operationId": "post_v1_auth_access_token",
+        "summary": "Issue a new set of access_token and refresh_token",
         "parameters": [
           {
             "name": "password",
@@ -1348,14 +1348,78 @@
             "schema": {
               "type": "object",
               "properties": {
-                "token": {
+                "access_token": {
                   "type": "string",
-                  "description": "Authenticated user token"
+                  "description": "Authenticated user access token"
+                },
+                "refresh_token": {
+                  "type": "string",
+                  "description": "Authenticated user refresh token"
                 }
               },
               "additionalProperties": false,
               "required": [
-                "token"
+                "access_token",
+                "refresh_token"
+              ]
+            }
+          }
+        },
+        "description": ""
+      }
+    },
+    "/v1/auth/refresh_token": {
+      "post": {
+        "tags": [
+          "authentication"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "operationId": "post_v1_auth_refresh_token",
+        "summary": "Re-issue a new set of access_token and refresh_token",
+        "parameters": [
+          {
+            "name": "refresh_token",
+            "type": "string",
+            "in": "formData",
+            "required": true,
+            "description": "User refresh token"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "access_token": {
+                  "type": "string",
+                  "description": "New access token"
+                },
+                "refresh_token": {
+                  "type": "string",
+                  "description": "User refresh token"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "access_token",
+                "refresh_token"
               ]
             }
           }

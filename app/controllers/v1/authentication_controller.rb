@@ -9,12 +9,12 @@ module V1
       formats ['json']
     end
 
-    api :POST, '/v1/auth/access_token', 'Issue a new access_token'
+    api :POST, '/v1/auth/access_token', 'Issue a new set of access_token and refresh_token'
     param :email, String, desc: 'User email', required: true
     param :password, String, desc: 'User password', required: true
     returns code: 200, desc: 'Successful response' do
       property :access_token, String, desc: 'Authenticated user access token'
-      property :refresh_token, String, desc: 'Authenticated user token refresh token'
+      property :refresh_token, String, desc: 'Authenticated user refresh token'
     end
     def access_token
       user = authenticate_user
@@ -25,6 +25,22 @@ module V1
       else
         render error_response(:unauthorized)
       end
+    end
+
+    api :POST, '/v1/auth/refresh_token', 'Re-issue a new set of access_token and refresh_token'
+    param :refresh_token, String, desc: 'User refresh token', required: true
+    header 'Authentication', 'User access token', required: true
+    returns code: 200, desc: 'Successful response' do
+      property :access_token, String, desc: 'New access token'
+      property :refresh_token, String, desc: 'User refresh token'
+    end
+    def refresh_token
+      new_tokens = Jwt::Refresher.new.call(
+        params[:refresh_token],
+        access_token_from_auth_header
+      )
+
+      render json: new_tokens, status: :ok
     end
 
     private

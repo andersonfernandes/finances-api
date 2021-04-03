@@ -10,7 +10,9 @@ class ApplicationController < ActionController::API
     render error_response(:not_found, e.message)
   end
 
-  rescue_from Apipie::ParamMissing, Jwt::Errors::MissingToken do |e|
+  rescue_from Apipie::ParamMissing,
+              Jwt::Errors::MissingToken,
+              Jwt::Errors::MissingRefreshToken do |e|
     render error_response(:bad_request, e.message)
   end
 

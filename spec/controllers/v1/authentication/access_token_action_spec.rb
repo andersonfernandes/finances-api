@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe V1::AuthenticationController, '#access_token', type: :request do
   let(:params) { { email: email, password: password } }
-  let(:body) { JSON.parse(response.body) }
   let(:setup) {}
 
   before do
@@ -32,7 +31,7 @@ RSpec.describe V1::AuthenticationController, '#access_token', type: :request do
       )
       expected_refresh_token = RefreshToken.last.encrypted_token
 
-      expect(body).to include('access_token' => expected_access_token)
+      expect(response_body).to include('access_token' => expected_access_token)
         .and include('refresh_token' => expected_refresh_token)
     end
   end
@@ -43,6 +42,6 @@ RSpec.describe V1::AuthenticationController, '#access_token', type: :request do
 
     it { expect(response).to have_http_status(:unauthorized) }
 
-    it { expect(body).to include('message' => 'Unauthorized') }
+    it { expect(response_body).to include('message' => 'Unauthorized') }
   end
 end

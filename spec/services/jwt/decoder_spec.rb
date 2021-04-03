@@ -32,7 +32,7 @@ describe Jwt::Decoder do
     end
 
     context 'with a nil access_token' do
-      let(:access_token) { nil } 
+      let(:access_token) { nil }
 
       it { expect { subject.call(access_token) }.to raise_error(Jwt::Errors::MissingToken) }
     end
