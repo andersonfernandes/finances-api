@@ -47,7 +47,7 @@ describe Jwt::Refresher do
 
     it do
       expect { subject.call(refresh_token, access_token) }
-        .to raise_error(Jwt::Errors::InvalidRefreshToken)
+        .to raise_error(Jwt::Errors::MissingRefreshToken)
     end
   end
 end

@@ -12,7 +12,7 @@ module Jwt
 
     def user_by_refresh_token(refresh_token)
       refresh_token = RefreshToken.find_by(encrypted_token: refresh_token)&.user
-      raise Jwt::Errors::InvalidRefreshToken unless refresh_token
+      raise Jwt::Errors::MissingRefreshToken unless refresh_token
 
       refresh_token
     end

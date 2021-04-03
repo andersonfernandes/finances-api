@@ -6,12 +6,6 @@ module Jwt
       end
     end
 
-    class MissingToken < StandardError
-      def message
-        'Missing Access Token'
-      end
-    end
-
     class ExpiredToken < StandardError
       def message
         'Expired Access Token'
@@ -24,9 +18,15 @@ module Jwt
       end
     end
 
-    class InvalidRefreshToken < StandardError
+    class MissingToken < StandardError
       def message
-        'Invalid Refresh Token'
+        'Missing Access Token'
+      end
+    end
+
+    class MissingRefreshToken < StandardError
+      def message
+        'Missing Refresh Token'
       end
     end
   end
