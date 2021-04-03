@@ -31,6 +31,12 @@ describe Jwt::Decoder do
       it { expect { subject.call(access_token) }.to raise_error(Jwt::Errors::InvalidToken) }
     end
 
+    context 'with a nil access_token' do
+      let(:access_token) { nil } 
+
+      it { expect { subject.call(access_token) }.to raise_error(Jwt::Errors::MissingToken) }
+    end
+
     context 'with an expired access_token' do
       let(:token_expiry_at) { 2.days.ago.to_i }
 
