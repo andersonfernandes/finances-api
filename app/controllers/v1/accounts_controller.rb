@@ -28,6 +28,7 @@ module V1
     end
 
     api :GET, '/v1/accounts', 'List all user accounts'
+    header 'Authentication', 'User access token', required: true
     returns array_of: :account, code: 200, desc: 'Successful response'
     def index
       accounts = Account.where(user_id: current_user.id)
@@ -36,6 +37,7 @@ module V1
     end
 
     api :GET, '/v1/accounts/:id', 'Returns an account'
+    header 'Authentication', 'User access token', required: true
     param :id, :number, desc: 'Transaction id'
     returns code: 200, desc: 'Successful response' do
       param_group :account
@@ -45,6 +47,7 @@ module V1
     end
 
     api :POST, '/v1/accounts', 'Creates a account'
+    header 'Authentication', 'User access token', required: true
     param :name, String, desc: 'Account name',
                          required: false,
                          default_value: nil
@@ -71,6 +74,7 @@ module V1
     end
 
     api :PUT, '/v1/accounts/:id', 'Updates a account'
+    header 'Authentication', 'User access token', required: true
     param :id, :number, desc: 'Account id', required: true
     param :name, String, desc: 'Account name',
                          required: false,
@@ -102,6 +106,7 @@ module V1
     end
 
     api :DELETE, '/v1/accounts/:id', 'Delete a account'
+    header 'Authentication', 'User access token', required: true
     param :id, :number, desc: 'Account id'
     returns code: 204, desc: 'Successful response'
     def destroy

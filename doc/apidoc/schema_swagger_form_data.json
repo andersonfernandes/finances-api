@@ -24,7 +24,13 @@
         "operationId": "get_v1_categories",
         "summary": "List all categories",
         "parameters": [
-
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
         ],
         "responses": {
           "401": {
@@ -75,6 +81,13 @@
             "in": "formData",
             "description": "Parent category id",
             "default": null
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -169,6 +182,13 @@
             "in": "path",
             "required": true,
             "description": "Category id"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -268,6 +288,13 @@
             "in": "path",
             "required": true,
             "description": "Category id"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -360,6 +387,13 @@
             "in": "path",
             "required": true,
             "description": "Category id"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -394,7 +428,13 @@
         "operationId": "get_v1_transactions",
         "summary": "List all transactions",
         "parameters": [
-
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
         ],
         "responses": {
           "401": {
@@ -475,6 +515,13 @@
             "in": "formData",
             "required": true,
             "description": "Transaction description"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -590,6 +637,13 @@
             "in": "path",
             "required": true,
             "description": "Transaction id"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -741,6 +795,13 @@
             "type": "number",
             "in": "formData",
             "default": null
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -854,6 +915,13 @@
             "in": "path",
             "required": true,
             "description": "Transaction id"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -888,7 +956,13 @@
         "operationId": "get_v1_accounts",
         "summary": "List all user accounts",
         "parameters": [
-
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
         ],
         "responses": {
           "401": {
@@ -964,6 +1038,13 @@
             "in": "formData",
             "description": "Financial Institution id",
             "default": null
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1060,6 +1141,13 @@
             "in": "path",
             "required": true,
             "description": "Transaction id"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1193,6 +1281,13 @@
             "in": "formData",
             "description": "Account related financial_institution id",
             "default": false
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1287,6 +1382,13 @@
             "in": "path",
             "required": true,
             "description": "Account id"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1473,7 +1575,13 @@
         "operationId": "get_v1_financial_institutions",
         "summary": "List all financial institutions",
         "parameters": [
-
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
         ],
         "responses": {
           "401": {
@@ -1519,6 +1627,13 @@
             "in": "path",
             "required": true,
             "description": "Financial Institution id"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
