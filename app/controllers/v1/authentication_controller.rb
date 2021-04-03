@@ -43,6 +43,14 @@ module V1
       render json: new_tokens, status: :ok
     end
 
+    api :POST, '/v1/auth/revoke', 'Revoke the given access token'
+    header 'Authentication', 'User access token', required: true
+    returns code: 204, desc: 'Successful response'
+    def revoke
+      Jwt::Revoker.new.call(access_token_from_auth_header)
+      render status: :no_content
+    end
+
     private
 
     def authenticate_user
