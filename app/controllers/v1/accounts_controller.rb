@@ -82,8 +82,7 @@ module V1
     param :description, String, desc: 'Account description',
                                 required: false,
                                 default_value: nil
-    param :account_type, Account.account_types.keys, required: false,
-                                                     default_value: nil
+    param :account_type, Account.account_types.keys, required: false
     param :initial_amount, :decimal, desc: 'Account initial amount',
                                      required: false,
                                      default_value: nil

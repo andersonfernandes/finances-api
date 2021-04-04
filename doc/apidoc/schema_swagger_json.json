@@ -1,15 +1,14 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Finances API (params in:formData)",
-    "description": "\n<p>Another API description</p>\n",
+    "title": "Finances API (params in:body)",
+    "description": "\n<p>Financial management API</p>\n",
     "version": "1.0",
     "x-copyright": null
   },
   "basePath": "",
   "consumes": [
-    "application/x-www-form-urlencoded",
-    "multipart/form-data"
+    "application/json"
   ],
   "paths": {
     "/v1/categories": {
@@ -18,8 +17,7 @@
           "categories"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "get_v1_categories",
         "summary": "List all categories",
@@ -62,25 +60,32 @@
           "categories"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "post_v1_categories",
         "summary": "Creates a category",
         "parameters": [
           {
-            "name": "description",
-            "type": "string",
-            "in": "formData",
-            "required": true,
-            "description": "Category description"
-          },
-          {
-            "name": "parent_category_id",
-            "type": "number",
-            "in": "formData",
-            "description": "Parent category id",
-            "default": null
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "description": "Category description"
+                },
+                "parent_category_id": {
+                  "type": "number",
+                  "description": "Parent category id",
+                  "default": null
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "description"
+              ]
+            }
           },
           {
             "name": "Authentication",
@@ -170,8 +175,7 @@
           "categories"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "get_v1_categories_id",
         "summary": "Returns a category",
@@ -269,25 +273,34 @@
           "categories"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "put_v1_categories_id",
         "summary": "Updates a category",
         "parameters": [
-          {
-            "name": "description",
-            "type": "string",
-            "in": "formData",
-            "required": true,
-            "description": "Category description"
-          },
           {
             "name": "id",
             "type": "number",
             "in": "path",
             "required": true,
             "description": "Category id"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "description": "Category description"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "description"
+              ]
+            }
           },
           {
             "name": "Authentication",
@@ -375,8 +388,7 @@
           "categories"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "delete_v1_categories_id",
         "summary": "Delete a category",
@@ -422,8 +434,7 @@
           "transactions"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "get_v1_transactions",
         "summary": "List all transactions",
@@ -466,55 +477,54 @@
           "transactions"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "post_v1_transactions",
         "summary": "Creates a transaction",
         "parameters": [
           {
-            "name": "account_id",
-            "type": "number",
-            "in": "formData",
-            "required": true
-          },
-          {
-            "name": "category_id",
-            "type": "number",
-            "in": "formData",
-            "required": true
-          },
-          {
-            "name": "transaction_type",
-            "type": "string",
-            "enum": [
-              "income",
-              "expense",
-              "transfer"
-            ],
-            "in": "formData",
-            "required": true
-          },
-          {
-            "name": "spent_at",
-            "type": "string",
-            "in": "formData",
-            "required": true,
-            "description": "Date in ISO-8601 format"
-          },
-          {
-            "name": "amount",
-            "type": "string",
-            "in": "formData",
-            "required": true,
-            "description": "Amount spent"
-          },
-          {
-            "name": "description",
-            "type": "string",
-            "in": "formData",
-            "required": true,
-            "description": "Transaction description"
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "description": "Transaction description"
+                },
+                "amount": {
+                  "type": "string",
+                  "description": "Amount spent"
+                },
+                "spent_at": {
+                  "type": "string",
+                  "description": "Date in ISO-8601 format"
+                },
+                "transaction_type": {
+                  "type": "string",
+                  "enum": [
+                    "income",
+                    "expense",
+                    "transfer"
+                  ]
+                },
+                "category_id": {
+                  "type": "number"
+                },
+                "account_id": {
+                  "type": "number"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "description",
+                "amount",
+                "spent_at",
+                "transaction_type",
+                "category_id",
+                "account_id"
+              ]
+            }
           },
           {
             "name": "Authentication",
@@ -625,8 +635,7 @@
           "transactions"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "get_v1_transactions_id",
         "summary": "Returns a transaction",
@@ -745,8 +754,7 @@
           "transactions"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "put_v1_transactions_id",
         "summary": "Updates a transaction",
@@ -759,42 +767,41 @@
             "description": "Transaction id"
           },
           {
-            "name": "description",
-            "type": "string",
-            "in": "formData",
-            "description": "Transaction description",
-            "default": null
-          },
-          {
-            "name": "amount",
-            "type": "string",
-            "in": "formData",
-            "description": "Amount spent",
-            "default": null
-          },
-          {
-            "name": "spent_at",
-            "type": "string",
-            "in": "formData",
-            "description": "Date in ISO-8601 format",
-            "default": null
-          },
-          {
-            "name": "transaction_type",
-            "type": "string",
-            "enum": [
-              "income",
-              "expense",
-              "transfer"
-            ],
-            "in": "formData",
-            "default": null
-          },
-          {
-            "name": "category_id",
-            "type": "number",
-            "in": "formData",
-            "default": null
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "description": "Transaction description",
+                  "default": null
+                },
+                "amount": {
+                  "type": "string",
+                  "description": "Amount spent",
+                  "default": null
+                },
+                "spent_at": {
+                  "type": "string",
+                  "description": "Date in ISO-8601 format",
+                  "default": null
+                },
+                "transaction_type": {
+                  "type": "string",
+                  "enum": [
+                    "income",
+                    "expense",
+                    "transfer"
+                  ]
+                },
+                "category_id": {
+                  "type": "number",
+                  "default": null
+                }
+              },
+              "additionalProperties": false
+            }
           },
           {
             "name": "Authentication",
@@ -903,8 +910,7 @@
           "transactions"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "delete_v1_transactions_id",
         "summary": "Delete a transaction",
@@ -950,8 +956,7 @@
           "accounts"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "get_v1_accounts",
         "summary": "List all user accounts",
@@ -994,50 +999,51 @@
           "accounts"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "post_v1_accounts",
         "summary": "Creates a account",
         "parameters": [
           {
-            "name": "initial_amount",
-            "type": "string",
-            "in": "formData",
-            "required": true,
-            "description": "Account initial amount"
-          },
-          {
-            "name": "account_type",
-            "type": "string",
-            "enum": [
-              "checking",
-              "savings",
-              "other"
-            ],
-            "in": "formData",
-            "required": true
-          },
-          {
-            "name": "name",
-            "type": "string",
-            "in": "formData",
-            "description": "Account name",
-            "default": null
-          },
-          {
-            "name": "description",
-            "type": "string",
-            "in": "formData",
-            "description": "Account description",
-            "default": null
-          },
-          {
-            "name": "financial_institution_id",
-            "type": "number",
-            "in": "formData",
-            "description": "Financial Institution id",
-            "default": null
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Account name",
+                  "default": null
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Account description",
+                  "default": null
+                },
+                "account_type": {
+                  "type": "string",
+                  "enum": [
+                    "checking",
+                    "savings",
+                    "other"
+                  ]
+                },
+                "initial_amount": {
+                  "type": "string",
+                  "description": "Account initial amount"
+                },
+                "financial_institution_id": {
+                  "type": "number",
+                  "description": "Financial Institution id",
+                  "default": null
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "account_type",
+                "initial_amount"
+              ]
+            }
           },
           {
             "name": "Authentication",
@@ -1129,8 +1135,7 @@
           "accounts"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "get_v1_accounts_id",
         "summary": "Returns an account",
@@ -1230,8 +1235,7 @@
           "accounts"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "put_v1_accounts_id",
         "summary": "Updates a account",
@@ -1244,43 +1248,42 @@
             "description": "Account id"
           },
           {
-            "name": "name",
-            "type": "string",
-            "in": "formData",
-            "description": "Account name",
-            "default": null
-          },
-          {
-            "name": "description",
-            "type": "string",
-            "in": "formData",
-            "description": "Account description",
-            "default": null
-          },
-          {
-            "name": "account_type",
-            "type": "string",
-            "enum": [
-              "checking",
-              "savings",
-              "other"
-            ],
-            "in": "formData",
-            "default": null
-          },
-          {
-            "name": "initial_amount",
-            "type": "string",
-            "in": "formData",
-            "description": "Account initial amount",
-            "default": null
-          },
-          {
-            "name": "financial_institution_id",
-            "type": "number",
-            "in": "formData",
-            "description": "Account related financial_institution id",
-            "default": false
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Account name",
+                  "default": null
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Account description",
+                  "default": null
+                },
+                "account_type": {
+                  "type": "string",
+                  "enum": [
+                    "checking",
+                    "savings",
+                    "other"
+                  ]
+                },
+                "initial_amount": {
+                  "type": "string",
+                  "description": "Account initial amount",
+                  "default": null
+                },
+                "financial_institution_id": {
+                  "type": "number",
+                  "description": "Account related financial_institution id",
+                  "default": false
+                }
+              },
+              "additionalProperties": false
+            }
           },
           {
             "name": "Authentication",
@@ -1370,8 +1373,7 @@
           "accounts"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "delete_v1_accounts_id",
         "summary": "Delete a account",
@@ -1417,25 +1419,32 @@
           "authentication"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "post_v1_auth_access_token",
         "summary": "Issue a new set of access_token and refresh_token",
         "parameters": [
           {
-            "name": "password",
-            "type": "string",
-            "in": "formData",
-            "required": true,
-            "description": "User password"
-          },
-          {
-            "name": "email",
-            "type": "string",
-            "in": "formData",
-            "required": true,
-            "description": "User email"
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "description": "User email"
+                },
+                "password": {
+                  "type": "string",
+                  "description": "User password"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "email",
+                "password"
+              ]
+            }
           }
         ],
         "responses": {
@@ -1476,18 +1485,27 @@
           "authentication"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "post_v1_auth_refresh_token",
         "summary": "Re-issue a new set of access_token and refresh_token",
         "parameters": [
           {
-            "name": "refresh_token",
-            "type": "string",
-            "in": "formData",
-            "required": true,
-            "description": "User refresh token"
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "refresh_token": {
+                  "type": "string",
+                  "description": "User refresh token"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "refresh_token"
+              ]
+            }
           },
           {
             "name": "Authentication",
@@ -1535,8 +1553,7 @@
           "authentication"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "post_v1_auth_revoke",
         "summary": "Revoke the given access token",
@@ -1569,8 +1586,7 @@
           "financial_institutions"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "get_v1_financial_institutions",
         "summary": "List all financial institutions",
@@ -1615,8 +1631,7 @@
           "financial_institutions"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "get_v1_financial_institutions_id",
         "summary": "Returns a financial institutions",
@@ -1912,5 +1927,5 @@
       "description": ""
     }
   ],
-  "host": "localhost:3000"
+  "host": "financesapi.herokuapp.com"
 }

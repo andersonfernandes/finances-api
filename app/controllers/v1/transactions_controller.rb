@@ -89,8 +89,7 @@ module V1
                                     required: false,
                                     base_class: Date,
                                     default_value: nil
-    param :transaction_type, Transaction.transaction_types.keys, required: false,
-                                                                 default_value: nil
+    param :transaction_type, Transaction.transaction_types.keys, required: false
     param :category_id, :number, required: false, default_value: nil
     returns code: 200, desc: 'Successful response' do
       param_group :transaction
