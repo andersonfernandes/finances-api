@@ -11,7 +11,7 @@ gem 'jwt'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.12'
 gem 'rack-cors', require: 'rack/cors'
-gem 'rails', '~> 6.0', '>= 6.0.3.5'
+gem 'rails', '~> 6.1', '>= 6.1.3.1'
 
 group :development, :test do
   gem 'pry', '~> 0.12.2'
@@ -22,7 +22,7 @@ group :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'rails-controller-testing'
-  gem 'rspec-rails', '~> 3.8'
+  gem 'rspec-rails', '~> 4.1', '>= 4.1.2'
   gem 'shoulda-matchers'
 end
 
