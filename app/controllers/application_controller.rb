@@ -4,7 +4,8 @@ class ApplicationController < ActionController::API
 
   rescue_from Jwt::Errors::InvalidToken,
               Jwt::Errors::MissingToken,
-              Jwt::Errors::ExpiredToken do |e|
+              Jwt::Errors::ExpiredToken,
+              Jwt::Errors::RevokedToken do |e|
     response.headers['WWW-Authenticate'] = build_authenticate_header(e.class.to_s)
     render error_response(:unauthorized, e.message)
   end
@@ -51,11 +52,13 @@ class ApplicationController < ActionController::API
   def header_signature_error(error_class)
     invalid_token_error = { key: 'invalid_token', description: 'Invalid access token' }
     expired_token_error = { key: 'expired_token', description: 'Access token expired' }
+    revoked_token_error = { key: 'revoked_token', description: 'Access token revoked' }
 
     signature_error_by_class = {
       'Jwt::Errors::MissingToken' => invalid_token_error,
       'Jwt::Errors::InvalidToken' => invalid_token_error,
-      'Jwt::Errors::ExpiredToken' => expired_token_error
+      'Jwt::Errors::ExpiredToken' => expired_token_error,
+      'Jwt::Errors::RevokedToken' => revoked_token_error
     }
 
     signature_error_by_class[error_class]
