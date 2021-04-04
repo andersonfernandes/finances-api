@@ -23,7 +23,7 @@ module V1
         issued_tokens = Jwt::Issuer.new.call(user)
         render json: issued_tokens, status: :ok
       else
-        render error_response(:unauthorized)
+        render error_response(:unauthorized, 'Invalid Credentials')
       end
     end
 
