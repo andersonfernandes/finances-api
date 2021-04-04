@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: redirect('/documentation')
   apipie
 
   namespace :v1 do
