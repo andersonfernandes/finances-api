@@ -1,15 +1,14 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Finances API (params in:formData)",
-    "description": "\n<p>Another API description</p>\n",
+    "title": "Finances API (params in:body)",
+    "description": "\n<p>Financial management API</p>\n",
     "version": "1.0",
     "x-copyright": null
   },
   "basePath": "",
   "consumes": [
-    "application/x-www-form-urlencoded",
-    "multipart/form-data"
+    "application/json"
   ],
   "paths": {
     "/v1/categories": {
@@ -18,13 +17,18 @@
           "categories"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "get_v1_categories",
         "summary": "List all categories",
         "parameters": [
-
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
         ],
         "responses": {
           "401": {
@@ -56,25 +60,39 @@
           "categories"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "post_v1_categories",
         "summary": "Creates a category",
         "parameters": [
           {
-            "name": "description",
-            "type": "string",
-            "in": "formData",
-            "required": true,
-            "description": "Category description"
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "description": "Category description"
+                },
+                "parent_category_id": {
+                  "type": "number",
+                  "description": "Parent category id",
+                  "default": null
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "description"
+              ]
+            }
           },
           {
-            "name": "parent_category_id",
-            "type": "number",
-            "in": "formData",
-            "description": "Parent category id",
-            "default": null
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -157,8 +175,7 @@
           "categories"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "get_v1_categories_id",
         "summary": "Returns a category",
@@ -169,6 +186,13 @@
             "in": "path",
             "required": true,
             "description": "Category id"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -249,25 +273,41 @@
           "categories"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "put_v1_categories_id",
         "summary": "Updates a category",
         "parameters": [
-          {
-            "name": "description",
-            "type": "string",
-            "in": "formData",
-            "required": true,
-            "description": "Category description"
-          },
           {
             "name": "id",
             "type": "number",
             "in": "path",
             "required": true,
             "description": "Category id"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "description": "Category description"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "description"
+              ]
+            }
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -348,8 +388,7 @@
           "categories"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "delete_v1_categories_id",
         "summary": "Delete a category",
@@ -360,6 +399,13 @@
             "in": "path",
             "required": true,
             "description": "Category id"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -388,13 +434,18 @@
           "transactions"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "get_v1_transactions",
         "summary": "List all transactions",
         "parameters": [
-
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
         ],
         "responses": {
           "401": {
@@ -426,55 +477,61 @@
           "transactions"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "post_v1_transactions",
         "summary": "Creates a transaction",
         "parameters": [
           {
-            "name": "account_id",
-            "type": "number",
-            "in": "formData",
-            "required": true
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "description": "Transaction description"
+                },
+                "amount": {
+                  "type": "string",
+                  "description": "Amount spent"
+                },
+                "spent_at": {
+                  "type": "string",
+                  "description": "Date in ISO-8601 format"
+                },
+                "transaction_type": {
+                  "type": "string",
+                  "enum": [
+                    "income",
+                    "expense",
+                    "transfer"
+                  ]
+                },
+                "category_id": {
+                  "type": "number"
+                },
+                "account_id": {
+                  "type": "number"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "description",
+                "amount",
+                "spent_at",
+                "transaction_type",
+                "category_id",
+                "account_id"
+              ]
+            }
           },
           {
-            "name": "category_id",
-            "type": "number",
-            "in": "formData",
-            "required": true
-          },
-          {
-            "name": "transaction_type",
-            "type": "string",
-            "enum": [
-              "income",
-              "expense",
-              "transfer"
-            ],
-            "in": "formData",
-            "required": true
-          },
-          {
-            "name": "spent_at",
-            "type": "string",
-            "in": "formData",
+            "name": "Authentication",
+            "in": "header",
             "required": true,
-            "description": "Date in ISO-8601 format"
-          },
-          {
-            "name": "amount",
-            "type": "string",
-            "in": "formData",
-            "required": true,
-            "description": "Amount spent"
-          },
-          {
-            "name": "description",
-            "type": "string",
-            "in": "formData",
-            "required": true,
-            "description": "Transaction description"
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -578,8 +635,7 @@
           "transactions"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "get_v1_transactions_id",
         "summary": "Returns a transaction",
@@ -590,6 +646,13 @@
             "in": "path",
             "required": true,
             "description": "Transaction id"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -691,8 +754,7 @@
           "transactions"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "put_v1_transactions_id",
         "summary": "Updates a transaction",
@@ -705,42 +767,48 @@
             "description": "Transaction id"
           },
           {
-            "name": "description",
-            "type": "string",
-            "in": "formData",
-            "description": "Transaction description",
-            "default": null
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "description": "Transaction description",
+                  "default": null
+                },
+                "amount": {
+                  "type": "string",
+                  "description": "Amount spent",
+                  "default": null
+                },
+                "spent_at": {
+                  "type": "string",
+                  "description": "Date in ISO-8601 format",
+                  "default": null
+                },
+                "transaction_type": {
+                  "type": "string",
+                  "enum": [
+                    "income",
+                    "expense",
+                    "transfer"
+                  ]
+                },
+                "category_id": {
+                  "type": "number",
+                  "default": null
+                }
+              },
+              "additionalProperties": false
+            }
           },
           {
-            "name": "amount",
-            "type": "string",
-            "in": "formData",
-            "description": "Amount spent",
-            "default": null
-          },
-          {
-            "name": "spent_at",
-            "type": "string",
-            "in": "formData",
-            "description": "Date in ISO-8601 format",
-            "default": null
-          },
-          {
-            "name": "transaction_type",
-            "type": "string",
-            "enum": [
-              "income",
-              "expense",
-              "transfer"
-            ],
-            "in": "formData",
-            "default": null
-          },
-          {
-            "name": "category_id",
-            "type": "number",
-            "in": "formData",
-            "default": null
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -842,8 +910,7 @@
           "transactions"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "delete_v1_transactions_id",
         "summary": "Delete a transaction",
@@ -854,6 +921,13 @@
             "in": "path",
             "required": true,
             "description": "Transaction id"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -882,13 +956,18 @@
           "accounts"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "get_v1_accounts",
         "summary": "List all user accounts",
         "parameters": [
-
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
         ],
         "responses": {
           "401": {
@@ -920,50 +999,58 @@
           "accounts"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "post_v1_accounts",
         "summary": "Creates a account",
         "parameters": [
           {
-            "name": "initial_amount",
-            "type": "string",
-            "in": "formData",
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Account name",
+                  "default": null
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Account description",
+                  "default": null
+                },
+                "account_type": {
+                  "type": "string",
+                  "enum": [
+                    "checking",
+                    "savings",
+                    "other"
+                  ]
+                },
+                "initial_amount": {
+                  "type": "string",
+                  "description": "Account initial amount"
+                },
+                "financial_institution_id": {
+                  "type": "number",
+                  "description": "Financial Institution id",
+                  "default": null
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "account_type",
+                "initial_amount"
+              ]
+            }
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
             "required": true,
-            "description": "Account initial amount"
-          },
-          {
-            "name": "account_type",
-            "type": "string",
-            "enum": [
-              "checking",
-              "savings",
-              "other"
-            ],
-            "in": "formData",
-            "required": true
-          },
-          {
-            "name": "name",
-            "type": "string",
-            "in": "formData",
-            "description": "Account name",
-            "default": null
-          },
-          {
-            "name": "description",
-            "type": "string",
-            "in": "formData",
-            "description": "Account description",
-            "default": null
-          },
-          {
-            "name": "financial_institution_id",
-            "type": "number",
-            "in": "formData",
-            "description": "Financial Institution id",
-            "default": null
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1048,8 +1135,7 @@
           "accounts"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "get_v1_accounts_id",
         "summary": "Returns an account",
@@ -1060,6 +1146,13 @@
             "in": "path",
             "required": true,
             "description": "Transaction id"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1142,8 +1235,7 @@
           "accounts"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "put_v1_accounts_id",
         "summary": "Updates a account",
@@ -1156,43 +1248,49 @@
             "description": "Account id"
           },
           {
-            "name": "name",
-            "type": "string",
-            "in": "formData",
-            "description": "Account name",
-            "default": null
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Account name",
+                  "default": null
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Account description",
+                  "default": null
+                },
+                "account_type": {
+                  "type": "string",
+                  "enum": [
+                    "checking",
+                    "savings",
+                    "other"
+                  ]
+                },
+                "initial_amount": {
+                  "type": "string",
+                  "description": "Account initial amount",
+                  "default": null
+                },
+                "financial_institution_id": {
+                  "type": "number",
+                  "description": "Account related financial_institution id",
+                  "default": false
+                }
+              },
+              "additionalProperties": false
+            }
           },
           {
-            "name": "description",
-            "type": "string",
-            "in": "formData",
-            "description": "Account description",
-            "default": null
-          },
-          {
-            "name": "account_type",
-            "type": "string",
-            "enum": [
-              "checking",
-              "savings",
-              "other"
-            ],
-            "in": "formData",
-            "default": null
-          },
-          {
-            "name": "initial_amount",
-            "type": "string",
-            "in": "formData",
-            "description": "Account initial amount",
-            "default": null
-          },
-          {
-            "name": "financial_institution_id",
-            "type": "number",
-            "in": "formData",
-            "description": "Account related financial_institution id",
-            "default": false
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1275,8 +1373,7 @@
           "accounts"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "delete_v1_accounts_id",
         "summary": "Delete a account",
@@ -1287,6 +1384,13 @@
             "in": "path",
             "required": true,
             "description": "Account id"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1309,31 +1413,38 @@
         "description": ""
       }
     },
-    "/v1/authenticate": {
+    "/v1/auth/access_token": {
       "post": {
         "tags": [
           "authentication"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
-        "operationId": "post_v1_authenticate",
-        "summary": "Authenticates the user to the application",
+        "operationId": "post_v1_auth_access_token",
+        "summary": "Issue a new set of access_token and refresh_token",
         "parameters": [
           {
-            "name": "password",
-            "type": "string",
-            "in": "formData",
-            "required": true,
-            "description": "User password"
-          },
-          {
-            "name": "email",
-            "type": "string",
-            "in": "formData",
-            "required": true,
-            "description": "User email"
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "description": "User email"
+                },
+                "password": {
+                  "type": "string",
+                  "description": "User password"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "email",
+                "password"
+              ]
+            }
           }
         ],
         "responses": {
@@ -1348,16 +1459,122 @@
             "schema": {
               "type": "object",
               "properties": {
-                "token": {
+                "access_token": {
                   "type": "string",
-                  "description": "Authenticated user token"
+                  "description": "Authenticated user access token"
+                },
+                "refresh_token": {
+                  "type": "string",
+                  "description": "Authenticated user refresh token"
                 }
               },
               "additionalProperties": false,
               "required": [
-                "token"
+                "access_token",
+                "refresh_token"
               ]
             }
+          }
+        },
+        "description": ""
+      }
+    },
+    "/v1/auth/refresh_token": {
+      "post": {
+        "tags": [
+          "authentication"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "post_v1_auth_refresh_token",
+        "summary": "Re-issue a new set of access_token and refresh_token",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "refresh_token": {
+                  "type": "string",
+                  "description": "User refresh token"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "refresh_token"
+              ]
+            }
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "access_token": {
+                  "type": "string",
+                  "description": "New access token"
+                },
+                "refresh_token": {
+                  "type": "string",
+                  "description": "User refresh token"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "access_token",
+                "refresh_token"
+              ]
+            }
+          }
+        },
+        "description": ""
+      }
+    },
+    "/v1/auth/revoke": {
+      "post": {
+        "tags": [
+          "authentication"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "post_v1_auth_revoke",
+        "summary": "Revoke the given access token",
+        "parameters": [
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "204": {
+            "description": "Successful response"
           }
         },
         "description": ""
@@ -1369,13 +1586,18 @@
           "financial_institutions"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "get_v1_financial_institutions",
         "summary": "List all financial institutions",
         "parameters": [
-
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
         ],
         "responses": {
           "401": {
@@ -1409,8 +1631,7 @@
           "financial_institutions"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "get_v1_financial_institutions_id",
         "summary": "Returns a financial institutions",
@@ -1421,6 +1642,13 @@
             "in": "path",
             "required": true,
             "description": "Financial Institution id"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1699,5 +1927,5 @@
       "description": ""
     }
   ],
-  "host": "localhost:3000"
+  "host": "financesapi.herokuapp.com"
 }

@@ -6,6 +6,8 @@ RSpec.describe User, type: :model do
   context 'relations' do
     it { should have_many(:categories) }
     it { should have_many(:accounts) }
+    it { should have_many(:tokens) }
+    it { should have_one(:refresh_token) }
   end
 
   context 'validations' do

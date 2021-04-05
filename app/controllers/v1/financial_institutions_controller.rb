@@ -18,6 +18,7 @@ module V1
     end
 
     api :GET, '/v1/financial_institutions', 'List all financial institutions'
+    header 'Authentication', 'User access token', required: true
     returns array_of: :financial_institution, code: 200, desc: 'Successful response'
     def index
       financial_institution = FinancialInstitution.all
@@ -26,6 +27,7 @@ module V1
     end
 
     api :GET, '/v1/financial_institutions/:id', 'Returns a financial institutions'
+    header 'Authentication', 'User access token', required: true
     param :id, :number, desc: 'Financial Institution id'
     returns code: 200, desc: 'Successful response' do
       param_group :financial_institution

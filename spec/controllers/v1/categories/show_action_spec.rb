@@ -4,7 +4,7 @@ RSpec.describe V1::CategoriesController, '#show', type: :request do
   let(:user) { create(:user) }
   let(:category) { create(:category) }
 
-  let(:headers) { authorization_header(user.id) }
+  let(:headers) { authorization_header(user) }
 
   before { get v1_category_path(category), headers: headers }
 

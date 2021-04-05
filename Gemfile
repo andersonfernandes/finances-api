@@ -4,15 +4,14 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.5'
 
 gem 'apipie-rails', '~> 0.5.18'
-gem 'bcrypt', '~> 3.1.7'
-gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bcrypt', '~> 3.1.16'
+gem 'bootsnap', '~> 1.7', '>= 1.7.2', require: false
 gem 'figaro'
 gem 'jwt'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.12'
 gem 'rack-cors', require: 'rack/cors'
-gem 'rails', '~> 6.0', '>= 6.0.3.5'
-gem 'simple_command'
+gem 'rails', '~> 6.1', '>= 6.1.3.1'
 
 group :development, :test do
   gem 'pry', '~> 0.12.2'
@@ -23,7 +22,7 @@ group :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'rails-controller-testing'
-  gem 'rspec-rails', '~> 3.8'
+  gem 'rspec-rails', '~> 4.1', '>= 4.1.2'
   gem 'shoulda-matchers'
 end
 

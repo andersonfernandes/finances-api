@@ -1,14 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe V1::AuthenticationController, '#authenticate',
-               type: :request do
+RSpec.describe V1::AuthenticationController, '#access_token', type: :request do
   let(:params) { { email: email, password: password } }
-  let(:body) { JSON.parse(response.body) }
   let(:setup) {}
 
   before do
     setup
-    post v1_authenticate_path, params: params
+    post(v1_auth_access_token_path, params: params)
   end
 
   context 'when the params are missing' do
@@ -22,10 +20,20 @@ RSpec.describe V1::AuthenticationController, '#authenticate',
     let(:password) { 'correct_password' }
     let(:user) { create(:user, email: email, password: password) }
     let(:setup) { user }
-    let(:expected_token) { JsonWebToken.encode(user_id: user.id) }
 
     it { expect(response).to have_http_status(:ok) }
-    it { expect(body).to include('token' => expected_token) }
+
+    it do
+      token = Token.last
+      expected_access_token = JWT.encode(
+        token.access_token_payload,
+        Figaro.env.secret_key_base
+      )
+      expected_refresh_token = RefreshToken.last.encrypted_token
+
+      expect(response_body).to include('access_token' => expected_access_token)
+        .and include('refresh_token' => expected_refresh_token)
+    end
   end
 
   context 'when the user credentials are invalid' do
@@ -33,6 +41,7 @@ RSpec.describe V1::AuthenticationController, '#authenticate',
     let(:password) { 'wrong_password' }
 
     it { expect(response).to have_http_status(:unauthorized) }
-    it { expect(body).to include('message' => 'Unauthorized') }
+
+    it { expect(response_body).to include('message' => 'Unauthorized') }
   end
 end

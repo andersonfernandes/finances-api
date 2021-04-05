@@ -31,6 +31,7 @@ module V1
     end
 
     api :GET, '/v1/transactions', 'List all transactions'
+    header 'Authentication', 'User access token', required: true
     returns array_of: :transaction, code: 200, desc: 'Successful response'
     def index
       transactions = Transaction.joins(account: :user).where(accounts: { user_id: current_user.id })
@@ -39,6 +40,7 @@ module V1
     end
 
     api :GET, '/v1/transactions/:id', 'Returns a transaction'
+    header 'Authentication', 'User access token', required: true
     param :id, :number, desc: 'Transaction id'
     returns code: 200, desc: 'Successful response' do
       param_group :transaction
@@ -48,6 +50,7 @@ module V1
     end
 
     api :POST, '/v1/transactions', 'Creates a transaction'
+    header 'Authentication', 'User access token', required: true
     param :description, String, desc: 'Transaction description', required: true
     param :amount, :decimal, desc: 'Amount spent', required: true
     param(:spent_at,
@@ -75,6 +78,7 @@ module V1
     end
 
     api :PUT, '/v1/transactions/:id', 'Updates a transaction'
+    header 'Authentication', 'User access token', required: true
     param :id, :number, desc: 'Transaction id'
     param :description, String, desc: 'Transaction description',
                                 required: false, default_value: nil
@@ -85,8 +89,7 @@ module V1
                                     required: false,
                                     base_class: Date,
                                     default_value: nil
-    param :transaction_type, Transaction.transaction_types.keys, required: false,
-                                                                 default_value: nil
+    param :transaction_type, Transaction.transaction_types.keys, required: false
     param :category_id, :number, required: false, default_value: nil
     returns code: 200, desc: 'Successful response' do
       param_group :transaction
@@ -103,6 +106,7 @@ module V1
     end
 
     api :DELETE, '/v1/transactions/:id', 'Delete a transaction'
+    header 'Authentication', 'User access token', required: true
     param :id, :number, desc: 'Transaction id'
     returns code: 204, desc: 'Successful response'
     def destroy

@@ -8,7 +8,7 @@ RSpec.describe V1::AccountsController, '#index',
   let!(:account_02) { create(:account, user: user_02) }
   let!(:account_03) { create(:account, user: user_01) }
 
-  let(:headers) { authorization_header(user_01.id) }
+  let(:headers) { authorization_header(user_01) }
 
   before { get v1_accounts_path, headers: headers }
 

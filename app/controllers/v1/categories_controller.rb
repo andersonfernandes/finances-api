@@ -28,6 +28,7 @@ module V1
     end
 
     api :GET, '/v1/categories', 'List all categories'
+    header 'Authentication', 'User access token', required: true
     returns array_of: :category, code: 200, desc: 'Successful response'
     def index
       categories = Category.where(user_id: current_user.id)
@@ -36,6 +37,7 @@ module V1
     end
 
     api :GET, '/v1/categories/:id', 'Returns a category'
+    header 'Authentication', 'User access token', required: true
     param :id, :number, desc: 'Category id'
     returns code: 200, desc: 'Successful response' do
       param_group :category
@@ -45,6 +47,7 @@ module V1
     end
 
     api :POST, '/v1/categories', 'Creates a category'
+    header 'Authentication', 'User access token', required: true
     param :description, String, desc: 'Category description', required: true
     param(:parent_category_id, :number, required: false,
                                         desc: 'Parent category id',
@@ -63,6 +66,7 @@ module V1
     end
 
     api :PUT, '/v1/categories/:id', 'Updates a category'
+    header 'Authentication', 'User access token', required: true
     param :id, :number, desc: 'Category id'
     param :description, String, desc: 'Category description', required: true
     returns code: 200, desc: 'Successful response' do
@@ -77,6 +81,7 @@ module V1
     end
 
     api :DELETE, '/v1/categories/:id', 'Delete a category'
+    header 'Authentication', 'User access token', required: true
     param :id, :number, desc: 'Category id'
     returns code: 204, desc: 'Successful response'
     def destroy

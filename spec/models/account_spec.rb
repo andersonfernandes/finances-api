@@ -18,6 +18,11 @@ RSpec.describe Account, type: :model do
     end
   end
 
+  context 'delegators' do
+    it { should delegate_method(:name).to(:financial_institution).with_prefix }
+    it { should delegate_method(:logo_url).to(:financial_institution).with_prefix }
+  end
+
   describe '#to_response' do
     subject { create(:account) }
 

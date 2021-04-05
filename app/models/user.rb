@@ -13,8 +13,11 @@
 class User < ApplicationRecord
   has_secure_password
 
-  has_many :categories
-  has_many :accounts
+  has_many :categories, dependent: :delete_all
+  has_many :accounts, dependent: :delete_all
+  has_many :tokens, dependent: :delete_all
+
+  has_one :refresh_token, dependent: :delete
 
   validates :name, :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }

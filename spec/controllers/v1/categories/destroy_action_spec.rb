@@ -4,7 +4,7 @@ RSpec.describe V1::CategoriesController, '#destroy', type: :request do
   let(:user) { create(:user) }
   let(:category) { create(:category, user: user) }
 
-  let(:headers) { authorization_header(user.id) }
+  let(:headers) { authorization_header(user) }
 
   before { delete v1_category_path(category), headers: headers }
 

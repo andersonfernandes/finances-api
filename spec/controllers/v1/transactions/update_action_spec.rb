@@ -15,7 +15,7 @@ RSpec.describe V1::TransactionsController, '#update',
       transaction_type: 'expense'
     }
   end
-  let(:headers) { authorization_header(user.id) }
+  let(:headers) { authorization_header(user) }
 
   before do
     put(v1_transaction_path(transaction), params: params, headers: headers)

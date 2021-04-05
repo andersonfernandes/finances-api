@@ -17,7 +17,7 @@ RSpec.describe V1::AccountsController, '#create',
       financial_institution_id: financial_institution.id
     }
   end
-  let(:headers) { authorization_header(user.id) }
+  let(:headers) { authorization_header(user) }
 
   before do
     setup
