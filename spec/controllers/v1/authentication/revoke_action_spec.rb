@@ -10,7 +10,7 @@ RSpec.describe V1::AuthenticationController, '#revoke', type: :request do
     )
   end
 
-  before { post(v1_auth_revoke_path, headers: headers) }
+  before { post v1_auth_revoke_path, headers: headers }
 
   include_context 'when the Authorization header is missing'
 

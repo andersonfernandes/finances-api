@@ -6,7 +6,7 @@ RSpec.describe V1::AuthenticationController, '#access_token', type: :request do
 
   before do
     setup
-    post(v1_auth_access_token_path, params: params)
+    post v1_auth_access_token_path, params: params
   end
 
   context 'when the params are missing' do

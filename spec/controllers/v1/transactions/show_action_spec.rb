@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe V1::TransactionsController, '#show',
-               type: :request do
+RSpec.describe V1::TransactionsController, '#show', type: :request do
   let(:body) { JSON.parse(response.body) }
   let(:user) { create(:user) }
   let(:transaction) { create(:transaction, account: create(:account, user: user)) }

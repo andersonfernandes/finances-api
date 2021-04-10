@@ -48,5 +48,14 @@ RSpec.describe V1::CategoriesController, '#create', type: :request do
         end
       end
     end
+
+    context 'and the save action fails' do
+      let(:setup) { allow_any_instance_of(Category).to receive(:save).and_return(false) }
+
+      it do
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response_body).to include('message' => 'Unprocessable Entity')
+      end
+    end
   end
 end

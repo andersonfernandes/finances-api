@@ -14,7 +14,7 @@ RSpec.describe V1::AuthenticationController, '#access_token', type: :request do
   let(:params) { {} }
   let(:headers) { {} }
 
-  before { post(v1_auth_refresh_token_path, params: params, headers: headers) }
+  before { post v1_auth_refresh_token_path, params: params, headers: headers }
 
   include_context 'when the Authorization header is missing' do
     let(:params) { { refresh_token: refresh_token } }
