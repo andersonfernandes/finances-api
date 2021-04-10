@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe V1::AccountsController, '#update',
-               type: :request do
+RSpec.describe V1::AccountsController, '#update', type: :request do
+  let(:setup) {}
   let(:body) { JSON.parse(response.body) }
   let(:user) { create(:user) }
   let(:account) { create(:account, user: user) }
@@ -19,7 +19,8 @@ RSpec.describe V1::AccountsController, '#update',
   let(:headers) { authorization_header(user) }
 
   before do
-    put(v1_account_path(account), params: params, headers: headers)
+    setup
+    put v1_account_path(account), params: params, headers: headers
   end
 
   include_context 'when the user is not authenticated'
@@ -44,6 +45,15 @@ RSpec.describe V1::AccountsController, '#update',
       it do
         error_message = "Couldn't find Account with 'id'=-1"
         expect(body).to include('errors' => error_message)
+      end
+    end
+
+    context 'and the update action fails' do
+      let(:setup) { allow_any_instance_of(Account).to receive(:update).and_return(false) }
+
+      it do
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response_body).to include('message' => 'Unprocessable Entity')
       end
     end
   end

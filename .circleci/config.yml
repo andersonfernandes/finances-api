@@ -56,6 +56,7 @@ jobs:
           RAILS_ENV: test
           DATABASE_URL: postgresql://postgres:@localhost/finances_test
           SECRET_KEY_BASE: V2ZxX0apQv98WoGLoRwhXE2fURe6sNi6bW2PoONt8AlHZ1OyeZYplYmFB1MVkyD
+          CC_TEST_REPORTER_ID: $CC_TEST_REPORTER_ID
       - image: circleci/postgres:9.5-alpine
         environment:
           POSTGRES_USER: postgres
@@ -65,11 +66,19 @@ jobs:
 
     steps:
       - checkout_and_bundle_install
+      - run:
+          name: Setup Code Climate test-reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
 
       - run:
           name: Update binaries
           command: sudo apt-get update && sudo apt-get install -y ghostscript xvfb libfontconfig
 
       - run:
-          name: Run rspec in parallel
-          command: bundle exec rspec
+          name: Run tests
+          command: |
+            ./cc-test-reporter before-build
+            bundle exec rspec
+            ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?

@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe V1::AccountsController, '#index',
-               type: :request do
+RSpec.describe V1::AccountsController, '#index', type: :request do
   let(:user_01) { create(:user) }
   let(:user_02) { create(:user) }
   let!(:account_01) { create(:account, user: user_01) }

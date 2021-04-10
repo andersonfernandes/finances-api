@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe V1::TransactionsController, '#index',
-               type: :request do
+RSpec.describe V1::TransactionsController, '#index', type: :request do
   let(:body) { JSON.parse(response.body) }
   let(:user_01) { create(:user) }
   let(:user_02) { create(:user) }

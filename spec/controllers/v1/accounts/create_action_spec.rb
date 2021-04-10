@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe V1::AccountsController, '#create',
-               type: :request do
+RSpec.describe V1::AccountsController, '#create', type: :request do
   let(:body) { JSON.parse(response.body) }
   let(:setup) {}
   let(:user) { create(:user) }
@@ -43,6 +42,15 @@ RSpec.describe V1::AccountsController, '#create',
                          'name' => financial_institution.name,
                          'logo_url' => financial_institution.logo_url
                        }).and include('account_type' => params[:account_type])
+      end
+    end
+
+    context 'and the save action fails' do
+      let(:setup) { allow_any_instance_of(Account).to receive(:save).and_return(false) }
+
+      it do
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response_body).to include('message' => 'Unprocessable Entity')
       end
     end
   end
