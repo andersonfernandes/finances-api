@@ -1,35 +1,14 @@
 module V1
   class CategoriesController < ApplicationController
+    include Api::V1::Category::Resource
+    include Api::V1::Category::Request
+    include Api::V1::Category::Response
+
     before_action :set_category, only: %i[show update destroy]
-
-    resource_description do
-      short 'Categories Actions'
-      error code: 401, desc: 'Unauthorized'
-      error code: 400, desc: 'Bad Request'
-      error code: 404, desc: 'Not Found'
-      error code: 422, desc: 'Unprocessable Entity'
-      formats ['json']
-    end
-
-    def_param_group :base_category do
-      property :id, :number, desc: 'Category id'
-      property :description, String, desc: 'Category description'
-      property :parent_category_id, :number, desc: 'Parent category id'
-    end
-
-    def_param_group :category do
-      param_group :base_category
-      property :parent_category, Hash do
-        param_group :base_category
-      end
-      property :child_categories, Array do
-        param_group :base_category
-      end
-    end
 
     api :GET, '/v1/categories', 'List all categories'
     header 'Authentication', 'User access token', required: true
-    returns array_of: :category, code: 200, desc: 'Successful response'
+    returns array_of: :category_response, code: 200, desc: 'Successful response'
     def index
       categories = Category.where(user_id: current_user.id)
 
@@ -40,7 +19,7 @@ module V1
     header 'Authentication', 'User access token', required: true
     param :id, :number, desc: 'Category id'
     returns code: 200, desc: 'Successful response' do
-      param_group :category
+      param_group :category_response
     end
     def show
       render json: @category.to_response, status: :ok
@@ -48,12 +27,9 @@ module V1
 
     api :POST, '/v1/categories', 'Creates a category'
     header 'Authentication', 'User access token', required: true
-    param :description, String, desc: 'Category description', required: true
-    param(:parent_category_id, :number, required: false,
-                                        desc: 'Parent category id',
-                                        default_value: nil)
+    param_group :create_category_request
     returns code: 201, desc: 'Successful response' do
-      param_group :category
+      param_group :category_response
     end
     def create
       category = Category.new(category_params)
@@ -67,10 +43,9 @@ module V1
 
     api :PUT, '/v1/categories/:id', 'Updates a category'
     header 'Authentication', 'User access token', required: true
-    param :id, :number, desc: 'Category id'
-    param :description, String, desc: 'Category description', required: true
+    param_group :update_category_request
     returns code: 200, desc: 'Successful response' do
-      param_group :category
+      param_group :category_response
     end
     def update
       if @category.update(category_params)

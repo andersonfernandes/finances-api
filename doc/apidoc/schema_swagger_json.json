@@ -48,7 +48,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/category"
+                "$ref": "#/definitions/category_response"
               }
             }
           }
@@ -73,11 +73,12 @@
               "properties": {
                 "description": {
                   "type": "string",
-                  "description": "Category description"
+                  "description": "Category description",
+                  "default": null
                 },
                 "parent_category_id": {
                   "type": "number",
-                  "description": "Parent category id",
+                  "description": "Parent category ID",
                   "default": null
                 }
               },
@@ -115,7 +116,7 @@
               "properties": {
                 "id": {
                   "type": "number",
-                  "description": "Category id"
+                  "description": "Category ID"
                 },
                 "description": {
                   "type": "string",
@@ -123,14 +124,14 @@
                 },
                 "parent_category_id": {
                   "type": "number",
-                  "description": "Parent category id"
+                  "description": "Parent category ID"
                 },
                 "parent_category": {
                   "type": "object",
                   "properties": {
                     "id": {
                       "type": "number",
-                      "description": "Category id"
+                      "description": "Category ID"
                     },
                     "description": {
                       "type": "string",
@@ -138,7 +139,7 @@
                     },
                     "parent_category_id": {
                       "type": "number",
-                      "description": "Parent category id"
+                      "description": "Parent category ID"
                     }
                   },
                   "additionalProperties": false,
@@ -215,7 +216,7 @@
               "properties": {
                 "id": {
                   "type": "number",
-                  "description": "Category id"
+                  "description": "Category ID"
                 },
                 "description": {
                   "type": "string",
@@ -223,14 +224,14 @@
                 },
                 "parent_category_id": {
                   "type": "number",
-                  "description": "Parent category id"
+                  "description": "Parent category ID"
                 },
                 "parent_category": {
                   "type": "object",
                   "properties": {
                     "id": {
                       "type": "number",
-                      "description": "Category id"
+                      "description": "Category ID"
                     },
                     "description": {
                       "type": "string",
@@ -238,7 +239,7 @@
                     },
                     "parent_category_id": {
                       "type": "number",
-                      "description": "Parent category id"
+                      "description": "Parent category ID"
                     }
                   },
                   "additionalProperties": false,
@@ -283,7 +284,8 @@
             "type": "number",
             "in": "path",
             "required": true,
-            "description": "Category id"
+            "description": "Category ID",
+            "default": null
           },
           {
             "name": "body",
@@ -293,7 +295,13 @@
               "properties": {
                 "description": {
                   "type": "string",
-                  "description": "Category description"
+                  "description": "Category description",
+                  "default": null
+                },
+                "parent_category_id": {
+                  "type": "number",
+                  "description": "Parent category ID",
+                  "default": null
                 }
               },
               "additionalProperties": false,
@@ -330,7 +338,7 @@
               "properties": {
                 "id": {
                   "type": "number",
-                  "description": "Category id"
+                  "description": "Category ID"
                 },
                 "description": {
                   "type": "string",
@@ -338,14 +346,14 @@
                 },
                 "parent_category_id": {
                   "type": "number",
-                  "description": "Parent category id"
+                  "description": "Parent category ID"
                 },
                 "parent_category": {
                   "type": "object",
                   "properties": {
                     "id": {
                       "type": "number",
-                      "description": "Category id"
+                      "description": "Category ID"
                     },
                     "description": {
                       "type": "string",
@@ -353,7 +361,7 @@
                     },
                     "parent_category_id": {
                       "type": "number",
-                      "description": "Parent category id"
+                      "description": "Parent category ID"
                     }
                   },
                   "additionalProperties": false,
@@ -1718,12 +1726,12 @@
     }
   },
   "definitions": {
-    "category": {
+    "category_response": {
       "type": "object",
       "properties": {
         "id": {
           "type": "number",
-          "description": "Category id"
+          "description": "Category ID"
         },
         "description": {
           "type": "string",
@@ -1731,14 +1739,14 @@
         },
         "parent_category_id": {
           "type": "number",
-          "description": "Parent category id"
+          "description": "Parent category ID"
         },
         "parent_category": {
           "type": "object",
           "properties": {
             "id": {
               "type": "number",
-              "description": "Category id"
+              "description": "Category ID"
             },
             "description": {
               "type": "string",
@@ -1746,7 +1754,7 @@
             },
             "parent_category_id": {
               "type": "number",
-              "description": "Parent category id"
+              "description": "Parent category ID"
             }
           },
           "additionalProperties": false,
