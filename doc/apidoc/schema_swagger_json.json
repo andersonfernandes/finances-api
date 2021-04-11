@@ -987,7 +987,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/account"
+                "$ref": "#/definitions/account_response"
               }
             }
           }
@@ -1026,22 +1026,26 @@
                     "checking",
                     "savings",
                     "other"
-                  ]
+                  ],
+                  "description": "Account Type",
+                  "default": null
                 },
                 "initial_amount": {
                   "type": "string",
-                  "description": "Account initial amount"
+                  "description": "Account initial amount",
+                  "default": null
                 },
                 "financial_institution_id": {
                   "type": "number",
-                  "description": "Financial Institution id",
+                  "description": "Account related financial_institution id",
                   "default": null
                 }
               },
               "additionalProperties": false,
               "required": [
                 "account_type",
-                "initial_amount"
+                "initial_amount",
+                "financial_institution_id"
               ]
             }
           },
@@ -1086,6 +1090,10 @@
                 "financial_institution": {
                   "type": "object",
                   "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "Financial Institution id"
+                    },
                     "name": {
                       "type": "string",
                       "description": "Financial Institution name"
@@ -1097,6 +1105,7 @@
                   },
                   "additionalProperties": false,
                   "required": [
+                    "id",
                     "name",
                     "logo_url"
                   ]
@@ -1188,6 +1197,10 @@
                 "financial_institution": {
                   "type": "object",
                   "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "Financial Institution id"
+                    },
                     "name": {
                       "type": "string",
                       "description": "Financial Institution name"
@@ -1199,6 +1212,7 @@
                   },
                   "additionalProperties": false,
                   "required": [
+                    "id",
                     "name",
                     "logo_url"
                   ]
@@ -1245,7 +1259,8 @@
             "type": "number",
             "in": "path",
             "required": true,
-            "description": "Account id"
+            "description": "Account id",
+            "default": null
           },
           {
             "name": "body",
@@ -1269,7 +1284,9 @@
                     "checking",
                     "savings",
                     "other"
-                  ]
+                  ],
+                  "description": "Account Type",
+                  "default": null
                 },
                 "initial_amount": {
                   "type": "string",
@@ -1279,7 +1296,7 @@
                 "financial_institution_id": {
                   "type": "number",
                   "description": "Account related financial_institution id",
-                  "default": false
+                  "default": null
                 }
               },
               "additionalProperties": false
@@ -1326,6 +1343,10 @@
                 "financial_institution": {
                   "type": "object",
                   "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "Financial Institution id"
+                    },
                     "name": {
                       "type": "string",
                       "description": "Financial Institution name"
@@ -1337,6 +1358,7 @@
                   },
                   "additionalProperties": false,
                   "required": [
+                    "id",
                     "name",
                     "logo_url"
                   ]
@@ -1617,7 +1639,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/financial_institution"
+                "$ref": "#/definitions/financial_institution_response"
               }
             }
           }
@@ -1825,7 +1847,7 @@
         "account"
       ]
     },
-    "account": {
+    "account_response": {
       "type": "object",
       "properties": {
         "id": {
@@ -1843,6 +1865,10 @@
         "financial_institution": {
           "type": "object",
           "properties": {
+            "id": {
+              "type": "number",
+              "description": "Financial Institution id"
+            },
             "name": {
               "type": "string",
               "description": "Financial Institution name"
@@ -1854,6 +1880,7 @@
           },
           "additionalProperties": false,
           "required": [
+            "id",
             "name",
             "logo_url"
           ]
@@ -1881,7 +1908,7 @@
         "account_type"
       ]
     },
-    "financial_institution": {
+    "financial_institution_response": {
       "type": "object",
       "properties": {
         "id": {
