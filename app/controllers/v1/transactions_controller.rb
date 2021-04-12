@@ -1,15 +1,10 @@
 module V1
   class TransactionsController < ApplicationController
-    before_action :set_transaction, only: %i[show update destroy]
+    include Api::V1::Transaction::Resource
+    # include Api::V1::Transaction::Request
+    include Api::V1::Transaction::Response
 
-    resource_description do
-      short 'Transactions Actions'
-      error code: 401, desc: 'Unauthorized'
-      error code: 400, desc: 'Bad Request'
-      error code: 404, desc: 'Not Found'
-      error code: 422, desc: 'Unprocessable Entity'
-      formats ['json']
-    end
+    before_action :set_transaction, only: %i[show update destroy]
 
     def_param_group :transaction do
       property :id, :number, desc: 'Transaction id'
@@ -32,7 +27,7 @@ module V1
 
     api :GET, '/v1/transactions', 'List all transactions'
     header 'Authentication', 'User access token', required: true
-    returns array_of: :transaction, code: 200, desc: 'Successful response'
+    returns array_of: :transaction_response, code: 200, desc: 'Successful response'
     def index
       transactions = Transaction.joins(account: :user).where(accounts: { user_id: current_user.id })
 
@@ -43,7 +38,7 @@ module V1
     header 'Authentication', 'User access token', required: true
     param :id, :number, desc: 'Transaction id'
     returns code: 200, desc: 'Successful response' do
-      param_group :transaction
+      param_group :transaction_response
     end
     def show
       render json: @transaction.to_response, status: :ok
@@ -62,7 +57,7 @@ module V1
     param :category_id, :number, required: true
     param :account_id, :number, required: true
     returns code: 201, desc: 'Successful response' do
-      param_group :transaction
+      param_group :transaction_response
     end
     def create
       transaction = Transaction.new(transaction_params)
@@ -92,7 +87,7 @@ module V1
     param :transaction_type, Transaction.transaction_types.keys, required: false
     param :category_id, :number, required: false, default_value: nil
     returns code: 200, desc: 'Successful response' do
-      param_group :transaction
+      param_group :transaction_response
     end
     def update
       if @transaction.update(transaction_params)
