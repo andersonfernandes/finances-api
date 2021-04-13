@@ -39,6 +39,7 @@ RSpec.describe V1::TransactionsController, '#update', type: :request do
           'name' => account.name,
           'description' => account.description,
           'financial_institution' => {
+            'id' => account.financial_institution_id,
             'name' => account.financial_institution_name,
             'logo_url' => account.financial_institution_logo_url
           },

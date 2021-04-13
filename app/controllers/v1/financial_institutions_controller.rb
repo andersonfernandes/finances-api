@@ -1,25 +1,13 @@
 module V1
   class FinancialInstitutionsController < ApplicationController
+    include Api::V1::Resource
+    include Api::V1::FinancialInstitution::Response
+
     before_action :set_financial_institution, only: :show
-
-    resource_description do
-      short 'Financial Institutions Actions'
-      error code: 401, desc: 'Unauthorized'
-      error code: 400, desc: 'Bad Request'
-      error code: 404, desc: 'Not Found'
-      error code: 422, desc: 'Unprocessable Entity'
-      formats ['json']
-    end
-
-    def_param_group :financial_institution do
-      property :id, :number, desc: 'Financial Institution id'
-      property :name, String, desc: 'Financial Institution name'
-      property :logo_url, String, desc: 'Financial Institution logo url'
-    end
 
     api :GET, '/v1/financial_institutions', 'List all financial institutions'
     header 'Authentication', 'User access token', required: true
-    returns array_of: :financial_institution, code: 200, desc: 'Successful response'
+    returns array_of: :financial_institution_response, code: 200, desc: 'Successful response'
     def index
       financial_institution = FinancialInstitution.all
 
@@ -30,7 +18,7 @@ module V1
     header 'Authentication', 'User access token', required: true
     param :id, :number, desc: 'Financial Institution id'
     returns code: 200, desc: 'Successful response' do
-      param_group :financial_institution
+      param_group :financial_institution_response
     end
     def show
       render json: @financial_institution.to_response, status: :ok

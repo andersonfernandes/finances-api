@@ -32,6 +32,7 @@ RSpec.describe V1::AccountsController, '#update', type: :request do
         expect(response_body).to include('description' => params[:description])
           .and include('initial_amount' => params[:initial_amount].to_s)
           .and include('financial_institution' => {
+                         'id' => new_financial_institution.id,
                          'name' => new_financial_institution.name,
                          'logo_url' => new_financial_institution.logo_url
                        }).and include('account_type' => params[:account_type])
