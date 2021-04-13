@@ -3,25 +3,10 @@ module Api
     module Transaction
       module Request
         def self.included(base_class)
-          schema = Base.schema
+          request_factory = Api::Utils::RequestFactory.new(base_class, Base.schema)
 
-          base_class.def_param_group :create_transaction_request do
-            schema.except(:id).each do |name, info|
-              type, required = info.values_at(:type, :required)
-              options = info.slice(:desc, :base_class)
-
-              param name, type, options.merge(required: required[:on_create], default_value: nil)
-            end
-          end
-
-          base_class.def_param_group :update_transaction_request do
-            schema.except(:account_id).each do |name, info|
-              type, required = info.values_at(:type, :required)
-              options = info.slice(:desc, :base_class)
-
-              param name, type, options.merge(required: required[:on_update], default_value: nil)
-            end
-          end
+          request_factory.build_create_request(:create_transaction_request, [:id])
+          request_factory.build_update_request(:update_transaction_request, [:account_id])
         end
       end
     end
