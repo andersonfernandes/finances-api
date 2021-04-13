@@ -10,7 +10,7 @@ module Api
             property :name, String, desc: 'Account name'
             property :description, String, desc: 'Account description'
             property :financial_institution, Hash do
-              param_group :financial_institution_response
+              param_group :financial_institution_response, base_class
             end
             property :initial_amount, :decimal, desc: 'Account initial amount'
             property :account_type, ::Account.account_types.keys
