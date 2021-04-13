@@ -152,7 +152,27 @@
                 "child_categories": {
                   "type": "array",
                   "items": {
-                    "type": "string"
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "description": "Category ID"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Category description"
+                      },
+                      "parent_category_id": {
+                        "type": "number",
+                        "description": "Parent category ID"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "description",
+                      "parent_category_id"
+                    ]
                   }
                 }
               },
@@ -252,7 +272,27 @@
                 "child_categories": {
                   "type": "array",
                   "items": {
-                    "type": "string"
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "description": "Category ID"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Category description"
+                      },
+                      "parent_category_id": {
+                        "type": "number",
+                        "description": "Parent category ID"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "description",
+                      "parent_category_id"
+                    ]
                   }
                 }
               },
@@ -374,7 +414,27 @@
                 "child_categories": {
                   "type": "array",
                   "items": {
-                    "type": "string"
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "description": "Category ID"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Category description"
+                      },
+                      "parent_category_id": {
+                        "type": "number",
+                        "description": "Parent category ID"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "id",
+                      "description",
+                      "parent_category_id"
+                    ]
                   }
                 }
               },
@@ -635,7 +695,27 @@
                     "child_categories": {
                       "type": "array",
                       "items": {
-                        "type": "string"
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "description": "Category ID"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Category description"
+                          },
+                          "parent_category_id": {
+                            "type": "number",
+                            "description": "Parent category ID"
+                          }
+                        },
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "description",
+                          "parent_category_id"
+                        ]
                       }
                     }
                   },
@@ -837,7 +917,27 @@
                     "child_categories": {
                       "type": "array",
                       "items": {
-                        "type": "string"
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "description": "Category ID"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Category description"
+                          },
+                          "parent_category_id": {
+                            "type": "number",
+                            "description": "Parent category ID"
+                          }
+                        },
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "description",
+                          "parent_category_id"
+                        ]
                       }
                     }
                   },
@@ -1078,7 +1178,27 @@
                     "child_categories": {
                       "type": "array",
                       "items": {
-                        "type": "string"
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "description": "Category ID"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Category description"
+                          },
+                          "parent_category_id": {
+                            "type": "number",
+                            "description": "Parent category ID"
+                          }
+                        },
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "description",
+                          "parent_category_id"
+                        ]
                       }
                     }
                   },
@@ -2026,7 +2146,27 @@
         "child_categories": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "description": "Category ID"
+              },
+              "description": {
+                "type": "string",
+                "description": "Category description"
+              },
+              "parent_category_id": {
+                "type": "number",
+                "description": "Parent category ID"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "description",
+              "parent_category_id"
+            ]
           }
         }
       },
@@ -2108,7 +2248,27 @@
             "child_categories": {
               "type": "array",
               "items": {
-                "type": "string"
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "description": "Category ID"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Category description"
+                  },
+                  "parent_category_id": {
+                    "type": "number",
+                    "description": "Parent category ID"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "description",
+                  "parent_category_id"
+                ]
               }
             }
           },

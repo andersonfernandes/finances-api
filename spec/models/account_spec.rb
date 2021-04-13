@@ -19,6 +19,7 @@ RSpec.describe Account, type: :model do
   end
 
   context 'delegators' do
+    it { should delegate_method(:id).to(:financial_institution).with_prefix }
     it { should delegate_method(:name).to(:financial_institution).with_prefix }
     it { should delegate_method(:logo_url).to(:financial_institution).with_prefix }
   end
@@ -34,6 +35,7 @@ RSpec.describe Account, type: :model do
         'initial_amount' => subject.initial_amount.to_s,
         'account_type' => subject.account_type,
         'financial_institution' => {
+          'id' => subject.financial_institution_id,
           'name' => subject.financial_institution_name,
           'logo_url' => subject.financial_institution_logo_url
         }

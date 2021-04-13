@@ -16,7 +16,7 @@ module Api
             param_group :base_category
 
             property(:parent_category, Hash) { param_group :base_category, base_class }
-            property(:child_categories, Array) { param_group :base_category, base_class }
+            property(:child_categories, array_of: Hash) { param_group :base_category, base_class }
           end
         end
       end

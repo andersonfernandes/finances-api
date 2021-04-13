@@ -31,11 +31,11 @@ class Account < ApplicationRecord
 
   enum account_type: %i[checking savings other]
 
-  delegate :name, :logo_url, to: :financial_institution, prefix: true
+  delegate :id, :name, :logo_url, to: :financial_institution, prefix: true
 
   def to_response
     attrs_to_expose = %i[id description name financial_institution initial_amount account_type]
     as_json(only: attrs_to_expose,
-            include: { financial_institution: { only: %i[name logo_url] } })
+            include: { financial_institution: { only: %i[id name logo_url] } })
   end
 end

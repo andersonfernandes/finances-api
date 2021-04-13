@@ -39,6 +39,7 @@ RSpec.describe V1::AccountsController, '#create', type: :request do
           .and include('initial_amount' => params[:initial_amount].to_s)
           .and include('name' => params[:name])
           .and include('financial_institution' => {
+                         'id' => financial_institution.id,
                          'name' => financial_institution.name,
                          'logo_url' => financial_institution.logo_url
                        }).and include('account_type' => params[:account_type])

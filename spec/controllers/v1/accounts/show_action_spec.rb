@@ -19,6 +19,7 @@ RSpec.describe V1::AccountsController, '#show', type: :request do
           .and include('initial_amount' => account.initial_amount.to_s)
           .and include('name' => account.name)
           .and include('financial_institution' => {
+                         'id' => account.financial_institution_id,
                          'name' => account.financial_institution_name,
                          'logo_url' => account.financial_institution_logo_url
                        }).and include('account_type' => account.account_type)
