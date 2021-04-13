@@ -473,7 +473,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/transaction"
+                "$ref": "#/definitions/transaction_response"
               }
             }
           }
@@ -498,15 +498,13 @@
               "properties": {
                 "description": {
                   "type": "string",
-                  "description": "Transaction description"
+                  "description": "Transaction description",
+                  "default": null
                 },
                 "amount": {
                   "type": "string",
-                  "description": "Amount spent"
-                },
-                "spent_at": {
-                  "type": "string",
-                  "description": "Date in ISO-8601 format"
+                  "description": "Amount spent",
+                  "default": null
                 },
                 "transaction_type": {
                   "type": "string",
@@ -514,21 +512,32 @@
                     "income",
                     "expense",
                     "transfer"
-                  ]
+                  ],
+                  "description": "Transaction type",
+                  "default": null
+                },
+                "spent_at": {
+                  "type": "string",
+                  "description": "Transaction date in ISO-8601 format",
+                  "default": null
                 },
                 "category_id": {
-                  "type": "number"
+                  "type": "number",
+                  "description": "Transaction category ID",
+                  "default": null
                 },
                 "account_id": {
-                  "type": "number"
+                  "type": "number",
+                  "description": "Transaction account ID",
+                  "default": null
                 }
               },
               "additionalProperties": false,
               "required": [
                 "description",
                 "amount",
-                "spent_at",
                 "transaction_type",
+                "spent_at",
                 "category_id",
                 "account_id"
               ]
@@ -572,34 +581,71 @@
                   "type": "string",
                   "description": "Amount spent"
                 },
-                "spent_at": {
-                  "type": "string",
-                  "description": "Date in ISO-8601 format"
-                },
                 "transaction_type": {
                   "type": "string",
                   "enum": [
                     "income",
                     "expense",
                     "transfer"
-                  ]
+                  ],
+                  "description": "Transaction type"
+                },
+                "spent_at": {
+                  "type": "string",
+                  "description": "Transaction date in ISO-8601 format"
                 },
                 "category": {
                   "type": "object",
                   "properties": {
                     "id": {
                       "type": "number",
-                      "description": "Category id"
+                      "description": "Category ID"
                     },
                     "description": {
                       "type": "string",
                       "description": "Category description"
+                    },
+                    "parent_category_id": {
+                      "type": "number",
+                      "description": "Parent category ID"
+                    },
+                    "parent_category": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "description": "Category ID"
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "Category description"
+                        },
+                        "parent_category_id": {
+                          "type": "number",
+                          "description": "Parent category ID"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "description",
+                        "parent_category_id"
+                      ]
+                    },
+                    "child_categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
                     }
                   },
                   "additionalProperties": false,
                   "required": [
                     "id",
-                    "description"
+                    "description",
+                    "parent_category_id",
+                    "parent_category",
+                    "child_categories"
                   ]
                 },
                 "account": {
@@ -612,12 +658,56 @@
                     "name": {
                       "type": "string",
                       "description": "Account name"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Account description"
+                    },
+                    "account_type": {
+                      "type": "string",
+                      "enum": [
+                        "checking",
+                        "savings",
+                        "other"
+                      ],
+                      "description": "Account Type"
+                    },
+                    "initial_amount": {
+                      "type": "string",
+                      "description": "Account initial amount"
+                    },
+                    "financial_institution": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "description": "Financial Institution id"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Financial Institution name"
+                        },
+                        "logo_url": {
+                          "type": "string",
+                          "description": "Financial Institution logo url"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "name",
+                        "logo_url"
+                      ]
                     }
                   },
                   "additionalProperties": false,
                   "required": [
                     "id",
-                    "name"
+                    "name",
+                    "description",
+                    "account_type",
+                    "initial_amount",
+                    "financial_institution"
                   ]
                 }
               },
@@ -626,8 +716,8 @@
                 "id",
                 "description",
                 "amount",
-                "spent_at",
                 "transaction_type",
+                "spent_at",
                 "category",
                 "account"
               ]
@@ -693,34 +783,71 @@
                   "type": "string",
                   "description": "Amount spent"
                 },
-                "spent_at": {
-                  "type": "string",
-                  "description": "Date in ISO-8601 format"
-                },
                 "transaction_type": {
                   "type": "string",
                   "enum": [
                     "income",
                     "expense",
                     "transfer"
-                  ]
+                  ],
+                  "description": "Transaction type"
+                },
+                "spent_at": {
+                  "type": "string",
+                  "description": "Transaction date in ISO-8601 format"
                 },
                 "category": {
                   "type": "object",
                   "properties": {
                     "id": {
                       "type": "number",
-                      "description": "Category id"
+                      "description": "Category ID"
                     },
                     "description": {
                       "type": "string",
                       "description": "Category description"
+                    },
+                    "parent_category_id": {
+                      "type": "number",
+                      "description": "Parent category ID"
+                    },
+                    "parent_category": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "description": "Category ID"
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "Category description"
+                        },
+                        "parent_category_id": {
+                          "type": "number",
+                          "description": "Parent category ID"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "description",
+                        "parent_category_id"
+                      ]
+                    },
+                    "child_categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
                     }
                   },
                   "additionalProperties": false,
                   "required": [
                     "id",
-                    "description"
+                    "description",
+                    "parent_category_id",
+                    "parent_category",
+                    "child_categories"
                   ]
                 },
                 "account": {
@@ -733,12 +860,56 @@
                     "name": {
                       "type": "string",
                       "description": "Account name"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Account description"
+                    },
+                    "account_type": {
+                      "type": "string",
+                      "enum": [
+                        "checking",
+                        "savings",
+                        "other"
+                      ],
+                      "description": "Account Type"
+                    },
+                    "initial_amount": {
+                      "type": "string",
+                      "description": "Account initial amount"
+                    },
+                    "financial_institution": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "description": "Financial Institution id"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Financial Institution name"
+                        },
+                        "logo_url": {
+                          "type": "string",
+                          "description": "Financial Institution logo url"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "name",
+                        "logo_url"
+                      ]
                     }
                   },
                   "additionalProperties": false,
                   "required": [
                     "id",
-                    "name"
+                    "name",
+                    "description",
+                    "account_type",
+                    "initial_amount",
+                    "financial_institution"
                   ]
                 }
               },
@@ -747,8 +918,8 @@
                 "id",
                 "description",
                 "amount",
-                "spent_at",
                 "transaction_type",
+                "spent_at",
                 "category",
                 "account"
               ]
@@ -772,7 +943,8 @@
             "type": "number",
             "in": "path",
             "required": true,
-            "description": "Transaction id"
+            "description": "Transaction id",
+            "default": null
           },
           {
             "name": "body",
@@ -790,21 +962,24 @@
                   "description": "Amount spent",
                   "default": null
                 },
-                "spent_at": {
-                  "type": "string",
-                  "description": "Date in ISO-8601 format",
-                  "default": null
-                },
                 "transaction_type": {
                   "type": "string",
                   "enum": [
                     "income",
                     "expense",
                     "transfer"
-                  ]
+                  ],
+                  "description": "Transaction type",
+                  "default": null
+                },
+                "spent_at": {
+                  "type": "string",
+                  "description": "Transaction date in ISO-8601 format",
+                  "default": null
                 },
                 "category_id": {
                   "type": "number",
+                  "description": "Transaction category ID",
                   "default": null
                 }
               },
@@ -849,34 +1024,71 @@
                   "type": "string",
                   "description": "Amount spent"
                 },
-                "spent_at": {
-                  "type": "string",
-                  "description": "Date in ISO-8601 format"
-                },
                 "transaction_type": {
                   "type": "string",
                   "enum": [
                     "income",
                     "expense",
                     "transfer"
-                  ]
+                  ],
+                  "description": "Transaction type"
+                },
+                "spent_at": {
+                  "type": "string",
+                  "description": "Transaction date in ISO-8601 format"
                 },
                 "category": {
                   "type": "object",
                   "properties": {
                     "id": {
                       "type": "number",
-                      "description": "Category id"
+                      "description": "Category ID"
                     },
                     "description": {
                       "type": "string",
                       "description": "Category description"
+                    },
+                    "parent_category_id": {
+                      "type": "number",
+                      "description": "Parent category ID"
+                    },
+                    "parent_category": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "description": "Category ID"
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "Category description"
+                        },
+                        "parent_category_id": {
+                          "type": "number",
+                          "description": "Parent category ID"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "description",
+                        "parent_category_id"
+                      ]
+                    },
+                    "child_categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
                     }
                   },
                   "additionalProperties": false,
                   "required": [
                     "id",
-                    "description"
+                    "description",
+                    "parent_category_id",
+                    "parent_category",
+                    "child_categories"
                   ]
                 },
                 "account": {
@@ -889,12 +1101,56 @@
                     "name": {
                       "type": "string",
                       "description": "Account name"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Account description"
+                    },
+                    "account_type": {
+                      "type": "string",
+                      "enum": [
+                        "checking",
+                        "savings",
+                        "other"
+                      ],
+                      "description": "Account Type"
+                    },
+                    "initial_amount": {
+                      "type": "string",
+                      "description": "Account initial amount"
+                    },
+                    "financial_institution": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "description": "Financial Institution id"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Financial Institution name"
+                        },
+                        "logo_url": {
+                          "type": "string",
+                          "description": "Financial Institution logo url"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "name",
+                        "logo_url"
+                      ]
                     }
                   },
                   "additionalProperties": false,
                   "required": [
                     "id",
-                    "name"
+                    "name",
+                    "description",
+                    "account_type",
+                    "initial_amount",
+                    "financial_institution"
                   ]
                 }
               },
@@ -903,8 +1159,8 @@
                 "id",
                 "description",
                 "amount",
-                "spent_at",
                 "transaction_type",
+                "spent_at",
                 "category",
                 "account"
               ]
@@ -1095,6 +1351,19 @@
                   "type": "string",
                   "description": "Account description"
                 },
+                "account_type": {
+                  "type": "string",
+                  "enum": [
+                    "checking",
+                    "savings",
+                    "other"
+                  ],
+                  "description": "Account Type"
+                },
+                "initial_amount": {
+                  "type": "string",
+                  "description": "Account initial amount"
+                },
                 "financial_institution": {
                   "type": "object",
                   "properties": {
@@ -1117,18 +1386,6 @@
                     "name",
                     "logo_url"
                   ]
-                },
-                "initial_amount": {
-                  "type": "string",
-                  "description": "Account initial amount"
-                },
-                "account_type": {
-                  "type": "string",
-                  "enum": [
-                    "checking",
-                    "savings",
-                    "other"
-                  ]
                 }
               },
               "additionalProperties": false,
@@ -1136,9 +1393,9 @@
                 "id",
                 "name",
                 "description",
-                "financial_institution",
+                "account_type",
                 "initial_amount",
-                "account_type"
+                "financial_institution"
               ]
             }
           }
@@ -1202,6 +1459,19 @@
                   "type": "string",
                   "description": "Account description"
                 },
+                "account_type": {
+                  "type": "string",
+                  "enum": [
+                    "checking",
+                    "savings",
+                    "other"
+                  ],
+                  "description": "Account Type"
+                },
+                "initial_amount": {
+                  "type": "string",
+                  "description": "Account initial amount"
+                },
                 "financial_institution": {
                   "type": "object",
                   "properties": {
@@ -1224,18 +1494,6 @@
                     "name",
                     "logo_url"
                   ]
-                },
-                "initial_amount": {
-                  "type": "string",
-                  "description": "Account initial amount"
-                },
-                "account_type": {
-                  "type": "string",
-                  "enum": [
-                    "checking",
-                    "savings",
-                    "other"
-                  ]
                 }
               },
               "additionalProperties": false,
@@ -1243,9 +1501,9 @@
                 "id",
                 "name",
                 "description",
-                "financial_institution",
+                "account_type",
                 "initial_amount",
-                "account_type"
+                "financial_institution"
               ]
             }
           }
@@ -1348,6 +1606,19 @@
                   "type": "string",
                   "description": "Account description"
                 },
+                "account_type": {
+                  "type": "string",
+                  "enum": [
+                    "checking",
+                    "savings",
+                    "other"
+                  ],
+                  "description": "Account Type"
+                },
+                "initial_amount": {
+                  "type": "string",
+                  "description": "Account initial amount"
+                },
                 "financial_institution": {
                   "type": "object",
                   "properties": {
@@ -1370,18 +1641,6 @@
                     "name",
                     "logo_url"
                   ]
-                },
-                "initial_amount": {
-                  "type": "string",
-                  "description": "Account initial amount"
-                },
-                "account_type": {
-                  "type": "string",
-                  "enum": [
-                    "checking",
-                    "savings",
-                    "other"
-                  ]
                 }
               },
               "additionalProperties": false,
@@ -1389,9 +1648,9 @@
                 "id",
                 "name",
                 "description",
-                "financial_institution",
+                "account_type",
                 "initial_amount",
-                "account_type"
+                "financial_institution"
               ]
             }
           }
@@ -1780,7 +2039,7 @@
         "child_categories"
       ]
     },
-    "transaction": {
+    "transaction_response": {
       "type": "object",
       "properties": {
         "id": {
@@ -1795,34 +2054,71 @@
           "type": "string",
           "description": "Amount spent"
         },
-        "spent_at": {
-          "type": "string",
-          "description": "Date in ISO-8601 format"
-        },
         "transaction_type": {
           "type": "string",
           "enum": [
             "income",
             "expense",
             "transfer"
-          ]
+          ],
+          "description": "Transaction type"
+        },
+        "spent_at": {
+          "type": "string",
+          "description": "Transaction date in ISO-8601 format"
         },
         "category": {
           "type": "object",
           "properties": {
             "id": {
               "type": "number",
-              "description": "Category id"
+              "description": "Category ID"
             },
             "description": {
               "type": "string",
               "description": "Category description"
+            },
+            "parent_category_id": {
+              "type": "number",
+              "description": "Parent category ID"
+            },
+            "parent_category": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "Category ID"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Category description"
+                },
+                "parent_category_id": {
+                  "type": "number",
+                  "description": "Parent category ID"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "description",
+                "parent_category_id"
+              ]
+            },
+            "child_categories": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           },
           "additionalProperties": false,
           "required": [
             "id",
-            "description"
+            "description",
+            "parent_category_id",
+            "parent_category",
+            "child_categories"
           ]
         },
         "account": {
@@ -1835,12 +2131,56 @@
             "name": {
               "type": "string",
               "description": "Account name"
+            },
+            "description": {
+              "type": "string",
+              "description": "Account description"
+            },
+            "account_type": {
+              "type": "string",
+              "enum": [
+                "checking",
+                "savings",
+                "other"
+              ],
+              "description": "Account Type"
+            },
+            "initial_amount": {
+              "type": "string",
+              "description": "Account initial amount"
+            },
+            "financial_institution": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "Financial Institution id"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Financial Institution name"
+                },
+                "logo_url": {
+                  "type": "string",
+                  "description": "Financial Institution logo url"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "name",
+                "logo_url"
+              ]
             }
           },
           "additionalProperties": false,
           "required": [
             "id",
-            "name"
+            "name",
+            "description",
+            "account_type",
+            "initial_amount",
+            "financial_institution"
           ]
         }
       },
@@ -1849,8 +2189,8 @@
         "id",
         "description",
         "amount",
-        "spent_at",
         "transaction_type",
+        "spent_at",
         "category",
         "account"
       ]
@@ -1869,6 +2209,19 @@
         "description": {
           "type": "string",
           "description": "Account description"
+        },
+        "account_type": {
+          "type": "string",
+          "enum": [
+            "checking",
+            "savings",
+            "other"
+          ],
+          "description": "Account Type"
+        },
+        "initial_amount": {
+          "type": "string",
+          "description": "Account initial amount"
         },
         "financial_institution": {
           "type": "object",
@@ -1892,18 +2245,6 @@
             "name",
             "logo_url"
           ]
-        },
-        "initial_amount": {
-          "type": "string",
-          "description": "Account initial amount"
-        },
-        "account_type": {
-          "type": "string",
-          "enum": [
-            "checking",
-            "savings",
-            "other"
-          ]
         }
       },
       "additionalProperties": false,
@@ -1911,9 +2252,9 @@
         "id",
         "name",
         "description",
-        "financial_institution",
+        "account_type",
         "initial_amount",
-        "account_type"
+        "financial_institution"
       ]
     },
     "financial_institution_response": {

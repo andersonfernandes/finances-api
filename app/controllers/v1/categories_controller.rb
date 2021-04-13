@@ -1,6 +1,6 @@
 module V1
   class CategoriesController < ApplicationController
-    include Api::V1::Category::Resource
+    include Api::V1::Resource
     include Api::V1::Category::Request
     include Api::V1::Category::Response
 

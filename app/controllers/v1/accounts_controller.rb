@@ -1,6 +1,6 @@
 module V1
   class AccountsController < ApplicationController
-    include Api::V1::Account::Resource
+    include Api::V1::Resource
     include Api::V1::Account::Request
     include Api::V1::Account::Response
 

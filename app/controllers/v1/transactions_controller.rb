@@ -1,6 +1,6 @@
 module V1
   class TransactionsController < ApplicationController
-    include Api::V1::Transaction::Resource
+    include Api::V1::Resource
     include Api::V1::Transaction::Request
     include Api::V1::Transaction::Response
 

@@ -1,6 +1,6 @@
 module V1
   class FinancialInstitutionsController < ApplicationController
-    include Api::V1::FinancialInstitution::Resource
+    include Api::V1::Resource
     include Api::V1::FinancialInstitution::Response
 
     before_action :set_financial_institution, only: :show
