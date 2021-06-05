@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_27_185612) do
+ActiveRecord::Schema.define(version: 2021_05_01_100622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,17 @@ ActiveRecord::Schema.define(version: 2021_03_27_185612) do
     t.bigint "parent_category_id"
     t.index ["parent_category_id"], name: "index_categories_on_parent_category_id"
     t.index ["user_id"], name: "index_categories_on_user_id"
+  end
+
+  create_table "credit_cards", force: :cascade do |t|
+    t.string "name", null: false
+    t.decimal "limit", null: false
+    t.integer "closing_day", null: false
+    t.integer "due_day", null: false
+    t.bigint "account_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_credit_cards_on_account_id"
   end
 
   create_table "financial_institutions", force: :cascade do |t|
@@ -90,6 +101,7 @@ ActiveRecord::Schema.define(version: 2021_03_27_185612) do
   add_foreign_key "accounts", "users"
   add_foreign_key "categories", "categories", column: "parent_category_id"
   add_foreign_key "categories", "users"
+  add_foreign_key "credit_cards", "accounts"
   add_foreign_key "refresh_tokens", "users"
   add_foreign_key "tokens", "users"
   add_foreign_key "transactions", "accounts"
