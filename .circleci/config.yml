@@ -36,7 +36,7 @@ jobs:
   rubocop:
     parallelism: 1
     docker:
-      - image: circleci/ruby:2.6.5-node-browsers
+      - image: circleci/ruby:2.7.3-node-browsers
 
     steps:
       - checkout_and_bundle_install
@@ -48,7 +48,7 @@ jobs:
   rspec:
     parallelism: 1
     docker:
-      - image: circleci/ruby:2.6.5-node-browsers
+      - image: circleci/ruby:2.7.3-node-browsers
         environment:
           BUNDLE_JOBS: 2
           BUNDLE_RETRY: 3
