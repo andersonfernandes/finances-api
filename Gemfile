@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.5'
+ruby '2.7.3'
 
 gem 'apipie-rails', '~> 0.5.18'
 gem 'bcrypt', '~> 3.1.16'
