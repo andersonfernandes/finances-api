@@ -6,14 +6,10 @@ This application provides a REST API to manage your financial life. Keep track o
 
 **Swagger Hub:** https://app.swaggerhub.com/apis/andersonfernandes/finances-api/1.0
 
-**Frontend project:** https://github.com/ayslanmarcelino/finances-front
-
 ## Developer Setup
 
-1. Run `./scripts/install_githooks.sh` to configure the [project githooks](#githooks)
-2. Install [docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose/)
-3. Run `./scripts/start_app.sh` to raise the docker infrastructure and start a detached development server at [localhost:5000](http://localhost:5000)
-4. Run `docker attach finances-api_web_1` to attach your terminal with the server process (this allow you to follow the server logs and use [pry](https://github.com/pry/pry))
+1. Install [docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose/)
+2. Run `./scripts/start_app.sh` to raise the docker infrastructure and start a detached development server at [localhost:5000](http://localhost:5000)
 
 ## Commands
 
@@ -21,15 +17,6 @@ In order to use the following commands, add `docker-compose exec web` before it.
 
 - `bundle exec rubocop` - Run the full suite of linters on the codebase.
 - `bundle exec rspec` - Run the tests on the codebase.
-
-To run the commands inside the docker container, prepend it with: `docker-compose exec web`
-
-## Githooks
-
-The step 1 of the [Developer Setup](#developer-setup) configure the following githooks:
-
-- **pre-commit:** Runs rubocop checks in the codebase, if some offense is detected the commit is aborted
-- **pre-push:** Runs the tests on the codebase, if some spec fails the push is aborted
 
 ## Contributing
 
