@@ -29,7 +29,7 @@ class Account < ApplicationRecord
   validates(:initial_amount, numericality: true)
   validates(:account_type, :initial_amount, presence: true)
 
-  enum account_type: %i[checking savings other]
+  enum account_type: %i[checking savings other credit_card]
 
   delegate :id, :name, :logo_url, to: :financial_institution, prefix: true
 
