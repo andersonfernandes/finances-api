@@ -28,6 +28,11 @@ module Api
               type: :decimal,
               desc: 'Credit Card transactions limit',
               required: { on_create: true, on_update: false }
+            },
+            financial_institution_id: {
+              type: :decimal,
+              desc: 'Credit Card financial institution id',
+              required: { on_create: true, on_update: false }
             }
           }
         end
