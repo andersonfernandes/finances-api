@@ -18,6 +18,7 @@ services:
       - DATABASE_HOST=db
       - DATABASE_PORT=5432
       - SECRET_KEY_BASE=V2ZxX0apQv98WoGLoRwhXE2fURe6sNi6bW2PoONt8AlHZ1OyeZYpdYmFB1MVkyD
+      - CORS_ORIGINS=localhost:8080
     entrypoint: docker/entrypoint.sh
     ports:
       - "5000:5000"
