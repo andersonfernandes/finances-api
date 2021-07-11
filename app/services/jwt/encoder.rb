@@ -7,8 +7,6 @@ module Jwt
 
     private
 
-    TOKEN_EXPIRY_AT = 24.hours.from_now
-
     def encode_access_token(token)
       JWT.encode(
         token.access_token_payload,
@@ -20,7 +18,7 @@ module Jwt
       Token.create!(
         jwt_id: Digest::SHA256.hexdigest(SecureRandom.hex),
         status: :active,
-        expiry_at: TOKEN_EXPIRY_AT,
+        expiry_at: 30.seconds.from_now,
         user: user
       )
     end
