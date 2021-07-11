@@ -18,7 +18,7 @@ module Jwt
       Token.create!(
         jwt_id: Digest::SHA256.hexdigest(SecureRandom.hex),
         status: :active,
-        expiry_at: 30.seconds.from_now,
+        expiry_at: 2.hours.from_now,
         user: user
       )
     end
