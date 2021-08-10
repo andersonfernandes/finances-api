@@ -50,6 +50,8 @@ module V1
     end
     def update
       if @credit_card.update(credit_card_params)
+        @credit_card.account.update(financial_institution_id: params[:financial_institution_id])
+
         render json: @credit_card.to_response, status: :ok
       else
         render error_response(:unprocessable_entity, @credit_card.errors.messages)
