@@ -10,7 +10,7 @@ module V1
     header 'Authentication', 'User access token', required: true
     returns array_of: :account_response, code: 200, desc: 'Successful response'
     def index
-      accounts = Account.where(user_id: current_user.id)
+      accounts = all_accounts
 
       render json: accounts.map(&:to_response), status: :ok
     end
@@ -77,6 +77,12 @@ module V1
 
     def set_account
       @account = Account.find(params[:id])
+    end
+
+    def all_accounts
+      Account
+        .includes(:financial_institution)
+        .where(user_id: current_user.id)
     end
   end
 end

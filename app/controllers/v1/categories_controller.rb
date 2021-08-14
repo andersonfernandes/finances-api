@@ -10,7 +10,7 @@ module V1
     header 'Authentication', 'User access token', required: true
     returns array_of: :category_response, code: 200, desc: 'Successful response'
     def index
-      categories = Category.where(user_id: current_user.id)
+      categories = all_categories
 
       render json: categories.map(&:to_response), status: :ok
     end
@@ -77,6 +77,12 @@ module V1
 
     def set_category
       @category = Category.find(params[:id])
+    end
+
+    def all_categories
+      Category
+        .includes(:parent_category, :child_categories)
+        .where(user_id: current_user.id)
     end
   end
 end

@@ -10,7 +10,7 @@ module V1
     header 'Authentication', 'User access token', required: true
     returns array_of: :transaction_response, code: 200, desc: 'Successful response'
     def index
-      transactions = Transaction.joins(account: :user).where(accounts: { user_id: current_user.id })
+      transactions = all_transactions
 
       render json: transactions.map(&:to_response), status: :ok
     end
@@ -75,6 +75,14 @@ module V1
 
     def set_transaction
       @transaction = Transaction.find(params[:id])
+    end
+
+    def all_transactions
+      Transaction
+        .includes(account: :financial_institution,
+                  category: %i[child_categories parent_category])
+        .joins(account: :user)
+        .where(accounts: { user_id: current_user.id })
     end
   end
 end
