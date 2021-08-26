@@ -10,7 +10,7 @@ module V1
     header 'Authentication', 'User access token', required: true
     returns array_of: :credit_card_response, code: 200, desc: 'Successful response'
     def index
-      credit_cards = CreditCard.joins(:account).where(accounts: { user_id: current_user.id })
+      credit_cards = all_credit_cards
 
       render json: credit_cards.map(&:to_response)
     end
@@ -50,6 +50,8 @@ module V1
     end
     def update
       if @credit_card.update(credit_card_params)
+        @credit_card.account.update(financial_institution_id: params[:financial_institution_id])
+
         render json: @credit_card.to_response, status: :ok
       else
         render error_response(:unprocessable_entity, @credit_card.errors.messages)
@@ -85,6 +87,13 @@ module V1
         initial_amount: 0.0,
         user_id: current_user.id
       )
+    end
+
+    def all_credit_cards
+      CreditCard
+        .joins(:account)
+        .includes(account: :financial_institution)
+        .where(accounts: { user_id: current_user.id })
     end
   end
 end

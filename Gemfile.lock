@@ -70,6 +70,9 @@ GEM
     bootsnap (1.7.2)
       msgpack (~> 1.0)
     builder (3.2.4)
+    bullet (6.1.4)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     coderay (1.1.2)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
@@ -212,6 +215,7 @@ GEM
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (1.6.1)
+    uniform_notifier (1.14.2)
     websocket-driver (0.7.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -225,6 +229,7 @@ DEPENDENCIES
   apipie-rails (~> 0.5.18)
   bcrypt (~> 3.1.16)
   bootsnap (~> 1.7, >= 1.7.2)
+  bullet
   factory_bot_rails
   faker
   figaro
@@ -247,4 +252,4 @@ RUBY VERSION
    ruby 2.7.3p183
 
 BUNDLED WITH
-   2.2.19
+   2.2.22
