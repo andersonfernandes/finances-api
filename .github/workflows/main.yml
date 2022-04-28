@@ -15,23 +15,9 @@ env:
   CORS_ORIGINS: localhost:3000
   RAILS_ENV: test
 
-jobs:
-  lint:
-    name: Rubocop
-    
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@359bebbc29cbe6c87da6bc9ea3bc930432750108
-      - name: Install dependencies
-        run: bundle install
-      - name: Run tests
-        run: bundle exec rubocop
-        
-  tests:
-    name: Tests
+jobs:     
+  quality_checks:
+    name: Quality Checks
     
     runs-on: ubuntu-latest
     
@@ -55,7 +41,9 @@ jobs:
         uses: ruby/setup-ruby@359bebbc29cbe6c87da6bc9ea3bc930432750108
       - name: Install dependencies
         run: bundle install
-      - name: Setup Database
+      - name: Run Rubocop
+        run: bundle exec rubocop
+      - name: Setup test database
         run: bundle exec rails db:prepare
-      - name: Run tests
+      - name: Run RSpec
         run: bundle exec rspec
