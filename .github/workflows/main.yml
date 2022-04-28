@@ -1,0 +1,49 @@
+name: Ruby
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    
+env:
+  DATABASE_HOST: localhost
+  DATABASE_USERNAME: postgres
+  DATABASE_PASSWORD: postgres
+  DATABASE_PORT: 5432
+  SECRET_KEY_BASE: V2ZxX0apQv98WoGLoRwhXE2fURe6sNi6bW2PoONt8AlHZ1OyeZYpdYmFB1MVkyD
+  CORS_ORIGINS: localhost:3000
+  RAILS_ENV: test
+
+jobs:     
+  quality_checks:
+    name: Quality Checks
+    
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@359bebbc29cbe6c87da6bc9ea3bc930432750108
+      - name: Install dependencies
+        run: bundle install
+      - name: Run Rubocop
+        run: bundle exec rubocop
+      - name: Setup test database
+        run: bundle exec rails db:prepare
+      - name: Run RSpec
+        run: bundle exec rspec
