@@ -32,7 +32,7 @@ class Category < ApplicationRecord
            class_name: 'Category',
            foreign_key: :parent_category_id
 
-  validates :description, presence: true
+  # validates :description, presence: true
 
   def to_response
     attrs_to_expose = %i[id description parent_category_id]
