@@ -27,7 +27,7 @@ then
 
   lock_setup
   bundle install
-  bundle exec rails db:prepare
+  rails db:prepare
   unlock_setup
 
   if [[ "$4" = "s" || "$4" = "server" ]]; then rm -rf /finances-api/tmp/pids/server.pid; fi

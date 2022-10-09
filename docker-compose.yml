@@ -2,16 +2,16 @@ version: '3.7'
 
 services:
   db:
-    image: postgres:11
+    image: postgres:13
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
       - postgres:/var/lib/postgresql/data
   web:
     build:
-        context: ./docker
+        context: ./
         args:
-          - RUBY_VERSION=2.7.3
+          - RUBY_VERSION=3.1.2
     environment:
       - DATABASE_USERNAME=postgres
       - DATABASE_PASSWORD=
@@ -19,7 +19,7 @@ services:
       - DATABASE_PORT=5432
       - SECRET_KEY_BASE=V2ZxX0apQv98WoGLoRwhXE2fURe6sNi6bW2PoONt8AlHZ1OyeZYpdYmFB1MVkyD
       - CORS_ORIGINS=localhost:3000
-    entrypoint: docker/entrypoint.sh
+    entrypoint: ./entrypoint.sh
     ports:
       - "5000:5000"
     depends_on:

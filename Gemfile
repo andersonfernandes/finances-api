@@ -1,14 +1,16 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.3'
+ruby '3.1.2'
 
 gem 'apipie-rails', '~> 0.5.18'
 gem 'bcrypt', '~> 3.1.16'
-gem 'bootsnap', '~> 1.7', '>= 1.7.2', require: false
-gem 'figaro'
+gem 'bootsnap', '~> 1.7', '>= 1.7.2', require: false # Remove ????
+gem 'figaro' # Remove when update to rails 7
 gem 'jwt'
+gem 'net-smtp', require: false # Remove when update to rails 7
 gem 'pg', '>= 0.18', '< 2.0'
+gem 'psych', '< 4' # Remove when update to rails 7
 gem 'puma', '~> 4.3'
 gem 'rack-cors', require: 'rack/cors'
 gem 'rails', '~> 6.1', '>= 6.1.3.1'

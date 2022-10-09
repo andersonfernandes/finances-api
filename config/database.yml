@@ -2,26 +2,21 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  port: <%= ENV['DATABASE_PORT'] %>
 
 development:
   <<: *default
   database: finances_development
-  username: <%= Figaro.env.database_username %>
-  password: <%= Figaro.env.database_password %>
-  host: <%= Figaro.env.database_host %>
-  port: <%= Figaro.env.database_port %>
-
 
 test:
   <<: *default
   database: finances_test
-  username: <%= Figaro.env.database_username %>
-  password: <%= Figaro.env.database_password %>
-  host: <%= Figaro.env.database_host %>
-  port: <%= Figaro.env.database_port %>
 
 production:
   <<: *default
   database: finances_production
   username: finances
-  password: <%= ENV['FINANCES_DATABASE_PASSWORD'] %>
+  password: <%= ENV["FINANCES_DATABASE_PASSWORD"] %>
