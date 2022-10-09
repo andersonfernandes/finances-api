@@ -7,7 +7,7 @@ RSpec.describe V1::AuthenticationController, '#access_token', type: :request do
   let(:access_token) do
     JWT.encode(
       token.access_token_payload,
-      Figaro.env.secret_key_base
+      ENV['SECRET_KEY_BASE']
     )
   end
 
@@ -41,7 +41,7 @@ RSpec.describe V1::AuthenticationController, '#access_token', type: :request do
       new_token = Token.last
       expected_access_token = JWT.encode(
         new_token.access_token_payload,
-        Figaro.env.secret_key_base
+        ENV['SECRET_KEY_BASE']
       )
 
       expect(response_body).to include('access_token' => expected_access_token)

@@ -6,7 +6,6 @@ ruby '3.1.2'
 gem 'apipie-rails', '~> 0.5.18'
 gem 'bcrypt', '~> 3.1.16'
 gem 'bootsnap', '~> 1.7', '>= 1.7.2', require: false # Remove ????
-gem 'figaro' # Remove when update to rails 7
 gem 'jwt'
 gem 'net-smtp', require: false # Remove when update to rails 7
 gem 'pg', '>= 0.18', '< 2.0'

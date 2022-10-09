@@ -9,7 +9,7 @@ describe Jwt::Decoder do
           user_id: user.id,
           exp: token_expiry_at
         },
-        Figaro.env.secret_key_base
+        ENV['SECRET_KEY_BASE']
       )
     end
     let(:valid_token_expected_decode) do

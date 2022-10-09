@@ -27,7 +27,7 @@ RSpec.describe V1::AuthenticationController, '#access_token', type: :request do
       token = Token.last
       expected_access_token = JWT.encode(
         token.access_token_payload,
-        Figaro.env.secret_key_base
+        ENV['SECRET_KEY_BASE']
       )
       expected_refresh_token = RefreshToken.last.encrypted_token
 

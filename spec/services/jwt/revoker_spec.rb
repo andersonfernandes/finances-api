@@ -15,7 +15,7 @@ describe Jwt::Revoker do
           exp: 2.days.from_now.to_i,
           jti: token.jwt_id
         },
-        Figaro.env.secret_key_base
+        ENV['SECRET_KEY_BASE']
       )
     end
 

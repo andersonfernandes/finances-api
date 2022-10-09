@@ -36,7 +36,7 @@ RSpec.shared_context 'when the access token is expired' do
 
       JWT.encode(
         token.access_token_payload,
-        Figaro.env.secret_key_base
+        ENV['SECRET_KEY_BASE']
       )
     end
     let(:headers) { { 'Authorization' => "Bearer #{access_token}" } }

@@ -6,7 +6,7 @@ RSpec.describe V1::AuthenticationController, '#revoke', type: :request do
   let(:access_token) do
     JWT.encode(
       token.access_token_payload,
-      Figaro.env.secret_key_base
+      ENV['SECRET_KEY_BASE']
     )
   end
 

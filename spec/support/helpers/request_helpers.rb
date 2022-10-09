@@ -3,7 +3,7 @@ module RequestHelpers
     token = create(:token, user: user, status: :active)
     access_token = JWT.encode(
       token.access_token_payload,
-      Figaro.env.secret_key_base
+      ENV['SECRET_KEY_BASE']
     )
 
     { 'Authorization' => "Bearer #{access_token}" }
