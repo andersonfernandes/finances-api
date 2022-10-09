@@ -2,7 +2,7 @@ AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
   ExtraDetails: false
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.1
 
   Exclude:
     - 'bin/**/*'
@@ -11,7 +11,7 @@ AllCops:
     - 'vendor/**/*'
 
 Metrics/BlockLength:
-  ExcludedMethods: ['describe', 'context', 'feature', 'resource', 'desc', 'task']
+  AllowedMethods: ['describe', 'context', 'feature', 'resource', 'desc', 'task']
 
 Style/Documentation:
   Enabled: false
@@ -39,3 +39,6 @@ Layout/LineLength:
 
 Metrics/MethodLength:
   Max: 15
+
+Style/HashSyntax:
+  Enabled: false

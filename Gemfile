@@ -17,7 +17,7 @@ gem 'rails', '~> 6.1', '>= 6.1.3.1'
 group :development, :test do
   gem 'bullet'
   gem 'pry', '~> 0.12.2'
-  gem 'rubocop', '~> 0.80.1', require: false
+  gem 'rubocop', '~> 1.36', require: false
 end
 
 group :test do

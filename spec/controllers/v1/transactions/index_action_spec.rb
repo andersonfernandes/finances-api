@@ -2,13 +2,13 @@ require 'rails_helper'
 
 RSpec.describe V1::TransactionsController, '#index', type: :request do
   let(:body) { JSON.parse(response.body) }
-  let(:user_01) { create(:user) }
-  let(:user_02) { create(:user) }
-  let!(:transaction_01) { create(:transaction, account: create(:account, user: user_01)) }
-  let!(:transaction_02) { create(:transaction, account: create(:account, user: user_02)) }
-  let!(:transaction_03) { create(:transaction, account: create(:account, user: user_01)) }
+  let(:user1) { create(:user) }
+  let(:user2) { create(:user) }
+  let!(:transaction1) { create(:transaction, account: create(:account, user: user1)) }
+  let!(:transaction2) { create(:transaction, account: create(:account, user: user2)) }
+  let!(:transaction3) { create(:transaction, account: create(:account, user: user1)) }
 
-  let(:headers) { authorization_header(user_01) }
+  let(:headers) { authorization_header(user1) }
 
   before { get v1_transactions_path, headers: headers }
 
@@ -19,21 +19,21 @@ RSpec.describe V1::TransactionsController, '#index', type: :request do
       it { expect(response).to have_http_status(:ok) }
       it { expect(body.size).to eq 2 }
       it do
-        expect(body.first).to include('id' => transaction_01.id)
-          .and include('description' => transaction_01.description)
-          .and include('amount' => transaction_01.amount.to_s)
-          .and include('spent_at' => transaction_01.spent_at.to_time.iso8601)
-          .and include('transaction_type' => transaction_01.transaction_type)
-          .and include('category' => transaction_01.category.to_response)
-          .and include('account' => transaction_01.account.to_response)
+        expect(body.first).to include('id' => transaction1.id)
+          .and include('description' => transaction1.description)
+          .and include('amount' => transaction1.amount.to_s)
+          .and include('spent_at' => transaction1.spent_at.to_time.iso8601)
+          .and include('transaction_type' => transaction1.transaction_type)
+          .and include('category' => transaction1.category.to_response)
+          .and include('account' => transaction1.account.to_response)
 
-        expect(body.second).to include('id' => transaction_03.id)
-          .and include('description' => transaction_03.description)
-          .and include('amount' => transaction_03.amount.to_s)
-          .and include('spent_at' => transaction_03.spent_at.to_time.iso8601)
-          .and include('transaction_type' => transaction_03.transaction_type)
-          .and include('category' => transaction_03.category.to_response)
-          .and include('account' => transaction_03.account.to_response)
+        expect(body.second).to include('id' => transaction3.id)
+          .and include('description' => transaction3.description)
+          .and include('amount' => transaction3.amount.to_s)
+          .and include('spent_at' => transaction3.spent_at.to_time.iso8601)
+          .and include('transaction_type' => transaction3.transaction_type)
+          .and include('category' => transaction3.category.to_response)
+          .and include('account' => transaction3.account.to_response)
       end
     end
   end

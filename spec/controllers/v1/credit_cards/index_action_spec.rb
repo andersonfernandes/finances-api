@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe V1::CreditCardsController, '#index', type: :request do
   let(:user) { create(:user) }
 
-  let!(:credit_card_01) { create(:credit_card, account: create(:account, user: user)) }
-  let!(:credit_card_02) { create(:credit_card, account: create(:account, user: user)) }
-  let!(:credit_card_03) { create(:credit_card, account: create(:account, user: user)) }
+  let!(:credit_card1) { create(:credit_card, account: create(:account, user: user)) }
+  let!(:credit_card2) { create(:credit_card, account: create(:account, user: user)) }
+  let!(:credit_card3) { create(:credit_card, account: create(:account, user: user)) }
 
   let(:headers) { authorization_header(user) }
 
@@ -19,13 +19,13 @@ RSpec.describe V1::CreditCardsController, '#index', type: :request do
       it { expect(response_body.size).to eq 3 }
       it do
         expect(response_body.first)
-          .to include('id' => credit_card_01.id)
+          .to include('id' => credit_card1.id)
 
         expect(response_body.second)
-          .to include('id' => credit_card_02.id)
+          .to include('id' => credit_card2.id)
 
         expect(response_body.third)
-          .to include('id' => credit_card_03.id)
+          .to include('id' => credit_card3.id)
       end
     end
   end
