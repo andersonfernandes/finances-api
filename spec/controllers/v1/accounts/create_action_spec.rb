@@ -9,10 +9,10 @@ RSpec.describe V1::AccountsController, '#create', type: :request do
 
   let(:params) do
     {
-      description: Faker::Lorem.sentence(word_count: 3, supplemental: true),
+      description: FFaker::Lorem.sentences.first,
       account_type: 'checking',
-      name: Faker::Company.name,
-      initial_amount: Faker::Commerce.price,
+      name: FFaker::Company.name,
+      initial_amount: FFaker::Number.decimal,
       financial_institution_id: financial_institution.id
     }
   end

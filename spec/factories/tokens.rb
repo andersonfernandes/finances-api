@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :token do
-    jwt_id { Faker::Crypto.sha256 }
-    expiry_at { Faker::Time.forward(days: 1, period: :morning) }
+    jwt_id { Digest::SHA256.hexdigest(SecureRandom.hex) }
+    expiry_at { 2.days.from_now }
     status { :active }
     user { build(:user) }
   end

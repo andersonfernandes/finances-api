@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_01_100622) do
-
+ActiveRecord::Schema[7.0].define(version: 2021_05_01_100622) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,8 +20,8 @@ ActiveRecord::Schema.define(version: 2021_05_01_100622) do
     t.decimal "initial_amount", default: "0.0", null: false
     t.integer "account_type", null: false
     t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "financial_institution_id", null: false
     t.index ["financial_institution_id"], name: "index_accounts_on_financial_institution_id"
     t.index ["user_id"], name: "index_accounts_on_user_id"
@@ -31,8 +30,8 @@ ActiveRecord::Schema.define(version: 2021_05_01_100622) do
   create_table "categories", force: :cascade do |t|
     t.string "description", null: false
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "parent_category_id"
     t.index ["parent_category_id"], name: "index_categories_on_parent_category_id"
     t.index ["user_id"], name: "index_categories_on_user_id"
@@ -44,23 +43,23 @@ ActiveRecord::Schema.define(version: 2021_05_01_100622) do
     t.integer "closing_day", null: false
     t.integer "due_day", null: false
     t.bigint "account_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_credit_cards_on_account_id"
   end
 
   create_table "financial_institutions", force: :cascade do |t|
     t.string "name", null: false
     t.string "logo_url"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "refresh_tokens", force: :cascade do |t|
     t.string "encrypted_token", null: false
     t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["encrypted_token"], name: "index_refresh_tokens_on_encrypted_token", unique: true
     t.index ["user_id"], name: "index_refresh_tokens_on_user_id"
   end
@@ -68,10 +67,10 @@ ActiveRecord::Schema.define(version: 2021_05_01_100622) do
   create_table "tokens", force: :cascade do |t|
     t.string "jwt_id", null: false
     t.integer "status", null: false
-    t.datetime "expiry_at", null: false
+    t.datetime "expiry_at", precision: nil, null: false
     t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["jwt_id"], name: "index_tokens_on_jwt_id", unique: true
     t.index ["user_id"], name: "index_tokens_on_user_id"
   end
@@ -82,8 +81,8 @@ ActiveRecord::Schema.define(version: 2021_05_01_100622) do
     t.date "spent_at", null: false
     t.integer "transaction_type", null: false
     t.bigint "category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "account_id", null: false
     t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["category_id"], name: "index_transactions_on_category_id"
@@ -93,8 +92,8 @@ ActiveRecord::Schema.define(version: 2021_05_01_100622) do
     t.string "name", null: false
     t.string "email", null: false
     t.string "password_digest", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   add_foreign_key "accounts", "financial_institutions"

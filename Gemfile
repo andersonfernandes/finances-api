@@ -5,14 +5,12 @@ ruby '3.1.2'
 
 gem 'apipie-rails', '~> 0.5.18'
 gem 'bcrypt', '~> 3.1.16'
-gem 'bootsnap', '~> 1.7', '>= 1.7.2', require: false # Remove ????
+gem 'bootsnap', '~> 1.7', '>= 1.7.2', require: false
 gem 'jwt'
-gem 'net-smtp', require: false # Remove when update to rails 7
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'psych', '< 4' # Remove when update to rails 7
 gem 'puma', '~> 4.3'
 gem 'rack-cors', require: 'rack/cors'
-gem 'rails', '~> 6.1', '>= 6.1.3.1'
+gem 'rails', '~> 7.0', '>= 7.0.4'
 
 group :development, :test do
   gem 'bullet'
@@ -22,7 +20,7 @@ end
 
 group :test do
   gem 'factory_bot_rails'
-  gem 'faker'
+  gem 'ffaker', '~> 2.2'
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 4.1', '>= 4.1.2'
   gem 'shoulda-matchers'

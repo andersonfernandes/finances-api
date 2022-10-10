@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :financial_institution do
-    name { Faker::Company.name }
-    logo_url { Faker::Internet.url }
+    name { FFaker::Company.name }
+    logo_url { FFaker::InternetSE.http_url }
   end
 end

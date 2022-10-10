@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :budget do
-    description { Faker::Lorem.sentence(word_count: 3, supplemental: true) }
+    description { FFaker::Lorem.sentences.first }
     user { FactoryBot.build(:user) }
   end
 end
