@@ -12,7 +12,6 @@ RSpec.describe V1::AccountsController, '#create', type: :request do
       description: FFaker::Lorem.sentences.first,
       account_type: 'checking',
       name: FFaker::Company.name,
-      initial_amount: FFaker::Number.decimal,
       financial_institution_id: financial_institution.id
     }
   end
@@ -36,7 +35,6 @@ RSpec.describe V1::AccountsController, '#create', type: :request do
       it { expect(response).to have_http_status(:created) }
       it do
         expect(response_body).to include('description' => params[:description])
-          .and include('initial_amount' => params[:initial_amount].to_s)
           .and include('name' => params[:name])
           .and include('financial_institution' => {
                          'id' => financial_institution.id,

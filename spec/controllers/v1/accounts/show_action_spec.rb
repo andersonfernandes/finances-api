@@ -16,7 +16,6 @@ RSpec.describe V1::AccountsController, '#show', type: :request do
       it do
         expect(response_body).to include('description' => account.description)
           .and include('id' => account.id)
-          .and include('initial_amount' => account.initial_amount.to_s)
           .and include('name' => account.name)
           .and include('financial_institution' => {
                          'id' => account.financial_institution_id,

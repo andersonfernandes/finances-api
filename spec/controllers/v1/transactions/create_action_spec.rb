@@ -51,7 +51,6 @@ RSpec.describe V1::TransactionsController, '#create', type: :request do
             'name' => account.financial_institution_name,
             'logo_url' => account.financial_institution_logo_url
           },
-          'initial_amount' => account.initial_amount.to_s,
           'account_type' => account.account_type
         }
         expect(response_body).to include('description' => params[:description])

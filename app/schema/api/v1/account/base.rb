@@ -24,11 +24,6 @@ module Api
               desc: 'Account Type',
               required: { on_create: true, on_update: false }
             },
-            initial_amount: {
-              type: :decimal,
-              desc: 'Account initial amount',
-              required: { on_create: true, on_update: false }
-            },
             financial_institution_id: {
               type: :number,
               desc: 'Account related financial_institution id',

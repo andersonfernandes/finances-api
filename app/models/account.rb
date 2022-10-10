@@ -5,7 +5,6 @@
 #  id                       :bigint(8)        not null, primary key
 #  account_type             :integer          not null
 #  description              :string
-#  initial_amount           :decimal(, )      default(0.0), not null
 #  name                     :string
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
@@ -26,8 +25,7 @@ class Account < ApplicationRecord
   belongs_to :user
   belongs_to :financial_institution
 
-  validates(:initial_amount, numericality: true)
-  validates(:account_type, :initial_amount, presence: true)
+  validates(:account_type, presence: true)
 
   enum account_type: %i[checking savings other credit_card]
 

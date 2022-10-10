@@ -858,11 +858,6 @@
                   "description": "Account Type",
                   "default": null
                 },
-                "initial_amount": {
-                  "type": "string",
-                  "description": "Account initial amount",
-                  "default": null
-                },
                 "financial_institution_id": {
                   "type": "number",
                   "description": "Account related financial_institution id",
@@ -872,7 +867,6 @@
               "additionalProperties": false,
               "required": [
                 "account_type",
-                "initial_amount",
                 "financial_institution_id"
               ]
             }
@@ -925,10 +919,6 @@
                   ],
                   "description": "Account Type"
                 },
-                "initial_amount": {
-                  "type": "string",
-                  "description": "Account initial amount"
-                },
                 "financial_institution": {
                   "type": "object",
                   "properties": {
@@ -959,7 +949,6 @@
                 "name",
                 "description",
                 "account_type",
-                "initial_amount",
                 "financial_institution"
               ]
             }
@@ -1034,10 +1023,6 @@
                   ],
                   "description": "Account Type"
                 },
-                "initial_amount": {
-                  "type": "string",
-                  "description": "Account initial amount"
-                },
                 "financial_institution": {
                   "type": "object",
                   "properties": {
@@ -1068,7 +1053,6 @@
                 "name",
                 "description",
                 "account_type",
-                "initial_amount",
                 "financial_institution"
               ]
             }
@@ -1119,11 +1103,6 @@
                     "credit_card"
                   ],
                   "description": "Account Type",
-                  "default": null
-                },
-                "initial_amount": {
-                  "type": "string",
-                  "description": "Account initial amount",
                   "default": null
                 },
                 "financial_institution_id": {
@@ -1183,10 +1162,6 @@
                   ],
                   "description": "Account Type"
                 },
-                "initial_amount": {
-                  "type": "string",
-                  "description": "Account initial amount"
-                },
                 "financial_institution": {
                   "type": "object",
                   "properties": {
@@ -1217,7 +1192,6 @@
                 "name",
                 "description",
                 "account_type",
-                "initial_amount",
                 "financial_institution"
               ]
             }
@@ -1441,10 +1415,6 @@
                       ],
                       "description": "Account Type"
                     },
-                    "initial_amount": {
-                      "type": "string",
-                      "description": "Account initial amount"
-                    },
                     "financial_institution": {
                       "type": "object",
                       "properties": {
@@ -1475,7 +1445,6 @@
                     "name",
                     "description",
                     "account_type",
-                    "initial_amount",
                     "financial_institution"
                   ]
                 }
@@ -1589,10 +1558,6 @@
                       ],
                       "description": "Account Type"
                     },
-                    "initial_amount": {
-                      "type": "string",
-                      "description": "Account initial amount"
-                    },
                     "financial_institution": {
                       "type": "object",
                       "properties": {
@@ -1623,7 +1588,6 @@
                     "name",
                     "description",
                     "account_type",
-                    "initial_amount",
                     "financial_institution"
                   ]
                 }
@@ -1771,10 +1735,6 @@
                       ],
                       "description": "Account Type"
                     },
-                    "initial_amount": {
-                      "type": "string",
-                      "description": "Account initial amount"
-                    },
                     "financial_institution": {
                       "type": "object",
                       "properties": {
@@ -1805,7 +1765,6 @@
                     "name",
                     "description",
                     "account_type",
-                    "initial_amount",
                     "financial_institution"
                   ]
                 }
@@ -2127,10 +2086,6 @@
                       ],
                       "description": "Account Type"
                     },
-                    "initial_amount": {
-                      "type": "string",
-                      "description": "Account initial amount"
-                    },
                     "financial_institution": {
                       "type": "object",
                       "properties": {
@@ -2161,7 +2116,6 @@
                     "name",
                     "description",
                     "account_type",
-                    "initial_amount",
                     "financial_institution"
                   ]
                 }
@@ -2350,10 +2304,6 @@
                       ],
                       "description": "Account Type"
                     },
-                    "initial_amount": {
-                      "type": "string",
-                      "description": "Account initial amount"
-                    },
                     "financial_institution": {
                       "type": "object",
                       "properties": {
@@ -2384,7 +2334,6 @@
                     "name",
                     "description",
                     "account_type",
-                    "initial_amount",
                     "financial_institution"
                   ]
                 }
@@ -2612,10 +2561,6 @@
                       ],
                       "description": "Account Type"
                     },
-                    "initial_amount": {
-                      "type": "string",
-                      "description": "Account initial amount"
-                    },
                     "financial_institution": {
                       "type": "object",
                       "properties": {
@@ -2646,7 +2591,6 @@
                     "name",
                     "description",
                     "account_type",
-                    "initial_amount",
                     "financial_institution"
                   ]
                 }
@@ -2835,10 +2779,6 @@
           ],
           "description": "Account Type"
         },
-        "initial_amount": {
-          "type": "string",
-          "description": "Account initial amount"
-        },
         "financial_institution": {
           "type": "object",
           "properties": {
@@ -2869,7 +2809,6 @@
         "name",
         "description",
         "account_type",
-        "initial_amount",
         "financial_institution"
       ]
     },
@@ -2925,10 +2864,6 @@
               ],
               "description": "Account Type"
             },
-            "initial_amount": {
-              "type": "string",
-              "description": "Account initial amount"
-            },
             "financial_institution": {
               "type": "object",
               "properties": {
@@ -2959,7 +2894,6 @@
             "name",
             "description",
             "account_type",
-            "initial_amount",
             "financial_institution"
           ]
         }
@@ -3102,10 +3036,6 @@
               ],
               "description": "Account Type"
             },
-            "initial_amount": {
-              "type": "string",
-              "description": "Account initial amount"
-            },
             "financial_institution": {
               "type": "object",
               "properties": {
@@ -3136,7 +3066,6 @@
             "name",
             "description",
             "account_type",
-            "initial_amount",
             "financial_institution"
           ]
         }

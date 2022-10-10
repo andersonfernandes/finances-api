@@ -70,7 +70,7 @@ module V1
     private
 
     def account_params
-      permitted = %i[description account_type financial_institution_id initial_amount name]
+      permitted = %i[description account_type financial_institution_id name]
 
       params.permit(permitted).merge(user_id: current_user.id)
     end
