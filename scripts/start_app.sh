@@ -33,3 +33,5 @@ fi
 printf "\033[1;32m ... done!\e[0m\n"
 
 docker attach finances-api-web-1
+
+docker compose stop
