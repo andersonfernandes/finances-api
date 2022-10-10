@@ -1,4 +1,4 @@
-# Finances API [![Build](https://circleci.com/gh/andersonfernandes/finances-api.svg?style=shield)](https://circleci.com/gh/andersonfernandes/finances-api) [![Maintainability](https://api.codeclimate.com/v1/badges/88419b2509fcfa371c8c/maintainability)](https://codeclimate.com/github/andersonfernandes/finances-api/maintainability)  [![Test Coverage](https://api.codeclimate.com/v1/badges/88419b2509fcfa371c8c/test_coverage)](https://codeclimate.com/github/andersonfernandes/finances-api/test_coverage)
+# Finances API [![Build](https://github.com/andersonfernandes/finances-api/actions/workflows/main.yml/badge.svg)](https://github.com/andersonfernandes/finances-api/actions/workflows/main.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/88419b2509fcfa371c8c/maintainability)](https://codeclimate.com/github/andersonfernandes/finances-api/maintainability)  [![Test Coverage](https://api.codeclimate.com/v1/badges/88419b2509fcfa371c8c/test_coverage)](https://codeclimate.com/github/andersonfernandes/finances-api/test_coverage)
 
 This application provides a REST API to manage your financial life. Keep track of your expenses, incomes and transfers between accounts.
 
@@ -40,11 +40,9 @@ This project logs all work needed and work being actively worked on via GitHub I
 
 If you are working on something related to an existing GitHub Issue that already has an assignee, talk with them first (we don't want to waste your time). If there is no assignee, assign yourself (if you have permissions) or post a comment stating that you're working on it.
 
-Read those posts about good practices using git: [Part I](https://medium.com/stantmob/good-practices-using-github-part-i-7ab1985751eb) and [Part II](https://medium.com/stantmob/good-practices-using-github-part-ii-baf416811c9d)
-
 To work on your code submission, follow:
 
-1. Branch or Fork
+1. Fork the repo and create a new branch
 2. Commit changes
 3. Submit Pull Request
 4. Discuss via Pull Request
