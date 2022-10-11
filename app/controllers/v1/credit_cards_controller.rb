@@ -82,7 +82,6 @@ module V1
 
     def create_account
       Account.create(
-        account_type: :credit_card,
         financial_institution_id: params[:financial_institution_id],
         user_id: current_user.id
       )

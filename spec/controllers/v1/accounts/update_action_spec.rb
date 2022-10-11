@@ -10,7 +10,6 @@ RSpec.describe V1::AccountsController, '#update', type: :request do
   let(:params) do
     {
       description: FFaker::Lorem.sentences.first,
-      account_type: 'checking',
       financial_institution_id: new_financial_institution.id,
       name: FFaker::Company.name
     }
@@ -33,7 +32,7 @@ RSpec.describe V1::AccountsController, '#update', type: :request do
                          'id' => new_financial_institution.id,
                          'name' => new_financial_institution.name,
                          'logo_url' => new_financial_institution.logo_url
-                       }).and include('account_type' => params[:account_type])
+                       })
       end
     end
 

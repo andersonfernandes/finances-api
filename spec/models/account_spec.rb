@@ -6,13 +6,6 @@ RSpec.describe Account, type: :model do
     it { should belong_to(:financial_institution) }
   end
 
-  context 'validations' do
-    describe '#account_type' do
-      it { should validate_presence_of(:account_type) }
-      it { should define_enum_for(:account_type) }
-    end
-  end
-
   context 'delegators' do
     it { should delegate_method(:id).to(:financial_institution).with_prefix }
     it { should delegate_method(:name).to(:financial_institution).with_prefix }
@@ -27,7 +20,6 @@ RSpec.describe Account, type: :model do
         'id' => subject.id,
         'description' => subject.description,
         'name' => subject.name,
-        'account_type' => subject.account_type,
         'financial_institution' => {
           'id' => subject.financial_institution_id,
           'name' => subject.financial_institution_name,

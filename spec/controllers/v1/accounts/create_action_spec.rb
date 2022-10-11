@@ -10,7 +10,6 @@ RSpec.describe V1::AccountsController, '#create', type: :request do
   let(:params) do
     {
       description: FFaker::Lorem.sentences.first,
-      account_type: 'checking',
       name: FFaker::Company.name,
       financial_institution_id: financial_institution.id
     }
@@ -40,7 +39,7 @@ RSpec.describe V1::AccountsController, '#create', type: :request do
                          'id' => financial_institution.id,
                          'name' => financial_institution.name,
                          'logo_url' => financial_institution.logo_url
-                       }).and include('account_type' => params[:account_type])
+                       })
       end
     end
 

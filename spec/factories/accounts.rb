@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :account do
-    account_type { Account.account_types.values.sample }
     description { FFaker::Lorem.sentences.first }
     name { FFaker::Lorem.sentences.first }
 

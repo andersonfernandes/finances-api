@@ -21,7 +21,7 @@ RSpec.describe V1::AccountsController, '#show', type: :request do
                          'id' => account.financial_institution_id,
                          'name' => account.financial_institution_name,
                          'logo_url' => account.financial_institution_logo_url
-                       }).and include('account_type' => account.account_type)
+                       })
       end
     end
 

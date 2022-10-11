@@ -3,7 +3,6 @@
 # Table name: accounts
 #
 #  id                       :bigint(8)        not null, primary key
-#  account_type             :integer          not null
 #  description              :string
 #  name                     :string
 #  created_at               :datetime         not null
@@ -25,14 +24,10 @@ class Account < ApplicationRecord
   belongs_to :user
   belongs_to :financial_institution
 
-  validates(:account_type, presence: true)
-
-  enum account_type: %i[checking savings other credit_card]
-
   delegate :id, :name, :logo_url, to: :financial_institution, prefix: true
 
   def to_response
-    attrs_to_expose = %i[id description name financial_institution initial_amount account_type]
+    attrs_to_expose = %i[id description name financial_institution initial_amount]
     as_json(only: attrs_to_expose,
             include: { financial_institution: { only: %i[id name logo_url] } })
   end
