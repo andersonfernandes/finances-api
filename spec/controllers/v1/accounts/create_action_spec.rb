@@ -5,13 +5,11 @@ RSpec.describe V1::AccountsController, '#create', type: :request do
   let(:setup) {}
   let(:user) { create(:user) }
   let(:account) { create(:account) }
-  let(:financial_institution) { create(:financial_institution) }
 
   let(:params) do
     {
       description: FFaker::Lorem.sentences.first,
-      name: FFaker::Company.name,
-      financial_institution_id: financial_institution.id
+      name: FFaker::Company.name
     }
   end
   let(:headers) { authorization_header(user) }
@@ -24,22 +22,11 @@ RSpec.describe V1::AccountsController, '#create', type: :request do
   include_context 'when the user is not authenticated'
 
   context 'when the user is authenticated' do
-    context 'with missing params' do
-      let(:params) { {} }
-
-      it { expect(response).to have_http_status(:bad_request) }
-    end
-
     context 'with valid params' do
       it { expect(response).to have_http_status(:created) }
       it do
         expect(response_body).to include('description' => params[:description])
           .and include('name' => params[:name])
-          .and include('financial_institution' => {
-                         'id' => financial_institution.id,
-                         'name' => financial_institution.name,
-                         'logo_url' => financial_institution.logo_url
-                       })
       end
     end
 

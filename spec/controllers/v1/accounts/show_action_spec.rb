@@ -9,7 +9,6 @@ RSpec.describe V1::AccountsController, '#show', type: :request do
   before { get v1_account_path(account), headers: headers }
 
   include_context 'when the user is not authenticated'
-
   context 'when the user is authenticated' do
     context 'and the account exists' do
       it { expect(response).to have_http_status(:ok) }
@@ -17,11 +16,6 @@ RSpec.describe V1::AccountsController, '#show', type: :request do
         expect(response_body).to include('description' => account.description)
           .and include('id' => account.id)
           .and include('name' => account.name)
-          .and include('financial_institution' => {
-                         'id' => account.financial_institution_id,
-                         'name' => account.financial_institution_name,
-                         'logo_url' => account.financial_institution_logo_url
-                       })
       end
     end
 

@@ -10,7 +10,6 @@ RSpec.describe V1::AccountsController, '#update', type: :request do
   let(:params) do
     {
       description: FFaker::Lorem.sentences.first,
-      financial_institution_id: new_financial_institution.id,
       name: FFaker::Company.name
     }
   end
@@ -26,14 +25,6 @@ RSpec.describe V1::AccountsController, '#update', type: :request do
   context 'when the user is authenticated' do
     context 'and the account belongs to the current user' do
       it { expect(response).to have_http_status(:ok) }
-      it do
-        expect(response_body).to include('description' => params[:description])
-          .and include('financial_institution' => {
-                         'id' => new_financial_institution.id,
-                         'name' => new_financial_institution.name,
-                         'logo_url' => new_financial_institution.logo_url
-                       })
-      end
     end
 
     context 'and the account does not exist' do

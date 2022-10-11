@@ -80,17 +80,9 @@
                   "type": "string",
                   "description": "Account description",
                   "default": null
-                },
-                "financial_institution_id": {
-                  "type": "number",
-                  "description": "Account related financial_institution id",
-                  "default": null
                 }
               },
-              "additionalProperties": false,
-              "required": [
-                "financial_institution_id"
-              ]
+              "additionalProperties": false
             }
           },
           {
@@ -292,11 +284,6 @@
                 "description": {
                   "type": "string",
                   "description": "Account description",
-                  "default": null
-                },
-                "financial_institution_id": {
-                  "type": "number",
-                  "description": "Account related financial_institution id",
                   "default": null
                 }
               },
@@ -1153,11 +1140,6 @@
                   "type": "string",
                   "description": "Credit Card transactions limit",
                   "default": null
-                },
-                "financial_institution_id": {
-                  "type": "string",
-                  "description": "Credit Card financial institution id",
-                  "default": null
                 }
               },
               "additionalProperties": false,
@@ -1165,8 +1147,7 @@
                 "name",
                 "closing_day",
                 "due_day",
-                "limit",
-                "financial_institution_id"
+                "limit"
               ]
             }
           },
@@ -1215,10 +1196,6 @@
                 "limit": {
                   "type": "string",
                   "description": "Credit Card transactions limit"
-                },
-                "financial_institution_id": {
-                  "type": "string",
-                  "description": "Credit Card financial institution id"
                 },
                 "account": {
                   "type": "object",
@@ -1275,7 +1252,6 @@
                 "closing_day",
                 "due_day",
                 "limit",
-                "financial_institution_id",
                 "account"
               ]
             }
@@ -1348,10 +1324,6 @@
                   "type": "string",
                   "description": "Credit Card transactions limit"
                 },
-                "financial_institution_id": {
-                  "type": "string",
-                  "description": "Credit Card financial institution id"
-                },
                 "account": {
                   "type": "object",
                   "properties": {
@@ -1407,7 +1379,6 @@
                 "closing_day",
                 "due_day",
                 "limit",
-                "financial_institution_id",
                 "account"
               ]
             }
@@ -1457,11 +1428,6 @@
                 "limit": {
                   "type": "string",
                   "description": "Credit Card transactions limit",
-                  "default": null
-                },
-                "financial_institution_id": {
-                  "type": "string",
-                  "description": "Credit Card financial institution id",
                   "default": null
                 }
               },
@@ -1514,10 +1480,6 @@
                   "type": "string",
                   "description": "Credit Card transactions limit"
                 },
-                "financial_institution_id": {
-                  "type": "string",
-                  "description": "Credit Card financial institution id"
-                },
                 "account": {
                   "type": "object",
                   "properties": {
@@ -1573,7 +1535,6 @@
                 "closing_day",
                 "due_day",
                 "limit",
-                "financial_institution_id",
                 "account"
               ]
             }
@@ -2679,10 +2640,6 @@
           "type": "string",
           "description": "Credit Card transactions limit"
         },
-        "financial_institution_id": {
-          "type": "string",
-          "description": "Credit Card financial institution id"
-        },
         "account": {
           "type": "object",
           "properties": {
@@ -2738,7 +2695,6 @@
         "closing_day",
         "due_day",
         "limit",
-        "financial_institution_id",
         "account"
       ]
     },

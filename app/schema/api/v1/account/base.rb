@@ -18,11 +18,6 @@ module Api
               type: String,
               desc: 'Account description',
               required: { on_create: false, on_update: false }
-            },
-            financial_institution_id: {
-              type: :number,
-              desc: 'Account related financial_institution id',
-              required: { on_create: true, on_update: false }
             }
           }
         end

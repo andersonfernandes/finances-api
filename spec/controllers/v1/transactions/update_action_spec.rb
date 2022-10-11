@@ -37,12 +37,7 @@ RSpec.describe V1::TransactionsController, '#update', type: :request do
         expected_account = {
           'id' => account.id,
           'name' => account.name,
-          'description' => account.description,
-          'financial_institution' => {
-            'id' => account.financial_institution_id,
-            'name' => account.financial_institution_name,
-            'logo_url' => account.financial_institution_logo_url
-          }
+          'description' => account.description
         }
         expect(response_body).to include('description' => params[:description])
           .and include('amount' => params[:amount].to_s)

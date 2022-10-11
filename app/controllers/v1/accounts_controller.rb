@@ -70,7 +70,7 @@ module V1
     private
 
     def account_params
-      permitted = %i[description financial_institution_id name]
+      permitted = %i[description name]
 
       params.permit(permitted).merge(user_id: current_user.id)
     end
@@ -81,7 +81,6 @@ module V1
 
     def all_accounts
       Account
-        .includes(:financial_institution)
         .where(user_id: current_user.id)
     end
   end
