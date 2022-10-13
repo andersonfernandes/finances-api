@@ -9,8 +9,6 @@
 #  updated_at :datetime         not null
 #
 class FinancialInstitution < ApplicationRecord
-  has_many :accounts
-
   validates :name, presence: true
 
   def to_response

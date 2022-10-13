@@ -9,7 +9,6 @@ RSpec.describe V1::FinancialInstitutionsController, '#show', type: :request do
   before { get v1_financial_institution_path(financial_institution), headers: headers }
 
   include_context 'when the user is not authenticated'
-
   context 'when the user is authenticated' do
     context 'and the financial institution exists' do
       it { expect(response).to have_http_status(:ok) }

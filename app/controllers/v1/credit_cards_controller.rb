@@ -50,8 +50,6 @@ module V1
     end
     def update
       if @credit_card.update(credit_card_params)
-        @credit_card.account.update(financial_institution_id: params[:financial_institution_id])
-
         render json: @credit_card.to_response, status: :ok
       else
         render error_response(:unprocessable_entity, @credit_card.errors.messages)
@@ -82,17 +80,13 @@ module V1
 
     def create_account
       Account.create(
-        account_type: :credit_card,
-        financial_institution_id: params[:financial_institution_id],
-        initial_amount: 0.0,
         user_id: current_user.id
       )
     end
 
     def all_credit_cards
       CreditCard
-        .joins(:account)
-        .includes(account: :financial_institution)
+        .includes([:account])
         .where(accounts: { user_id: current_user.id })
     end
   end

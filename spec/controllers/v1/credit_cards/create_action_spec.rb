@@ -11,8 +11,7 @@ RSpec.describe V1::CreditCardsController, '#create', type: :request do
       name: 'Credit Card A',
       closing_day: 5,
       due_day: 10,
-      limit: 5000.00,
-      financial_institution_id: financial_institution.id
+      limit: 5000.00
     }
   end
   let(:headers) { authorization_header(user) }

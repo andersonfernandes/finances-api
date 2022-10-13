@@ -79,8 +79,8 @@ module V1
 
     def all_transactions
       Transaction
-        .includes(account: :financial_institution,
-                  category: %i[child_categories parent_category])
+        .includes([:account])
+        .includes(category: %i[child_categories parent_category])
         .joins(account: :user)
         .where(accounts: { user_id: current_user.id })
     end

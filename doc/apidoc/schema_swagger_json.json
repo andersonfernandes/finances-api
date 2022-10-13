@@ -11,6 +11,571 @@
     "application/json"
   ],
   "paths": {
+    "/v1/accounts": {
+      "get": {
+        "tags": [
+          "accounts"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "get_v1_accounts",
+        "summary": "List all user accounts",
+        "parameters": [
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/account_response"
+              }
+            }
+          }
+        },
+        "description": ""
+      },
+      "post": {
+        "tags": [
+          "accounts"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "post_v1_accounts",
+        "summary": "Creates a account",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Account name",
+                  "default": null
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Account description",
+                  "default": null
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "201": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "Account id"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Account name"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Account description"
+                },
+                "financial_institution": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "Financial Institution id"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Financial Institution name"
+                    },
+                    "logo_url": {
+                      "type": "string",
+                      "description": "Financial Institution logo url"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "name",
+                    "logo_url"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "name",
+                "description",
+                "financial_institution"
+              ]
+            }
+          }
+        },
+        "description": ""
+      }
+    },
+    "/v1/accounts/{id}": {
+      "get": {
+        "tags": [
+          "accounts"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "get_v1_accounts_id",
+        "summary": "Returns an account",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Transaction id"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "Account id"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Account name"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Account description"
+                },
+                "financial_institution": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "Financial Institution id"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Financial Institution name"
+                    },
+                    "logo_url": {
+                      "type": "string",
+                      "description": "Financial Institution logo url"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "name",
+                    "logo_url"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "name",
+                "description",
+                "financial_institution"
+              ]
+            }
+          }
+        },
+        "description": ""
+      },
+      "put": {
+        "tags": [
+          "accounts"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "put_v1_accounts_id",
+        "summary": "Updates a account",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Account id",
+            "default": null
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Account name",
+                  "default": null
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Account description",
+                  "default": null
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "Account id"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Account name"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Account description"
+                },
+                "financial_institution": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "Financial Institution id"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Financial Institution name"
+                    },
+                    "logo_url": {
+                      "type": "string",
+                      "description": "Financial Institution logo url"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "name",
+                    "logo_url"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "name",
+                "description",
+                "financial_institution"
+              ]
+            }
+          }
+        },
+        "description": ""
+      },
+      "delete": {
+        "tags": [
+          "accounts"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "delete_v1_accounts_id",
+        "summary": "Delete a account",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Account id"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "204": {
+            "description": "Successful response"
+          }
+        },
+        "description": ""
+      }
+    },
+    "/v1/auth/access_token": {
+      "post": {
+        "tags": [
+          "authentication"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "post_v1_auth_access_token",
+        "summary": "Issue a new set of access_token and refresh_token",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "description": "User email"
+                },
+                "password": {
+                  "type": "string",
+                  "description": "User password"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "email",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "access_token": {
+                  "type": "string",
+                  "description": "Authenticated user access token"
+                },
+                "refresh_token": {
+                  "type": "string",
+                  "description": "Authenticated user refresh token"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "access_token",
+                "refresh_token"
+              ]
+            }
+          }
+        },
+        "description": ""
+      }
+    },
+    "/v1/auth/refresh_token": {
+      "post": {
+        "tags": [
+          "authentication"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "post_v1_auth_refresh_token",
+        "summary": "Re-issue a new set of access_token and refresh_token",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "refresh_token": {
+                  "type": "string",
+                  "description": "User refresh token"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "refresh_token"
+              ]
+            }
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "access_token": {
+                  "type": "string",
+                  "description": "New access token"
+                },
+                "refresh_token": {
+                  "type": "string",
+                  "description": "User refresh token"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "access_token",
+                "refresh_token"
+              ]
+            }
+          }
+        },
+        "description": ""
+      }
+    },
+    "/v1/auth/revoke": {
+      "post": {
+        "tags": [
+          "authentication"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "post_v1_auth_revoke",
+        "summary": "Revoke the given access token",
+        "parameters": [
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "204": {
+            "description": "Successful response"
+          }
+        },
+        "description": ""
+      }
+    },
     "/v1/categories": {
       "get": {
         "tags": [
@@ -496,6 +1061,532 @@
         "description": ""
       }
     },
+    "/v1/credit_cards": {
+      "get": {
+        "tags": [
+          "credit_cards"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "get_v1_credit_cards",
+        "summary": "List all credit cards associated with the current user",
+        "parameters": [
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/credit_card_response"
+              }
+            }
+          }
+        },
+        "description": ""
+      },
+      "post": {
+        "tags": [
+          "credit_cards"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "post_v1_credit_cards",
+        "summary": "Creates a Credit Card",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Credit Card name",
+                  "default": null
+                },
+                "closing_day": {
+                  "type": "number",
+                  "description": "Credit Card closing day",
+                  "default": null
+                },
+                "due_day": {
+                  "type": "number",
+                  "description": "Credit Card due day",
+                  "default": null
+                },
+                "limit": {
+                  "type": "string",
+                  "description": "Credit Card transactions limit",
+                  "default": null
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "name",
+                "closing_day",
+                "due_day",
+                "limit"
+              ]
+            }
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "201": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "Credit Card ID"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Credit Card name"
+                },
+                "closing_day": {
+                  "type": "number",
+                  "description": "Credit Card closing day"
+                },
+                "due_day": {
+                  "type": "number",
+                  "description": "Credit Card due day"
+                },
+                "limit": {
+                  "type": "string",
+                  "description": "Credit Card transactions limit"
+                },
+                "account": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "Account id"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Account name"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Account description"
+                    },
+                    "financial_institution": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "description": "Financial Institution id"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Financial Institution name"
+                        },
+                        "logo_url": {
+                          "type": "string",
+                          "description": "Financial Institution logo url"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "name",
+                        "logo_url"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "name",
+                    "description",
+                    "financial_institution"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "name",
+                "closing_day",
+                "due_day",
+                "limit",
+                "account"
+              ]
+            }
+          }
+        },
+        "description": ""
+      }
+    },
+    "/v1/credit_cards/{id}": {
+      "get": {
+        "tags": [
+          "credit_cards"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "get_v1_credit_cards_id",
+        "summary": "Returns a Credit Card",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Credit Card id"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "Credit Card ID"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Credit Card name"
+                },
+                "closing_day": {
+                  "type": "number",
+                  "description": "Credit Card closing day"
+                },
+                "due_day": {
+                  "type": "number",
+                  "description": "Credit Card due day"
+                },
+                "limit": {
+                  "type": "string",
+                  "description": "Credit Card transactions limit"
+                },
+                "account": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "Account id"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Account name"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Account description"
+                    },
+                    "financial_institution": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "description": "Financial Institution id"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Financial Institution name"
+                        },
+                        "logo_url": {
+                          "type": "string",
+                          "description": "Financial Institution logo url"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "name",
+                        "logo_url"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "name",
+                    "description",
+                    "financial_institution"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "name",
+                "closing_day",
+                "due_day",
+                "limit",
+                "account"
+              ]
+            }
+          }
+        },
+        "description": ""
+      },
+      "put": {
+        "tags": [
+          "credit_cards"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "put_v1_credit_cards_id",
+        "summary": "Updates a Credit Card",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Credit Card ID",
+            "default": null
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Credit Card name",
+                  "default": null
+                },
+                "closing_day": {
+                  "type": "number",
+                  "description": "Credit Card closing day",
+                  "default": null
+                },
+                "due_day": {
+                  "type": "number",
+                  "description": "Credit Card due day",
+                  "default": null
+                },
+                "limit": {
+                  "type": "string",
+                  "description": "Credit Card transactions limit",
+                  "default": null
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "Credit Card ID"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Credit Card name"
+                },
+                "closing_day": {
+                  "type": "number",
+                  "description": "Credit Card closing day"
+                },
+                "due_day": {
+                  "type": "number",
+                  "description": "Credit Card due day"
+                },
+                "limit": {
+                  "type": "string",
+                  "description": "Credit Card transactions limit"
+                },
+                "account": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "Account id"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Account name"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Account description"
+                    },
+                    "financial_institution": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "description": "Financial Institution id"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Financial Institution name"
+                        },
+                        "logo_url": {
+                          "type": "string",
+                          "description": "Financial Institution logo url"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "name",
+                        "logo_url"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "name",
+                    "description",
+                    "financial_institution"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "name",
+                "closing_day",
+                "due_day",
+                "limit",
+                "account"
+              ]
+            }
+          }
+        },
+        "description": ""
+      },
+      "delete": {
+        "tags": [
+          "credit_cards"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "delete_v1_credit_cards_id",
+        "summary": "Delete a Credit Card",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Credit Card id"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "204": {
+            "description": "Successful response"
+          }
+        },
+        "description": ""
+      }
+    },
     "/v1/financial_institutions": {
       "get": {
         "tags": [
@@ -605,1266 +1696,6 @@
                 "logo_url"
               ]
             }
-          }
-        },
-        "description": ""
-      }
-    },
-    "/v1/auth/access_token": {
-      "post": {
-        "tags": [
-          "authentication"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "post_v1_auth_access_token",
-        "summary": "Issue a new set of access_token and refresh_token",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "type": "string",
-                  "description": "User email"
-                },
-                "password": {
-                  "type": "string",
-                  "description": "User password"
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "email",
-                "password"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "200": {
-            "description": "Successful response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "access_token": {
-                  "type": "string",
-                  "description": "Authenticated user access token"
-                },
-                "refresh_token": {
-                  "type": "string",
-                  "description": "Authenticated user refresh token"
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "access_token",
-                "refresh_token"
-              ]
-            }
-          }
-        },
-        "description": ""
-      }
-    },
-    "/v1/auth/refresh_token": {
-      "post": {
-        "tags": [
-          "authentication"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "post_v1_auth_refresh_token",
-        "summary": "Re-issue a new set of access_token and refresh_token",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "refresh_token": {
-                  "type": "string",
-                  "description": "User refresh token"
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "refresh_token"
-              ]
-            }
-          },
-          {
-            "name": "Authentication",
-            "in": "header",
-            "required": true,
-            "description": "User access token",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "200": {
-            "description": "Successful response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "access_token": {
-                  "type": "string",
-                  "description": "New access token"
-                },
-                "refresh_token": {
-                  "type": "string",
-                  "description": "User refresh token"
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "access_token",
-                "refresh_token"
-              ]
-            }
-          }
-        },
-        "description": ""
-      }
-    },
-    "/v1/auth/revoke": {
-      "post": {
-        "tags": [
-          "authentication"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "post_v1_auth_revoke",
-        "summary": "Revoke the given access token",
-        "parameters": [
-          {
-            "name": "Authentication",
-            "in": "header",
-            "required": true,
-            "description": "User access token",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "204": {
-            "description": "Successful response"
-          }
-        },
-        "description": ""
-      }
-    },
-    "/v1/accounts": {
-      "get": {
-        "tags": [
-          "accounts"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "get_v1_accounts",
-        "summary": "List all user accounts",
-        "parameters": [
-          {
-            "name": "Authentication",
-            "in": "header",
-            "required": true,
-            "description": "User access token",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          },
-          "200": {
-            "description": "Successful response",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/account_response"
-              }
-            }
-          }
-        },
-        "description": ""
-      },
-      "post": {
-        "tags": [
-          "accounts"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "post_v1_accounts",
-        "summary": "Creates a account",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "description": "Account name",
-                  "default": null
-                },
-                "description": {
-                  "type": "string",
-                  "description": "Account description",
-                  "default": null
-                },
-                "account_type": {
-                  "type": "string",
-                  "enum": [
-                    "checking",
-                    "savings",
-                    "other",
-                    "credit_card"
-                  ],
-                  "description": "Account Type",
-                  "default": null
-                },
-                "initial_amount": {
-                  "type": "string",
-                  "description": "Account initial amount",
-                  "default": null
-                },
-                "financial_institution_id": {
-                  "type": "number",
-                  "description": "Account related financial_institution id",
-                  "default": null
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "account_type",
-                "initial_amount",
-                "financial_institution_id"
-              ]
-            }
-          },
-          {
-            "name": "Authentication",
-            "in": "header",
-            "required": true,
-            "description": "User access token",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          },
-          "201": {
-            "description": "Successful response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number",
-                  "description": "Account id"
-                },
-                "name": {
-                  "type": "string",
-                  "description": "Account name"
-                },
-                "description": {
-                  "type": "string",
-                  "description": "Account description"
-                },
-                "account_type": {
-                  "type": "string",
-                  "enum": [
-                    "checking",
-                    "savings",
-                    "other",
-                    "credit_card"
-                  ],
-                  "description": "Account Type"
-                },
-                "initial_amount": {
-                  "type": "string",
-                  "description": "Account initial amount"
-                },
-                "financial_institution": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number",
-                      "description": "Financial Institution id"
-                    },
-                    "name": {
-                      "type": "string",
-                      "description": "Financial Institution name"
-                    },
-                    "logo_url": {
-                      "type": "string",
-                      "description": "Financial Institution logo url"
-                    }
-                  },
-                  "additionalProperties": false,
-                  "required": [
-                    "id",
-                    "name",
-                    "logo_url"
-                  ]
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "id",
-                "name",
-                "description",
-                "account_type",
-                "initial_amount",
-                "financial_institution"
-              ]
-            }
-          }
-        },
-        "description": ""
-      }
-    },
-    "/v1/accounts/{id}": {
-      "get": {
-        "tags": [
-          "accounts"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "get_v1_accounts_id",
-        "summary": "Returns an account",
-        "parameters": [
-          {
-            "name": "id",
-            "type": "number",
-            "in": "path",
-            "required": true,
-            "description": "Transaction id"
-          },
-          {
-            "name": "Authentication",
-            "in": "header",
-            "required": true,
-            "description": "User access token",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          },
-          "200": {
-            "description": "Successful response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number",
-                  "description": "Account id"
-                },
-                "name": {
-                  "type": "string",
-                  "description": "Account name"
-                },
-                "description": {
-                  "type": "string",
-                  "description": "Account description"
-                },
-                "account_type": {
-                  "type": "string",
-                  "enum": [
-                    "checking",
-                    "savings",
-                    "other",
-                    "credit_card"
-                  ],
-                  "description": "Account Type"
-                },
-                "initial_amount": {
-                  "type": "string",
-                  "description": "Account initial amount"
-                },
-                "financial_institution": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number",
-                      "description": "Financial Institution id"
-                    },
-                    "name": {
-                      "type": "string",
-                      "description": "Financial Institution name"
-                    },
-                    "logo_url": {
-                      "type": "string",
-                      "description": "Financial Institution logo url"
-                    }
-                  },
-                  "additionalProperties": false,
-                  "required": [
-                    "id",
-                    "name",
-                    "logo_url"
-                  ]
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "id",
-                "name",
-                "description",
-                "account_type",
-                "initial_amount",
-                "financial_institution"
-              ]
-            }
-          }
-        },
-        "description": ""
-      },
-      "put": {
-        "tags": [
-          "accounts"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "put_v1_accounts_id",
-        "summary": "Updates a account",
-        "parameters": [
-          {
-            "name": "id",
-            "type": "number",
-            "in": "path",
-            "required": true,
-            "description": "Account id",
-            "default": null
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "description": "Account name",
-                  "default": null
-                },
-                "description": {
-                  "type": "string",
-                  "description": "Account description",
-                  "default": null
-                },
-                "account_type": {
-                  "type": "string",
-                  "enum": [
-                    "checking",
-                    "savings",
-                    "other",
-                    "credit_card"
-                  ],
-                  "description": "Account Type",
-                  "default": null
-                },
-                "initial_amount": {
-                  "type": "string",
-                  "description": "Account initial amount",
-                  "default": null
-                },
-                "financial_institution_id": {
-                  "type": "number",
-                  "description": "Account related financial_institution id",
-                  "default": null
-                }
-              },
-              "additionalProperties": false
-            }
-          },
-          {
-            "name": "Authentication",
-            "in": "header",
-            "required": true,
-            "description": "User access token",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          },
-          "200": {
-            "description": "Successful response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number",
-                  "description": "Account id"
-                },
-                "name": {
-                  "type": "string",
-                  "description": "Account name"
-                },
-                "description": {
-                  "type": "string",
-                  "description": "Account description"
-                },
-                "account_type": {
-                  "type": "string",
-                  "enum": [
-                    "checking",
-                    "savings",
-                    "other",
-                    "credit_card"
-                  ],
-                  "description": "Account Type"
-                },
-                "initial_amount": {
-                  "type": "string",
-                  "description": "Account initial amount"
-                },
-                "financial_institution": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number",
-                      "description": "Financial Institution id"
-                    },
-                    "name": {
-                      "type": "string",
-                      "description": "Financial Institution name"
-                    },
-                    "logo_url": {
-                      "type": "string",
-                      "description": "Financial Institution logo url"
-                    }
-                  },
-                  "additionalProperties": false,
-                  "required": [
-                    "id",
-                    "name",
-                    "logo_url"
-                  ]
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "id",
-                "name",
-                "description",
-                "account_type",
-                "initial_amount",
-                "financial_institution"
-              ]
-            }
-          }
-        },
-        "description": ""
-      },
-      "delete": {
-        "tags": [
-          "accounts"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "delete_v1_accounts_id",
-        "summary": "Delete a account",
-        "parameters": [
-          {
-            "name": "id",
-            "type": "number",
-            "in": "path",
-            "required": true,
-            "description": "Account id"
-          },
-          {
-            "name": "Authentication",
-            "in": "header",
-            "required": true,
-            "description": "User access token",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          },
-          "204": {
-            "description": "Successful response"
-          }
-        },
-        "description": ""
-      }
-    },
-    "/v1/credit_cards": {
-      "get": {
-        "tags": [
-          "credit_cards"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "get_v1_credit_cards",
-        "summary": "List all credit cards associated with the current user",
-        "parameters": [
-          {
-            "name": "Authentication",
-            "in": "header",
-            "required": true,
-            "description": "User access token",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          },
-          "200": {
-            "description": "Successful response",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/credit_card_response"
-              }
-            }
-          }
-        },
-        "description": ""
-      },
-      "post": {
-        "tags": [
-          "credit_cards"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "post_v1_credit_cards",
-        "summary": "Creates a Credit Card",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "description": "Credit Card name",
-                  "default": null
-                },
-                "closing_day": {
-                  "type": "number",
-                  "description": "Credit Card closing day",
-                  "default": null
-                },
-                "due_day": {
-                  "type": "number",
-                  "description": "Credit Card due day",
-                  "default": null
-                },
-                "limit": {
-                  "type": "string",
-                  "description": "Credit Card transactions limit",
-                  "default": null
-                },
-                "financial_institution_id": {
-                  "type": "string",
-                  "description": "Credit Card financial institution id",
-                  "default": null
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "name",
-                "closing_day",
-                "due_day",
-                "limit",
-                "financial_institution_id"
-              ]
-            }
-          },
-          {
-            "name": "Authentication",
-            "in": "header",
-            "required": true,
-            "description": "User access token",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          },
-          "201": {
-            "description": "Successful response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number",
-                  "description": "Credit Card ID"
-                },
-                "name": {
-                  "type": "string",
-                  "description": "Credit Card name"
-                },
-                "closing_day": {
-                  "type": "number",
-                  "description": "Credit Card closing day"
-                },
-                "due_day": {
-                  "type": "number",
-                  "description": "Credit Card due day"
-                },
-                "limit": {
-                  "type": "string",
-                  "description": "Credit Card transactions limit"
-                },
-                "financial_institution_id": {
-                  "type": "string",
-                  "description": "Credit Card financial institution id"
-                },
-                "account": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number",
-                      "description": "Account id"
-                    },
-                    "name": {
-                      "type": "string",
-                      "description": "Account name"
-                    },
-                    "description": {
-                      "type": "string",
-                      "description": "Account description"
-                    },
-                    "account_type": {
-                      "type": "string",
-                      "enum": [
-                        "checking",
-                        "savings",
-                        "other",
-                        "credit_card"
-                      ],
-                      "description": "Account Type"
-                    },
-                    "initial_amount": {
-                      "type": "string",
-                      "description": "Account initial amount"
-                    },
-                    "financial_institution": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "number",
-                          "description": "Financial Institution id"
-                        },
-                        "name": {
-                          "type": "string",
-                          "description": "Financial Institution name"
-                        },
-                        "logo_url": {
-                          "type": "string",
-                          "description": "Financial Institution logo url"
-                        }
-                      },
-                      "additionalProperties": false,
-                      "required": [
-                        "id",
-                        "name",
-                        "logo_url"
-                      ]
-                    }
-                  },
-                  "additionalProperties": false,
-                  "required": [
-                    "id",
-                    "name",
-                    "description",
-                    "account_type",
-                    "initial_amount",
-                    "financial_institution"
-                  ]
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "id",
-                "name",
-                "closing_day",
-                "due_day",
-                "limit",
-                "financial_institution_id",
-                "account"
-              ]
-            }
-          }
-        },
-        "description": ""
-      }
-    },
-    "/v1/credit_cards/{id}": {
-      "get": {
-        "tags": [
-          "credit_cards"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "get_v1_credit_cards_id",
-        "summary": "Returns a Credit Card",
-        "parameters": [
-          {
-            "name": "id",
-            "type": "number",
-            "in": "path",
-            "required": true,
-            "description": "Credit Card id"
-          },
-          {
-            "name": "Authentication",
-            "in": "header",
-            "required": true,
-            "description": "User access token",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          },
-          "200": {
-            "description": "Successful response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number",
-                  "description": "Credit Card ID"
-                },
-                "name": {
-                  "type": "string",
-                  "description": "Credit Card name"
-                },
-                "closing_day": {
-                  "type": "number",
-                  "description": "Credit Card closing day"
-                },
-                "due_day": {
-                  "type": "number",
-                  "description": "Credit Card due day"
-                },
-                "limit": {
-                  "type": "string",
-                  "description": "Credit Card transactions limit"
-                },
-                "financial_institution_id": {
-                  "type": "string",
-                  "description": "Credit Card financial institution id"
-                },
-                "account": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number",
-                      "description": "Account id"
-                    },
-                    "name": {
-                      "type": "string",
-                      "description": "Account name"
-                    },
-                    "description": {
-                      "type": "string",
-                      "description": "Account description"
-                    },
-                    "account_type": {
-                      "type": "string",
-                      "enum": [
-                        "checking",
-                        "savings",
-                        "other",
-                        "credit_card"
-                      ],
-                      "description": "Account Type"
-                    },
-                    "initial_amount": {
-                      "type": "string",
-                      "description": "Account initial amount"
-                    },
-                    "financial_institution": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "number",
-                          "description": "Financial Institution id"
-                        },
-                        "name": {
-                          "type": "string",
-                          "description": "Financial Institution name"
-                        },
-                        "logo_url": {
-                          "type": "string",
-                          "description": "Financial Institution logo url"
-                        }
-                      },
-                      "additionalProperties": false,
-                      "required": [
-                        "id",
-                        "name",
-                        "logo_url"
-                      ]
-                    }
-                  },
-                  "additionalProperties": false,
-                  "required": [
-                    "id",
-                    "name",
-                    "description",
-                    "account_type",
-                    "initial_amount",
-                    "financial_institution"
-                  ]
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "id",
-                "name",
-                "closing_day",
-                "due_day",
-                "limit",
-                "financial_institution_id",
-                "account"
-              ]
-            }
-          }
-        },
-        "description": ""
-      },
-      "put": {
-        "tags": [
-          "credit_cards"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "put_v1_credit_cards_id",
-        "summary": "Updates a Credit Card",
-        "parameters": [
-          {
-            "name": "id",
-            "type": "number",
-            "in": "path",
-            "required": true,
-            "description": "Credit Card ID",
-            "default": null
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "description": "Credit Card name",
-                  "default": null
-                },
-                "closing_day": {
-                  "type": "number",
-                  "description": "Credit Card closing day",
-                  "default": null
-                },
-                "due_day": {
-                  "type": "number",
-                  "description": "Credit Card due day",
-                  "default": null
-                },
-                "limit": {
-                  "type": "string",
-                  "description": "Credit Card transactions limit",
-                  "default": null
-                },
-                "financial_institution_id": {
-                  "type": "string",
-                  "description": "Credit Card financial institution id",
-                  "default": null
-                }
-              },
-              "additionalProperties": false
-            }
-          },
-          {
-            "name": "Authentication",
-            "in": "header",
-            "required": true,
-            "description": "User access token",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          },
-          "200": {
-            "description": "Successful response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number",
-                  "description": "Credit Card ID"
-                },
-                "name": {
-                  "type": "string",
-                  "description": "Credit Card name"
-                },
-                "closing_day": {
-                  "type": "number",
-                  "description": "Credit Card closing day"
-                },
-                "due_day": {
-                  "type": "number",
-                  "description": "Credit Card due day"
-                },
-                "limit": {
-                  "type": "string",
-                  "description": "Credit Card transactions limit"
-                },
-                "financial_institution_id": {
-                  "type": "string",
-                  "description": "Credit Card financial institution id"
-                },
-                "account": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number",
-                      "description": "Account id"
-                    },
-                    "name": {
-                      "type": "string",
-                      "description": "Account name"
-                    },
-                    "description": {
-                      "type": "string",
-                      "description": "Account description"
-                    },
-                    "account_type": {
-                      "type": "string",
-                      "enum": [
-                        "checking",
-                        "savings",
-                        "other",
-                        "credit_card"
-                      ],
-                      "description": "Account Type"
-                    },
-                    "initial_amount": {
-                      "type": "string",
-                      "description": "Account initial amount"
-                    },
-                    "financial_institution": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "number",
-                          "description": "Financial Institution id"
-                        },
-                        "name": {
-                          "type": "string",
-                          "description": "Financial Institution name"
-                        },
-                        "logo_url": {
-                          "type": "string",
-                          "description": "Financial Institution logo url"
-                        }
-                      },
-                      "additionalProperties": false,
-                      "required": [
-                        "id",
-                        "name",
-                        "logo_url"
-                      ]
-                    }
-                  },
-                  "additionalProperties": false,
-                  "required": [
-                    "id",
-                    "name",
-                    "description",
-                    "account_type",
-                    "initial_amount",
-                    "financial_institution"
-                  ]
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "id",
-                "name",
-                "closing_day",
-                "due_day",
-                "limit",
-                "financial_institution_id",
-                "account"
-              ]
-            }
-          }
-        },
-        "description": ""
-      },
-      "delete": {
-        "tags": [
-          "credit_cards"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "delete_v1_credit_cards_id",
-        "summary": "Delete a Credit Card",
-        "parameters": [
-          {
-            "name": "id",
-            "type": "number",
-            "in": "path",
-            "required": true,
-            "description": "Credit Card id"
-          },
-          {
-            "name": "Authentication",
-            "in": "header",
-            "required": true,
-            "description": "User access token",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          },
-          "204": {
-            "description": "Successful response"
           }
         },
         "description": ""
@@ -2117,20 +1948,6 @@
                       "type": "string",
                       "description": "Account description"
                     },
-                    "account_type": {
-                      "type": "string",
-                      "enum": [
-                        "checking",
-                        "savings",
-                        "other",
-                        "credit_card"
-                      ],
-                      "description": "Account Type"
-                    },
-                    "initial_amount": {
-                      "type": "string",
-                      "description": "Account initial amount"
-                    },
                     "financial_institution": {
                       "type": "object",
                       "properties": {
@@ -2160,8 +1977,6 @@
                     "id",
                     "name",
                     "description",
-                    "account_type",
-                    "initial_amount",
                     "financial_institution"
                   ]
                 }
@@ -2340,20 +2155,6 @@
                       "type": "string",
                       "description": "Account description"
                     },
-                    "account_type": {
-                      "type": "string",
-                      "enum": [
-                        "checking",
-                        "savings",
-                        "other",
-                        "credit_card"
-                      ],
-                      "description": "Account Type"
-                    },
-                    "initial_amount": {
-                      "type": "string",
-                      "description": "Account initial amount"
-                    },
                     "financial_institution": {
                       "type": "object",
                       "properties": {
@@ -2383,8 +2184,6 @@
                     "id",
                     "name",
                     "description",
-                    "account_type",
-                    "initial_amount",
                     "financial_institution"
                   ]
                 }
@@ -2602,20 +2401,6 @@
                       "type": "string",
                       "description": "Account description"
                     },
-                    "account_type": {
-                      "type": "string",
-                      "enum": [
-                        "checking",
-                        "savings",
-                        "other",
-                        "credit_card"
-                      ],
-                      "description": "Account Type"
-                    },
-                    "initial_amount": {
-                      "type": "string",
-                      "description": "Account initial amount"
-                    },
                     "financial_institution": {
                       "type": "object",
                       "properties": {
@@ -2645,8 +2430,6 @@
                     "id",
                     "name",
                     "description",
-                    "account_type",
-                    "initial_amount",
                     "financial_institution"
                   ]
                 }
@@ -2713,6 +2496,53 @@
     }
   },
   "definitions": {
+    "account_response": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "description": "Account id"
+        },
+        "name": {
+          "type": "string",
+          "description": "Account name"
+        },
+        "description": {
+          "type": "string",
+          "description": "Account description"
+        },
+        "financial_institution": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "description": "Financial Institution id"
+            },
+            "name": {
+              "type": "string",
+              "description": "Financial Institution name"
+            },
+            "logo_url": {
+              "type": "string",
+              "description": "Financial Institution logo url"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "name",
+            "logo_url"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "description",
+        "financial_institution"
+      ]
+    },
     "category_response": {
       "type": "object",
       "properties": {
@@ -2787,92 +2617,6 @@
         "child_categories"
       ]
     },
-    "financial_institution_response": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "number",
-          "description": "Financial Institution id"
-        },
-        "name": {
-          "type": "string",
-          "description": "Financial Institution name"
-        },
-        "logo_url": {
-          "type": "string",
-          "description": "Financial Institution logo url"
-        }
-      },
-      "additionalProperties": false,
-      "required": [
-        "id",
-        "name",
-        "logo_url"
-      ]
-    },
-    "account_response": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "number",
-          "description": "Account id"
-        },
-        "name": {
-          "type": "string",
-          "description": "Account name"
-        },
-        "description": {
-          "type": "string",
-          "description": "Account description"
-        },
-        "account_type": {
-          "type": "string",
-          "enum": [
-            "checking",
-            "savings",
-            "other",
-            "credit_card"
-          ],
-          "description": "Account Type"
-        },
-        "initial_amount": {
-          "type": "string",
-          "description": "Account initial amount"
-        },
-        "financial_institution": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "number",
-              "description": "Financial Institution id"
-            },
-            "name": {
-              "type": "string",
-              "description": "Financial Institution name"
-            },
-            "logo_url": {
-              "type": "string",
-              "description": "Financial Institution logo url"
-            }
-          },
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "name",
-            "logo_url"
-          ]
-        }
-      },
-      "additionalProperties": false,
-      "required": [
-        "id",
-        "name",
-        "description",
-        "account_type",
-        "initial_amount",
-        "financial_institution"
-      ]
-    },
     "credit_card_response": {
       "type": "object",
       "properties": {
@@ -2896,10 +2640,6 @@
           "type": "string",
           "description": "Credit Card transactions limit"
         },
-        "financial_institution_id": {
-          "type": "string",
-          "description": "Credit Card financial institution id"
-        },
         "account": {
           "type": "object",
           "properties": {
@@ -2914,20 +2654,6 @@
             "description": {
               "type": "string",
               "description": "Account description"
-            },
-            "account_type": {
-              "type": "string",
-              "enum": [
-                "checking",
-                "savings",
-                "other",
-                "credit_card"
-              ],
-              "description": "Account Type"
-            },
-            "initial_amount": {
-              "type": "string",
-              "description": "Account initial amount"
             },
             "financial_institution": {
               "type": "object",
@@ -2958,8 +2684,6 @@
             "id",
             "name",
             "description",
-            "account_type",
-            "initial_amount",
             "financial_institution"
           ]
         }
@@ -2971,8 +2695,30 @@
         "closing_day",
         "due_day",
         "limit",
-        "financial_institution_id",
         "account"
+      ]
+    },
+    "financial_institution_response": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "description": "Financial Institution id"
+        },
+        "name": {
+          "type": "string",
+          "description": "Financial Institution name"
+        },
+        "logo_url": {
+          "type": "string",
+          "description": "Financial Institution logo url"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "logo_url"
       ]
     },
     "transaction_response": {
@@ -3092,20 +2838,6 @@
               "type": "string",
               "description": "Account description"
             },
-            "account_type": {
-              "type": "string",
-              "enum": [
-                "checking",
-                "savings",
-                "other",
-                "credit_card"
-              ],
-              "description": "Account Type"
-            },
-            "initial_amount": {
-              "type": "string",
-              "description": "Account initial amount"
-            },
             "financial_institution": {
               "type": "object",
               "properties": {
@@ -3135,8 +2867,6 @@
             "id",
             "name",
             "description",
-            "account_type",
-            "initial_amount",
             "financial_institution"
           ]
         }
@@ -3155,11 +2885,7 @@
   },
   "tags": [
     {
-      "name": "categories",
-      "description": ""
-    },
-    {
-      "name": "financial_institutions",
+      "name": "accounts",
       "description": ""
     },
     {
@@ -3167,11 +2893,15 @@
       "description": ""
     },
     {
-      "name": "accounts",
+      "name": "categories",
       "description": ""
     },
     {
       "name": "credit_cards",
+      "description": ""
+    },
+    {
+      "name": "financial_institutions",
       "description": ""
     },
     {
