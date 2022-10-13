@@ -12,7 +12,7 @@ module Api
             name: {
               type: String,
               desc: 'Account name',
-              required: { on_create: false, on_update: false }
+              required: { on_create: true, on_update: true }
             },
             description: {
               type: String,

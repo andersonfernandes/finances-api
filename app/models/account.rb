@@ -19,6 +19,7 @@
 #
 class Account < ApplicationRecord
   belongs_to :user
+  validates :name, presence: true
 
   def to_response
     attrs_to_expose = %i[id description name]

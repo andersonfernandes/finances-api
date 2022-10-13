@@ -22,6 +22,10 @@ RSpec.describe V1::AccountsController, '#create', type: :request do
   include_context 'when the user is not authenticated'
 
   context 'when the user is authenticated' do
+    context 'with missing params' do
+      let(:params) { {} }
+      it { expect(response).to have_http_status(:bad_request) }
+    end
     context 'with valid params' do
       it { expect(response).to have_http_status(:created) }
       it do

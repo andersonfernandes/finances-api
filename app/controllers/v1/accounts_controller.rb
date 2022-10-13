@@ -33,7 +33,6 @@ module V1
     end
     def create
       account = Account.new(account_params)
-
       if account.save
         render json: account.to_response, status: :created
       else
