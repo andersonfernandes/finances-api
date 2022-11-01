@@ -21,4 +21,8 @@ class User < ApplicationRecord
 
   validates :name, :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+
+  def default_account
+    accounts.where(default: true).take
+  end
 end

@@ -41,4 +41,29 @@ RSpec.describe User, type: :model do
       it { should_not allow_values(invalid_emails).for(:email) }
     end
   end
+
+  describe '#default_account' do
+    subject(:user) { create(:user) }
+
+    context 'when exists an default account to the user' do
+      let(:default_account) { create(:account, default: true, user: user) }
+
+      before { default_account }
+
+      it 'returns the user default account' do
+        expect(user.default_account).to eq default_account
+      end
+    end
+
+    context 'when does not exists an default account to the user' do
+      before do
+        create(:account, default: false, user: user)
+        create(:account, default: true)
+      end
+
+      it 'returns nil' do
+        expect(user.default_account).to be_nil
+      end
+    end
+  end
 end
