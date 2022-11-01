@@ -3,6 +3,7 @@
 # Table name: accounts
 #
 #  id          :bigint(8)        not null, primary key
+#  default     :boolean          default(FALSE)
 #  description :string
 #  name        :string
 #  created_at  :datetime         not null
