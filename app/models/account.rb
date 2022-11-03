@@ -21,9 +21,17 @@
 class Account < ApplicationRecord
   belongs_to :user
   validates :name, presence: true
+  validate :validate_unique_default_per_user
 
   def to_response
     attrs_to_expose = %i[id description name]
     as_json(only: attrs_to_expose)
+  end
+
+  private
+
+  def validate_unique_default_per_user
+    message = 'The user already have an default Account'
+    errors.add(:default, :not_unique, message: message) if user&.default_account
   end
 end
