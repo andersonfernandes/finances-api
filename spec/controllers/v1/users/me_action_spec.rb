@@ -18,7 +18,7 @@ RSpec.describe V1::UsersController, '#me', type: :request do
         'default_account' => {
           'id' => default_account.id,
           'description' => default_account.description,
-          'name' => default_account.name,
+          'name' => default_account.name
         }
       )
     end

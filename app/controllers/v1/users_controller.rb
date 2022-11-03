@@ -10,7 +10,7 @@ module V1
       render json: {
         name: current_user.name,
         email: current_user.email,
-        default_account: current_user.default_account&.to_response,
+        default_account: current_user.default_account&.to_response
       }, status: :ok
     end
   end
