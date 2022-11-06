@@ -32,6 +32,8 @@ class Account < ApplicationRecord
 
   def validate_unique_default_per_user
     message = 'The user already have an default Account'
-    errors.add(:default, :not_unique, message: message) if user&.default_account
+    is_invalid = default && user&.default_account && user&.default_account != self
+
+    errors.add(:default, :not_unique, message: message) if is_invalid
   end
 end
