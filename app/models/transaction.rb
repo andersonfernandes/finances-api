@@ -2,15 +2,16 @@
 #
 # Table name: transactions
 #
-#  id               :bigint(8)        not null, primary key
-#  amount           :decimal(, )      not null
-#  description      :string           not null
-#  spent_at         :date             not null
-#  transaction_type :integer          not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  account_id       :bigint(8)        not null
-#  category_id      :bigint(8)
+#  id          :bigint(8)        not null, primary key
+#  amount      :decimal(, )      not null
+#  description :string           not null
+#  expires_at  :datetime
+#  paid_at     :date             not null
+#  recurrent   :boolean          default(FALSE)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  account_id  :bigint(8)        not null
+#  category_id :bigint(8)
 #
 # Indexes
 #
