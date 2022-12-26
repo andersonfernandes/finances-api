@@ -10,7 +10,7 @@ module V1
     header 'Authentication', 'User access token', required: true
     returns array_of: :credit_card_response, code: 200, desc: 'Successful response'
     def index
-      credit_cards = all_credit_cards
+      credit_cards = CreditCard.where(user_id: current_user.id)
 
       render json: credit_cards.map(&:to_response)
     end
@@ -33,7 +33,6 @@ module V1
     end
     def create
       credit_card = CreditCard.new(credit_card_params)
-      credit_card.account = create_account
 
       if credit_card.save
         render json: credit_card.to_response, status: :created
@@ -71,23 +70,11 @@ module V1
     private
 
     def credit_card_params
-      params.permit(:closing_day, :due_day, :limit, :name)
+      params.permit(:billing_day, :limit, :name).merge(user_id: current_user.id)
     end
 
     def set_credit_card
       @credit_card = CreditCard.find(params[:id])
-    end
-
-    def create_account
-      Account.create(
-        user_id: current_user.id
-      )
-    end
-
-    def all_credit_cards
-      CreditCard
-        .includes([:account])
-        .where(accounts: { user_id: current_user.id })
     end
   end
 end
