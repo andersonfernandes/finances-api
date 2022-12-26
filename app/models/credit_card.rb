@@ -3,21 +3,20 @@
 # Table name: credit_cards
 #
 #  id          :bigint(8)        not null, primary key
-#  closing_day :integer          not null
-#  due_day     :integer          not null
+#  billing_day :integer          not null
 #  limit       :decimal(, )      not null
 #  name        :string           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  account_id  :bigint(8)        not null
+#  user_id     :bigint(8)        not null
 #
 # Indexes
 #
-#  index_credit_cards_on_account_id  (account_id)
+#  index_credit_cards_on_user_id  (user_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (account_id => accounts.id)
+#  fk_rails_...  (user_id => users.id)
 #
 class CreditCard < ApplicationRecord
   belongs_to :account
