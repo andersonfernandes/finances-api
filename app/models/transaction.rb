@@ -2,15 +2,16 @@
 #
 # Table name: transactions
 #
-#  id               :bigint(8)        not null, primary key
-#  amount           :decimal(, )      not null
-#  description      :string           not null
-#  spent_at         :date             not null
-#  transaction_type :integer          not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  account_id       :bigint(8)        not null
-#  category_id      :bigint(8)
+#  id          :bigint(8)        not null, primary key
+#  amount      :decimal(, )      not null
+#  description :string           not null
+#  expires_at  :datetime
+#  paid_at     :date             not null
+#  recurrent   :boolean          default(FALSE)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  account_id  :bigint(8)        not null
+#  category_id :bigint(8)
 #
 # Indexes
 #
@@ -27,22 +28,19 @@ class Transaction < ApplicationRecord
   belongs_to :account
   belongs_to :category
 
-  enum transaction_type: %i[income expense transfer]
-
   validates :amount, numericality: true
-  validates :amount, :description, :transaction_type, :spent_at, presence: true
+  validates :amount, :description, :paid_at, presence: true
 
   delegate :id, :description, :to_response, to: :category, prefix: true
   delegate :id, :to_response, to: :account, prefix: true
 
   def to_response
-    exposed_fields = %i[id
-                        description
-                        amount
-                        transaction_type]
+    exposed_fields = %i[id description amount recurrent]
+
     as_json(only: exposed_fields)
       .merge('category' => category_to_response,
              'account' => account_to_response,
-             'spent_at' => spent_at.to_time.iso8601)
+             'paid_at' => paid_at.to_time.iso8601,
+             'expires_at' => expires_at&.to_time&.iso8601)
   end
 end

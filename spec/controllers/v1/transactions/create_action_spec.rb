@@ -11,8 +11,7 @@ RSpec.describe V1::TransactionsController, '#create', type: :request do
     {
       description: 'Super Market',
       amount: 12.5,
-      spent_at: Date.today.to_time.iso8601,
-      transaction_type: 'expense',
+      paid_at: Date.today.to_time.iso8601,
       category_id: category.id,
       account_id: account.id
     }
@@ -49,8 +48,8 @@ RSpec.describe V1::TransactionsController, '#create', type: :request do
         }
         expect(response_body).to include('description' => params[:description])
           .and include('amount' => params[:amount].to_s)
-          .and include('spent_at' => params[:spent_at])
-          .and include('transaction_type' => params[:transaction_type])
+          .and include('paid_at' => params[:paid_at])
+          .and include('recurrent' => false)
           .and include('category' => expected_category)
           .and include('account' => expected_account)
       end
