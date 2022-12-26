@@ -4,7 +4,7 @@ RSpec.describe V1::CreditCardsController, '#destroy', type: :request do
   let(:setup) {}
   let(:body) { JSON.parse(response.body) }
   let(:user) { create(:user) }
-  let(:credit_card) { create(:credit_card, account: create(:account, user: user)) }
+  let(:credit_card) { create(:credit_card, user: user) }
 
   let(:headers) { authorization_header(user) }
 

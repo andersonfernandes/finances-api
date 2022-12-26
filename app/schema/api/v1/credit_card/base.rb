@@ -14,14 +14,9 @@ module Api
               desc: 'Credit Card name',
               required: { on_create: true, on_update: false }
             },
-            closing_day: {
+            billing_day: {
               type: :number,
-              desc: 'Credit Card closing day',
-              required: { on_create: true, on_update: false }
-            },
-            due_day: {
-              type: :number,
-              desc: 'Credit Card due day',
+              desc: 'Credit Card billing day',
               required: { on_create: true, on_update: false }
             },
             limit: {

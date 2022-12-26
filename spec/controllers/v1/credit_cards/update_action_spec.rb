@@ -4,13 +4,12 @@ RSpec.describe V1::CreditCardsController, '#update', type: :request do
   let(:setup) {}
   let(:body) { JSON.parse(response.body) }
   let(:user) { create(:user) }
-  let(:credit_card) { create(:credit_card, account: create(:account, user: user)) }
+  let(:credit_card) { create(:credit_card, user: user) }
 
   let(:params) do
     {
       name: 'Credit Card A',
-      closing_day: 5,
-      due_day: 10,
+      billing_day: 5,
       limit: 5000.00
     }
   end
@@ -29,8 +28,7 @@ RSpec.describe V1::CreditCardsController, '#update', type: :request do
       it do
         expect(response_body).to include('name' => params[:name])
           .and include('limit' => params[:limit].to_s)
-          .and include('closing_day' => params[:closing_day])
-          .and include('due_day' => params[:due_day])
+          .and include('billing_day' => params[:billing_day])
       end
     end
 

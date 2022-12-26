@@ -9,8 +9,7 @@ RSpec.describe V1::CreditCardsController, '#create', type: :request do
   let(:params) do
     {
       name: 'Credit Card A',
-      closing_day: 5,
-      due_day: 10,
+      billing_day: 10,
       limit: 5000.00
     }
   end
@@ -30,12 +29,11 @@ RSpec.describe V1::CreditCardsController, '#create', type: :request do
       it { expect(response).to have_http_status(:bad_request) }
     end
 
-    xcontext 'with valid params' do
+    context 'with valid params' do
       it do
         expect(response).to have_http_status(:created)
         expect(response_body).to include('name' => params[:name])
-          .and include('closing_day' => params[:closing_day])
-          .and include('due_day' => params[:due_day])
+          .and include('billing_day' => params[:billing_day])
           .and include('limit' => params[:limit].to_s)
       end
     end

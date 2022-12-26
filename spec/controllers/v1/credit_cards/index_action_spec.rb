@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe V1::CreditCardsController, '#index', type: :request do
   let(:user) { create(:user) }
 
-  let!(:credit_card1) { create(:credit_card, account: create(:account, user: user)) }
-  let!(:credit_card2) { create(:credit_card, account: create(:account, user: user)) }
-  let!(:credit_card3) { create(:credit_card, account: create(:account, user: user)) }
+  let!(:credit_card1) { create(:credit_card, user: user) }
+  let!(:credit_card2) { create(:credit_card, user: user) }
+  let!(:credit_card3) { create(:credit_card, user: user) }
 
   let(:headers) { authorization_header(user) }
 

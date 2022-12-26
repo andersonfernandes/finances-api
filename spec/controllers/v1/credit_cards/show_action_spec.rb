@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe V1::CreditCardsController, '#show', type: :request do
   let(:user) { create(:user) }
-  let(:credit_card) { create(:credit_card, account: create(:account, user: user)) }
+  let(:credit_card) { create(:credit_card, user: user) }
 
   let(:headers) { authorization_header(user) }
 
