@@ -18,8 +18,8 @@ RSpec.describe V1::TransactionsController, '#show', type: :request do
         expect(body).to include('id' => transaction.id)
           .and include('description' => transaction.description)
           .and include('amount' => transaction.amount.to_s)
-          .and include('spent_at' => transaction.spent_at.to_time.iso8601)
-          .and include('transaction_type' => transaction.transaction_type)
+          .and include('recurrent' => transaction.recurrent)
+          .and include('paid_at' => transaction.paid_at.to_time.iso8601)
           .and include('category' => transaction.category.to_response)
           .and include('account' => transaction.account.to_response)
       end

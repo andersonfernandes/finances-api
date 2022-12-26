@@ -16,13 +16,8 @@ RSpec.describe Transaction, type: :model do
       it { should validate_presence_of(:description) }
     end
 
-    describe '#transaction_type' do
-      it { should validate_presence_of(:transaction_type) }
-      it { should define_enum_for(:transaction_type) }
-    end
-
-    describe '#spent_at' do
-      it { should validate_presence_of(:spent_at) }
+    describe '#paid_at' do
+      it { should validate_presence_of(:paid_at) }
     end
   end
 
@@ -42,8 +37,9 @@ RSpec.describe Transaction, type: :model do
       expect(transaction.to_response).to include('id' => transaction.id)
         .and include('description' => transaction.description)
         .and include('amount' => transaction.amount.to_s)
-        .and include('spent_at' => transaction.spent_at.to_time.iso8601)
-        .and include('transaction_type' => transaction.transaction_type)
+        .and include('recurrent' => transaction.recurrent)
+        .and include('paid_at' => transaction.paid_at.to_time.iso8601)
+        .and include('expires_at' => transaction.expires_at.to_time.iso8601)
         .and include('category' => transaction.category.to_response)
         .and include('account' => transaction.account.to_response)
     end

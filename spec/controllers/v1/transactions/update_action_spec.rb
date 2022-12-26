@@ -11,8 +11,9 @@ RSpec.describe V1::TransactionsController, '#update', type: :request do
     {
       description: 'Cinema',
       amount: 25.0,
-      spent_at: Date.today.to_time.iso8601,
-      transaction_type: 'expense'
+      recurrent: true,
+      paid_at: Date.today.to_time.iso8601,
+      expires_at: Date.tomorrow.to_time.iso8601
     }
   end
   let(:headers) { authorization_header(user) }
@@ -41,8 +42,9 @@ RSpec.describe V1::TransactionsController, '#update', type: :request do
         }
         expect(response_body).to include('description' => params[:description])
           .and include('amount' => params[:amount].to_s)
-          .and include('spent_at' => params[:spent_at])
-          .and include('transaction_type' => params[:transaction_type])
+          .and include('paid_at' => params[:paid_at])
+          .and include('recurrent' => params[:recurrent])
+          .and include('expires_at' => params[:expires_at])
           .and include('category' => expected_category)
           .and include('account' => expected_account)
       end

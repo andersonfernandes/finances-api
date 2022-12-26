@@ -19,16 +19,22 @@ module Api
               desc: 'Amount spent',
               required: { on_create: true, on_update: false }
             },
-            transaction_type: {
-              type: ::Transaction.transaction_types.keys,
-              desc: 'Transaction type',
-              required: { on_create: true, on_update: false }
-            },
-            spent_at: {
+            paid_at: {
               type: :iso8601_date,
               base_class: Date,
               desc: 'Transaction date in ISO-8601 format',
               required: { on_create: true, on_update: false }
+            },
+            expires_at: {
+              type: :iso8601_date,
+              base_class: Date,
+              desc: 'Transaction expiration date in ISO-8601 format',
+              required: { on_create: false, on_update: false }
+            },
+            recurrent: {
+              type: ['true', 'false'],
+              desc: 'Indicates if the transaction is recurrent',
+              required: { on_create: false, on_update: false }
             },
             category_id: {
               type: :number,
