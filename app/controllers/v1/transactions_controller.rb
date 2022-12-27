@@ -70,7 +70,11 @@ module V1
     private
 
     def transaction_params
-      params.permit(%i[description amount paid_at recurrent expires_at transaction_type category_id account_id])
+      permitted_params = %i[
+        description amount paid_at recurrent expires_at
+        transaction_type category_id account_id
+      ]
+      params.permit(permitted_params)
     end
 
     def set_transaction

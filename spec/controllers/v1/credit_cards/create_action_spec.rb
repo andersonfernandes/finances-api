@@ -4,8 +4,6 @@ RSpec.describe V1::CreditCardsController, '#create', type: :request do
   let(:setup) {}
   let(:user) { create(:user) }
 
-  let(:financial_institution) { create(:financial_institution) }
-
   let(:params) do
     {
       name: 'Credit Card A',

@@ -32,7 +32,7 @@ module Api
               required: { on_create: false, on_update: false }
             },
             recurrent: {
-              type: ['true', 'false'],
+              type: %w[true false],
               desc: 'Indicates if the transaction is recurrent',
               required: { on_create: false, on_update: false }
             },
