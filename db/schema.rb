@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_27_001941) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_27_003559) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,6 +53,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_27_001941) do
     t.index ["user_id"], name: "index_refresh_tokens_on_user_id"
   end
 
+  create_table "reserves", force: :cascade do |t|
+    t.string "description"
+    t.decimal "initial_amount", default: "0.0"
+    t.decimal "current_amount", default: "0.0"
+    t.bigint "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_reserves_on_account_id"
+  end
+
   create_table "tokens", force: :cascade do |t|
     t.string "jwt_id", null: false
     t.integer "status", null: false
@@ -91,6 +101,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_27_001941) do
   add_foreign_key "categories", "users"
   add_foreign_key "credit_cards", "users"
   add_foreign_key "refresh_tokens", "users"
+  add_foreign_key "reserves", "accounts"
   add_foreign_key "tokens", "users"
   add_foreign_key "transactions", "accounts"
   add_foreign_key "transactions", "categories"
