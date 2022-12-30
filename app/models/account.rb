@@ -20,6 +20,8 @@
 #
 class Account < ApplicationRecord
   belongs_to :user
+  has_many :reserves, class_name: 'Reserve'
+
   validates :name, presence: true
   validate :validate_unique_default_per_user
 

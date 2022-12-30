@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_30_011016) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_30_012526) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,6 +34,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_30_011016) do
     t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
+  create_table "credit_card_transactions", force: :cascade do |t|
+    t.bigint "credit_card_id", null: false
+    t.bigint "transaction_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["credit_card_id"], name: "index_credit_card_transactions_on_credit_card_id"
+    t.index ["transaction_id"], name: "index_credit_card_transactions_on_transaction_id"
+  end
+
   create_table "credit_cards", force: :cascade do |t|
     t.string "name", null: false
     t.decimal "limit", null: false
@@ -51,6 +60,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_30_011016) do
     t.datetime "updated_at", null: false
     t.index ["encrypted_token"], name: "index_refresh_tokens_on_encrypted_token", unique: true
     t.index ["user_id"], name: "index_refresh_tokens_on_user_id"
+  end
+
+  create_table "reserve_transactions", force: :cascade do |t|
+    t.bigint "reserve_id", null: false
+    t.bigint "transaction_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reserve_id"], name: "index_reserve_transactions_on_reserve_id"
+    t.index ["transaction_id"], name: "index_reserve_transactions_on_transaction_id"
   end
 
   create_table "reserves", force: :cascade do |t|
@@ -81,12 +99,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_30_011016) do
     t.bigint "category_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.bigint "account_id", null: false
     t.boolean "recurrent", default: false
     t.datetime "expires_at", precision: nil
+    t.bigint "user_id", null: false
     t.integer "origin", null: false
-    t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["category_id"], name: "index_transactions_on_category_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -100,10 +118,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_30_011016) do
   add_foreign_key "accounts", "users"
   add_foreign_key "categories", "categories", column: "parent_category_id"
   add_foreign_key "categories", "users"
+  add_foreign_key "credit_card_transactions", "credit_cards"
+  add_foreign_key "credit_card_transactions", "transactions"
   add_foreign_key "credit_cards", "users"
   add_foreign_key "refresh_tokens", "users"
+  add_foreign_key "reserve_transactions", "reserves", column: "reserve_id"
+  add_foreign_key "reserve_transactions", "transactions"
   add_foreign_key "reserves", "accounts"
   add_foreign_key "tokens", "users"
-  add_foreign_key "transactions", "accounts"
   add_foreign_key "transactions", "categories"
+  add_foreign_key "transactions", "users"
 end

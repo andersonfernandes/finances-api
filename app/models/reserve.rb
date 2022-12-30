@@ -20,6 +20,8 @@
 #
 class Reserve < ApplicationRecord
   belongs_to :account
+  has_many :reserve_transactions
+  has_many :transactions, through: :reserve_transactions
 
   validates :initial_amount, :description, presence: true
   validates :current_amount, :initial_amount, numericality: true

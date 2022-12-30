@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Transaction, type: :model do
   context 'relations' do
-    it { should belong_to(:account) }
+    it { should belong_to(:user) }
     it { should belong_to(:category) }
   end
 

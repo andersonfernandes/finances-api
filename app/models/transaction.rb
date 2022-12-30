@@ -11,23 +11,23 @@
 #  recurrent   :boolean          default(FALSE)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  account_id  :bigint(8)        not null
 #  category_id :bigint(8)
+#  user_id     :bigint(8)        not null
 #
 # Indexes
 #
-#  index_transactions_on_account_id   (account_id)
 #  index_transactions_on_category_id  (category_id)
+#  index_transactions_on_user_id      (user_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (account_id => accounts.id)
 #  fk_rails_...  (category_id => categories.id)
+#  fk_rails_...  (user_id => users.id)
 #
 
 class Transaction < ApplicationRecord
-  belongs_to :account
-  belongs_to :category
+  belongs_to :user
+  belongs_to :category, optional: true
 
   enum origin: %i[reserve credit_card]
 

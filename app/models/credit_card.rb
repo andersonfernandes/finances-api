@@ -20,6 +20,8 @@
 #
 class CreditCard < ApplicationRecord
   belongs_to :user
+  has_many :credit_card_transactions
+  has_many :transactions, through: :credit_card_transactions
 
   validates :name, :billing_day, :limit, presence: true
   validates :limit, numericality: true
