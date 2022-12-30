@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_27_003559) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_30_011016) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -84,6 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_27_003559) do
     t.bigint "account_id", null: false
     t.boolean "recurrent", default: false
     t.datetime "expires_at", precision: nil
+    t.integer "origin", null: false
     t.index ["account_id"], name: "index_transactions_on_account_id"
     t.index ["category_id"], name: "index_transactions_on_category_id"
   end

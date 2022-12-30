@@ -72,7 +72,7 @@ module V1
     def transaction_params
       permitted_params = %i[
         description amount paid_at recurrent expires_at
-        transaction_type category_id account_id
+        category_id account_id origin
       ]
       params.permit(permitted_params)
     end

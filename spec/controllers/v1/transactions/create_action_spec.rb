@@ -10,6 +10,7 @@ RSpec.describe V1::TransactionsController, '#create', type: :request do
   let(:params) do
     {
       description: 'Super Market',
+      origin: 'credit_card',
       amount: 12.5,
       paid_at: Date.today.to_time.iso8601,
       category_id: category.id,

@@ -6,6 +6,7 @@
 #  amount      :decimal(, )      not null
 #  description :string           not null
 #  expires_at  :datetime
+#  origin      :integer          not null
 #  paid_at     :date             not null
 #  recurrent   :boolean          default(FALSE)
 #  created_at  :datetime         not null
@@ -28,8 +29,10 @@ class Transaction < ApplicationRecord
   belongs_to :account
   belongs_to :category
 
+  enum origin: %i[reserve credit_card]
+
   validates :amount, numericality: true
-  validates :amount, :description, :paid_at, presence: true
+  validates :amount, :description, :paid_at, :origin, presence: true
 
   delegate :id, :description, :to_response, to: :category, prefix: true
   delegate :id, :to_response, to: :account, prefix: true

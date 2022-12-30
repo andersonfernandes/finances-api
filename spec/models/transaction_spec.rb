@@ -19,6 +19,11 @@ RSpec.describe Transaction, type: :model do
     describe '#paid_at' do
       it { should validate_presence_of(:paid_at) }
     end
+
+    describe '#origin' do
+      it { should validate_presence_of(:origin) }
+      it { should define_enum_for(:origin) }
+    end
   end
 
   context 'delegators' do
