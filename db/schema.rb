@@ -95,7 +95,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_30_012526) do
   create_table "transactions", force: :cascade do |t|
     t.string "description", null: false
     t.decimal "amount", null: false
-    t.date "paid_at", null: false
+    t.date "paid_at"
     t.bigint "category_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
