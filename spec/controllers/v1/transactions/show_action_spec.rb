@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe V1::TransactionsController, '#show', type: :request do
   let(:body) { JSON.parse(response.body) }
   let(:user) { create(:user) }
-  let(:transaction) { create(:transaction, account: create(:account, user: user)) }
+  let(:transaction) { create(:transaction, user: user) }
 
   let(:headers) { authorization_header(user) }
 
@@ -21,7 +21,6 @@ RSpec.describe V1::TransactionsController, '#show', type: :request do
           .and include('recurrent' => transaction.recurrent)
           .and include('paid_at' => transaction.paid_at.to_time.iso8601)
           .and include('category' => transaction.category.to_response)
-          .and include('account' => transaction.account.to_response)
       end
     end
 

@@ -72,9 +72,9 @@ module V1
     def transaction_params
       permitted_params = %i[
         description amount paid_at recurrent expires_at
-        category_id account_id origin
+        category_id origin
       ]
-      params.permit(permitted_params)
+      params.permit(permitted_params).merge(user_id: current_user.id)
     end
 
     def set_transaction
@@ -83,10 +83,8 @@ module V1
 
     def all_transactions
       Transaction
-        .includes([:account])
         .includes(category: %i[child_categories parent_category])
-        .joins(account: :user)
-        .where(accounts: { user_id: current_user.id })
+        .where(user_id: current_user.id)
     end
   end
 end

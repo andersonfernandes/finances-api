@@ -40,11 +40,6 @@ module Api
               type: :number,
               desc: 'Transaction category ID',
               required: { on_create: true, on_update: false }
-            },
-            account_id: {
-              type: :number,
-              desc: 'Transaction account ID',
-              required: { on_create: true, on_update: false }
             }
           }
         end

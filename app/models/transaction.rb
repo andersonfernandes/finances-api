@@ -35,14 +35,12 @@ class Transaction < ApplicationRecord
   validates :amount, :description, :paid_at, :origin, presence: true
 
   delegate :id, :description, :to_response, to: :category, prefix: true
-  delegate :id, :to_response, to: :account, prefix: true
 
   def to_response
     exposed_fields = %i[id description amount recurrent]
 
     as_json(only: exposed_fields)
       .merge('category' => category_to_response,
-             'account' => account_to_response,
              'paid_at' => paid_at.to_time.iso8601,
              'expires_at' => expires_at&.to_time&.iso8601)
   end

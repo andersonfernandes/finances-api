@@ -4,8 +4,7 @@ RSpec.describe V1::TransactionsController, '#update', type: :request do
   let(:setup) {}
   let(:body) { JSON.parse(response.body) }
   let(:user) { create(:user) }
-  let(:account) { create(:account, user: user) }
-  let(:transaction) { create(:transaction, account: account) }
+  let(:transaction) { create(:transaction, user: user) }
 
   let(:params) do
     {
@@ -35,18 +34,12 @@ RSpec.describe V1::TransactionsController, '#update', type: :request do
           'parent_category_id' => nil,
           'child_categories' => []
         }
-        expected_account = {
-          'id' => account.id,
-          'name' => account.name,
-          'description' => account.description
-        }
         expect(response_body).to include('description' => params[:description])
           .and include('amount' => params[:amount].to_s)
           .and include('paid_at' => params[:paid_at])
           .and include('recurrent' => params[:recurrent])
           .and include('expires_at' => params[:expires_at])
           .and include('category' => expected_category)
-          .and include('account' => expected_account)
       end
     end
 

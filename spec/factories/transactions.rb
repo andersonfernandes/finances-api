@@ -7,7 +7,7 @@ FactoryBot.define do
     recurrent { false }
     origin { :reserve }
 
-    account { FactoryBot.build(:account) }
+    user { FactoryBot.build(:user) }
     category { FactoryBot.build(:category) }
   end
 end
