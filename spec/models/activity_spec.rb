@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Transaction, type: :model do
+RSpec.describe Activity, type: :model do
   context 'relations' do
     it { should belong_to(:user) }
     it { should belong_to(:category).optional }
@@ -29,16 +29,16 @@ RSpec.describe Transaction, type: :model do
   end
 
   describe 'to_response' do
-    let(:transaction) { create(:transaction) }
+    let(:activity) { create(:activity) }
 
     it do
-      expect(transaction.to_response).to include('id' => transaction.id)
-        .and include('description' => transaction.description)
-        .and include('amount' => transaction.amount.to_s)
-        .and include('recurrent' => transaction.recurrent)
-        .and include('paid_at' => transaction.paid_at.to_time.iso8601)
-        .and include('expires_at' => transaction.expires_at.to_time.iso8601)
-        .and include('category' => transaction.category.to_response)
+      expect(activity.to_response).to include('id' => activity.id)
+        .and include('description' => activity.description)
+        .and include('amount' => activity.amount.to_s)
+        .and include('recurrent' => activity.recurrent)
+        .and include('paid_at' => activity.paid_at.to_time.iso8601)
+        .and include('expires_at' => activity.expires_at.to_time.iso8601)
+        .and include('category' => activity.category.to_response)
     end
   end
 end

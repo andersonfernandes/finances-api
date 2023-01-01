@@ -17,7 +17,7 @@ module V1
 
     api :GET, '/v1/accounts/:id', 'Returns an account'
     header 'Authentication', 'User access token', required: true
-    param :id, :number, desc: 'Transaction id'
+    param :id, :number, desc: 'Account id'
     returns code: 200, desc: 'Successful response' do
       param_group :account_response
     end

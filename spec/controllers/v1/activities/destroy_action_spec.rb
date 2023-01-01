@@ -1,38 +1,38 @@
 require 'rails_helper'
 
-RSpec.describe V1::TransactionsController, '#destroy', type: :request do
+RSpec.describe V1::ActivitiesController, '#destroy', type: :request do
   let(:setup) {}
   let(:body) { JSON.parse(response.body) }
   let(:user) { create(:user) }
-  let(:transaction) { create(:transaction, user: user) }
+  let(:activity) { create(:activity, user: user) }
 
   let(:headers) { authorization_header(user) }
 
   before do
     setup
-    delete v1_transaction_path(transaction), headers: headers
+    delete v1_activity_path(activity), headers: headers
   end
 
   include_context 'when the user is not authenticated'
 
   context 'when the user is authenticated' do
-    context 'and the transaction belongs to the current user' do
+    context 'and the activity belongs to the current user' do
       it { expect(response).to have_http_status(:no_content) }
-      it { expect(Transaction.count).to eq 0 }
+      it { expect(Activity.count).to eq 0 }
     end
 
-    context 'and the transaction does not exist' do
-      let(:transaction) { -1 }
+    context 'and the activity does not exist' do
+      let(:activity) { -1 }
 
       it { expect(response).to have_http_status(:not_found) }
       it do
-        error_message = "Couldn't find Transaction with 'id'=-1"
+        error_message = "Couldn't find Activity with 'id'=-1"
         expect(body).to include('errors' => error_message)
       end
     end
 
     context 'and the destroy action fails' do
-      let(:setup) { allow_any_instance_of(Transaction).to receive(:destroy).and_return(false) }
+      let(:setup) { allow_any_instance_of(Activity).to receive(:destroy).and_return(false) }
 
       it do
         expect(response).to have_http_status(:unprocessable_entity)

@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Reserve, type: :model do
   context 'relations' do
     it { should belong_to(:account) }
+    it { should have_many(:activities).through(:reserve_activities) }
   end
 
   context 'validations' do

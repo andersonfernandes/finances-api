@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe V1::TransactionsController, '#create', type: :request do
+RSpec.describe V1::ActivitiesController, '#create', type: :request do
   let(:body) { JSON.parse(response.body) }
   let(:setup) {}
   let(:user) { create(:user) }
@@ -19,7 +19,7 @@ RSpec.describe V1::TransactionsController, '#create', type: :request do
 
   before do
     setup
-    post v1_transactions_path, params: params, headers: headers
+    post v1_activities_path, params: params, headers: headers
   end
 
   include_context 'when the user is not authenticated'
@@ -49,7 +49,7 @@ RSpec.describe V1::TransactionsController, '#create', type: :request do
     end
 
     context 'and the save action fails' do
-      let(:setup) { allow_any_instance_of(Transaction).to receive(:save).and_return(false) }
+      let(:setup) { allow_any_instance_of(Activity).to receive(:save).and_return(false) }
 
       it do
         expect(response).to have_http_status(:unprocessable_entity)

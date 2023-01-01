@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :transaction do
+  factory :activity do
     description { FFaker::Lorem.sentences.first }
     amount { FFaker::Number.decimal }
     paid_at { 1.day.ago }
