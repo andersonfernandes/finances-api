@@ -1,0 +1,43 @@
+ARG CORS_ORIGINS
+ARG DATABASE_HOST
+ARG DATABASE_PASSWORD
+ARG DATABASE_PORT
+ARG DATABASE_USERNAME
+ARG RAILS_ENV
+ARG SECRET_KEY_BASE
+
+ARG RUBY_VERSION=3.1.2
+
+FROM ruby:$RUBY_VERSION-alpine
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+RUN apk add --update --no-cache \
+  bash \
+  build-base \
+  sudo \
+  libpq-dev \
+  tzdata
+
+ENV CORS_ORIGINS=$CORS_ORIGINS
+ENV DATABASE_HOST=$DATABASE_HOST
+ENV DATABASE_PASSWORD=$DATABASE_PASSWORD
+ENV DATABASE_PORT=$DATABASE_PORT
+ENV DATABASE_USERNAME=$DATABASE_USERNAME
+ENV SECRET_KEY_BASE=$SECRET_KEY_BASE
+
+ENV RAILS_ENV=production
+ENV RAILS_SERVE_STATIC_FILES=true
+ENV RAILS_LOG_TO_STDOUT=true
+
+RUN gem install bundler
+COPY Gemfile /usr/src/app/
+COPY Gemfile.lock /usr/src/app/
+RUN bundle config --global frozen 1
+RUN bundle install --without development test
+
+COPY . /usr/src/app
+
+EXPOSE 3000
+ENTRYPOINT ["rails", "server", "-b", "0.0.0.0"]
