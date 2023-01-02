@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe CreditCard, type: :model do
   context 'relations' do
     it { should belong_to(:user) }
+    it { should have_many(:activities).through(:credit_card_activities) }
   end
 
   context 'validations' do

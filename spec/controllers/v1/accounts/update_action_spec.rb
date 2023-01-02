@@ -5,7 +5,6 @@ RSpec.describe V1::AccountsController, '#update', type: :request do
   let(:body) { JSON.parse(response.body) }
   let(:user) { create(:user) }
   let(:account) { create(:account, user: user) }
-  let(:new_financial_institution) { create(:financial_institution) }
 
   let(:params) do
     {

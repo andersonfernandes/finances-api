@@ -9,8 +9,7 @@ Rails.application.routes.draw do
 
     resources :accounts, only: %i[index show create update destroy]
     resources :categories, only: %i[index show create update destroy]
-    resources :transactions, only: %i[index show create update destroy]
-    resources :financial_institutions, only: %i[index show]
+    resources :activities, only: %i[index show create update destroy]
     resources :credit_cards, only: %i[index show create update destroy]
 
     get 'users/me' => 'users#me'

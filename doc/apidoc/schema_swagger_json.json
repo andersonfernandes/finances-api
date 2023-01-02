@@ -155,7 +155,7 @@
             "type": "number",
             "in": "path",
             "required": true,
-            "description": "Transaction id"
+            "description": "Account id"
           },
           {
             "name": "Authentication",
@@ -314,6 +314,668 @@
             "in": "path",
             "required": true,
             "description": "Account id"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "204": {
+            "description": "Successful response"
+          }
+        },
+        "description": ""
+      }
+    },
+    "/v1/activities": {
+      "get": {
+        "tags": [
+          "activities"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "get_v1_activities",
+        "summary": "List all activities",
+        "parameters": [
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/activity_response"
+              }
+            }
+          }
+        },
+        "description": ""
+      },
+      "post": {
+        "tags": [
+          "activities"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "post_v1_activities",
+        "summary": "Creates a activity",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "description": "Activity description",
+                  "default": null
+                },
+                "amount": {
+                  "type": "string",
+                  "description": "Amount spent",
+                  "default": null
+                },
+                "paid_at": {
+                  "type": "string",
+                  "description": "Activity date in ISO-8601 format",
+                  "default": null
+                },
+                "expires_at": {
+                  "type": "string",
+                  "description": "Activity expiration date in ISO-8601 format",
+                  "default": null
+                },
+                "recurrent": {
+                  "type": "string",
+                  "enum": [
+                    "true",
+                    "false"
+                  ],
+                  "description": "Indicates if the activity is recurrent",
+                  "default": null
+                },
+                "category_id": {
+                  "type": "number",
+                  "description": "Activity category ID",
+                  "default": null
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "description",
+                "amount",
+                "paid_at",
+                "category_id"
+              ]
+            }
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "201": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "Activity id"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Activity description"
+                },
+                "amount": {
+                  "type": "string",
+                  "description": "Amount spent"
+                },
+                "paid_at": {
+                  "type": "string",
+                  "description": "Activity date in ISO-8601 format"
+                },
+                "expires_at": {
+                  "type": "string",
+                  "description": "Activity expiration date in ISO-8601 format"
+                },
+                "recurrent": {
+                  "type": "string",
+                  "enum": [
+                    "true",
+                    "false"
+                  ],
+                  "description": "Indicates if the activity is recurrent"
+                },
+                "category": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "Category ID"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Category description"
+                    },
+                    "parent_category_id": {
+                      "type": "number",
+                      "description": "Parent category ID"
+                    },
+                    "parent_category": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "description": "Category ID"
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "Category description"
+                        },
+                        "parent_category_id": {
+                          "type": "number",
+                          "description": "Parent category ID"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "description",
+                        "parent_category_id"
+                      ]
+                    },
+                    "child_categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "description": "Category ID"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Category description"
+                          },
+                          "parent_category_id": {
+                            "type": "number",
+                            "description": "Parent category ID"
+                          }
+                        },
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "description",
+                          "parent_category_id"
+                        ]
+                      }
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "description",
+                    "parent_category_id",
+                    "parent_category",
+                    "child_categories"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "description",
+                "amount",
+                "paid_at",
+                "expires_at",
+                "recurrent",
+                "category"
+              ]
+            }
+          }
+        },
+        "description": ""
+      }
+    },
+    "/v1/activities/{id}": {
+      "get": {
+        "tags": [
+          "activities"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "get_v1_activities_id",
+        "summary": "Returns a activity",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Activity id"
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "Activity id"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Activity description"
+                },
+                "amount": {
+                  "type": "string",
+                  "description": "Amount spent"
+                },
+                "paid_at": {
+                  "type": "string",
+                  "description": "Activity date in ISO-8601 format"
+                },
+                "expires_at": {
+                  "type": "string",
+                  "description": "Activity expiration date in ISO-8601 format"
+                },
+                "recurrent": {
+                  "type": "string",
+                  "enum": [
+                    "true",
+                    "false"
+                  ],
+                  "description": "Indicates if the activity is recurrent"
+                },
+                "category": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "Category ID"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Category description"
+                    },
+                    "parent_category_id": {
+                      "type": "number",
+                      "description": "Parent category ID"
+                    },
+                    "parent_category": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "description": "Category ID"
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "Category description"
+                        },
+                        "parent_category_id": {
+                          "type": "number",
+                          "description": "Parent category ID"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "description",
+                        "parent_category_id"
+                      ]
+                    },
+                    "child_categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "description": "Category ID"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Category description"
+                          },
+                          "parent_category_id": {
+                            "type": "number",
+                            "description": "Parent category ID"
+                          }
+                        },
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "description",
+                          "parent_category_id"
+                        ]
+                      }
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "description",
+                    "parent_category_id",
+                    "parent_category",
+                    "child_categories"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "description",
+                "amount",
+                "paid_at",
+                "expires_at",
+                "recurrent",
+                "category"
+              ]
+            }
+          }
+        },
+        "description": ""
+      },
+      "put": {
+        "tags": [
+          "activities"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "put_v1_activities_id",
+        "summary": "Updates a activity",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Activity id",
+            "default": null
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "description": "Activity description",
+                  "default": null
+                },
+                "amount": {
+                  "type": "string",
+                  "description": "Amount spent",
+                  "default": null
+                },
+                "paid_at": {
+                  "type": "string",
+                  "description": "Activity date in ISO-8601 format",
+                  "default": null
+                },
+                "expires_at": {
+                  "type": "string",
+                  "description": "Activity expiration date in ISO-8601 format",
+                  "default": null
+                },
+                "recurrent": {
+                  "type": "string",
+                  "enum": [
+                    "true",
+                    "false"
+                  ],
+                  "description": "Indicates if the activity is recurrent",
+                  "default": null
+                },
+                "category_id": {
+                  "type": "number",
+                  "description": "Activity category ID",
+                  "default": null
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          {
+            "name": "Authentication",
+            "in": "header",
+            "required": true,
+            "description": "User access token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
+          },
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "Activity id"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Activity description"
+                },
+                "amount": {
+                  "type": "string",
+                  "description": "Amount spent"
+                },
+                "paid_at": {
+                  "type": "string",
+                  "description": "Activity date in ISO-8601 format"
+                },
+                "expires_at": {
+                  "type": "string",
+                  "description": "Activity expiration date in ISO-8601 format"
+                },
+                "recurrent": {
+                  "type": "string",
+                  "enum": [
+                    "true",
+                    "false"
+                  ],
+                  "description": "Indicates if the activity is recurrent"
+                },
+                "category": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "Category ID"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Category description"
+                    },
+                    "parent_category_id": {
+                      "type": "number",
+                      "description": "Parent category ID"
+                    },
+                    "parent_category": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number",
+                          "description": "Category ID"
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "Category description"
+                        },
+                        "parent_category_id": {
+                          "type": "number",
+                          "description": "Parent category ID"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "description",
+                        "parent_category_id"
+                      ]
+                    },
+                    "child_categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "description": "Category ID"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "Category description"
+                          },
+                          "parent_category_id": {
+                            "type": "number",
+                            "description": "Parent category ID"
+                          }
+                        },
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "description",
+                          "parent_category_id"
+                        ]
+                      }
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "id",
+                    "description",
+                    "parent_category_id",
+                    "parent_category",
+                    "child_categories"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "description",
+                "amount",
+                "paid_at",
+                "expires_at",
+                "recurrent",
+                "category"
+              ]
+            }
+          }
+        },
+        "description": ""
+      },
+      "delete": {
+        "tags": [
+          "activities"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "operationId": "delete_v1_activities_id",
+        "summary": "Delete a activity",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true,
+            "description": "Activity id"
           },
           {
             "name": "Authentication",
@@ -1423,841 +2085,6 @@
         "description": ""
       }
     },
-    "/v1/financial_institutions": {
-      "get": {
-        "tags": [
-          "financial_institutions"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "get_v1_financial_institutions",
-        "summary": "List all financial institutions",
-        "parameters": [
-          {
-            "name": "Authentication",
-            "in": "header",
-            "required": true,
-            "description": "User access token",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          },
-          "200": {
-            "description": "Successful response",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/financial_institution_response"
-              }
-            }
-          }
-        },
-        "description": ""
-      }
-    },
-    "/v1/financial_institutions/{id}": {
-      "get": {
-        "tags": [
-          "financial_institutions"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "get_v1_financial_institutions_id",
-        "summary": "Returns a financial institutions",
-        "parameters": [
-          {
-            "name": "id",
-            "type": "number",
-            "in": "path",
-            "required": true,
-            "description": "Financial Institution id"
-          },
-          {
-            "name": "Authentication",
-            "in": "header",
-            "required": true,
-            "description": "User access token",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          },
-          "200": {
-            "description": "Successful response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number",
-                  "description": "Financial Institution id"
-                },
-                "name": {
-                  "type": "string",
-                  "description": "Financial Institution name"
-                },
-                "logo_url": {
-                  "type": "string",
-                  "description": "Financial Institution logo url"
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "id",
-                "name",
-                "logo_url"
-              ]
-            }
-          }
-        },
-        "description": ""
-      }
-    },
-    "/v1/transactions": {
-      "get": {
-        "tags": [
-          "transactions"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "get_v1_transactions",
-        "summary": "List all transactions",
-        "parameters": [
-          {
-            "name": "Authentication",
-            "in": "header",
-            "required": true,
-            "description": "User access token",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          },
-          "200": {
-            "description": "Successful response",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/transaction_response"
-              }
-            }
-          }
-        },
-        "description": ""
-      },
-      "post": {
-        "tags": [
-          "transactions"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "post_v1_transactions",
-        "summary": "Creates a transaction",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "description": {
-                  "type": "string",
-                  "description": "Transaction description",
-                  "default": null
-                },
-                "amount": {
-                  "type": "string",
-                  "description": "Amount spent",
-                  "default": null
-                },
-                "transaction_type": {
-                  "type": "string",
-                  "enum": [
-                    "income",
-                    "expense",
-                    "transfer"
-                  ],
-                  "description": "Transaction type",
-                  "default": null
-                },
-                "spent_at": {
-                  "type": "string",
-                  "description": "Transaction date in ISO-8601 format",
-                  "default": null
-                },
-                "category_id": {
-                  "type": "number",
-                  "description": "Transaction category ID",
-                  "default": null
-                },
-                "account_id": {
-                  "type": "number",
-                  "description": "Transaction account ID",
-                  "default": null
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "description",
-                "amount",
-                "transaction_type",
-                "spent_at",
-                "category_id",
-                "account_id"
-              ]
-            }
-          },
-          {
-            "name": "Authentication",
-            "in": "header",
-            "required": true,
-            "description": "User access token",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          },
-          "201": {
-            "description": "Successful response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number",
-                  "description": "Transaction id"
-                },
-                "description": {
-                  "type": "string",
-                  "description": "Transaction description"
-                },
-                "amount": {
-                  "type": "string",
-                  "description": "Amount spent"
-                },
-                "transaction_type": {
-                  "type": "string",
-                  "enum": [
-                    "income",
-                    "expense",
-                    "transfer"
-                  ],
-                  "description": "Transaction type"
-                },
-                "spent_at": {
-                  "type": "string",
-                  "description": "Transaction date in ISO-8601 format"
-                },
-                "category": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number",
-                      "description": "Category ID"
-                    },
-                    "description": {
-                      "type": "string",
-                      "description": "Category description"
-                    },
-                    "parent_category_id": {
-                      "type": "number",
-                      "description": "Parent category ID"
-                    },
-                    "parent_category": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "number",
-                          "description": "Category ID"
-                        },
-                        "description": {
-                          "type": "string",
-                          "description": "Category description"
-                        },
-                        "parent_category_id": {
-                          "type": "number",
-                          "description": "Parent category ID"
-                        }
-                      },
-                      "additionalProperties": false,
-                      "required": [
-                        "id",
-                        "description",
-                        "parent_category_id"
-                      ]
-                    },
-                    "child_categories": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "number",
-                            "description": "Category ID"
-                          },
-                          "description": {
-                            "type": "string",
-                            "description": "Category description"
-                          },
-                          "parent_category_id": {
-                            "type": "number",
-                            "description": "Parent category ID"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "id",
-                          "description",
-                          "parent_category_id"
-                        ]
-                      }
-                    }
-                  },
-                  "additionalProperties": false,
-                  "required": [
-                    "id",
-                    "description",
-                    "parent_category_id",
-                    "parent_category",
-                    "child_categories"
-                  ]
-                },
-                "account": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number",
-                      "description": "Account id"
-                    },
-                    "name": {
-                      "type": "string",
-                      "description": "Account name"
-                    },
-                    "description": {
-                      "type": "string",
-                      "description": "Account description"
-                    }
-                  },
-                  "additionalProperties": false,
-                  "required": [
-                    "id",
-                    "name",
-                    "description"
-                  ]
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "id",
-                "description",
-                "amount",
-                "transaction_type",
-                "spent_at",
-                "category",
-                "account"
-              ]
-            }
-          }
-        },
-        "description": ""
-      }
-    },
-    "/v1/transactions/{id}": {
-      "get": {
-        "tags": [
-          "transactions"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "get_v1_transactions_id",
-        "summary": "Returns a transaction",
-        "parameters": [
-          {
-            "name": "id",
-            "type": "number",
-            "in": "path",
-            "required": true,
-            "description": "Transaction id"
-          },
-          {
-            "name": "Authentication",
-            "in": "header",
-            "required": true,
-            "description": "User access token",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          },
-          "200": {
-            "description": "Successful response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number",
-                  "description": "Transaction id"
-                },
-                "description": {
-                  "type": "string",
-                  "description": "Transaction description"
-                },
-                "amount": {
-                  "type": "string",
-                  "description": "Amount spent"
-                },
-                "transaction_type": {
-                  "type": "string",
-                  "enum": [
-                    "income",
-                    "expense",
-                    "transfer"
-                  ],
-                  "description": "Transaction type"
-                },
-                "spent_at": {
-                  "type": "string",
-                  "description": "Transaction date in ISO-8601 format"
-                },
-                "category": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number",
-                      "description": "Category ID"
-                    },
-                    "description": {
-                      "type": "string",
-                      "description": "Category description"
-                    },
-                    "parent_category_id": {
-                      "type": "number",
-                      "description": "Parent category ID"
-                    },
-                    "parent_category": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "number",
-                          "description": "Category ID"
-                        },
-                        "description": {
-                          "type": "string",
-                          "description": "Category description"
-                        },
-                        "parent_category_id": {
-                          "type": "number",
-                          "description": "Parent category ID"
-                        }
-                      },
-                      "additionalProperties": false,
-                      "required": [
-                        "id",
-                        "description",
-                        "parent_category_id"
-                      ]
-                    },
-                    "child_categories": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "number",
-                            "description": "Category ID"
-                          },
-                          "description": {
-                            "type": "string",
-                            "description": "Category description"
-                          },
-                          "parent_category_id": {
-                            "type": "number",
-                            "description": "Parent category ID"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "id",
-                          "description",
-                          "parent_category_id"
-                        ]
-                      }
-                    }
-                  },
-                  "additionalProperties": false,
-                  "required": [
-                    "id",
-                    "description",
-                    "parent_category_id",
-                    "parent_category",
-                    "child_categories"
-                  ]
-                },
-                "account": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number",
-                      "description": "Account id"
-                    },
-                    "name": {
-                      "type": "string",
-                      "description": "Account name"
-                    },
-                    "description": {
-                      "type": "string",
-                      "description": "Account description"
-                    }
-                  },
-                  "additionalProperties": false,
-                  "required": [
-                    "id",
-                    "name",
-                    "description"
-                  ]
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "id",
-                "description",
-                "amount",
-                "transaction_type",
-                "spent_at",
-                "category",
-                "account"
-              ]
-            }
-          }
-        },
-        "description": ""
-      },
-      "put": {
-        "tags": [
-          "transactions"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "put_v1_transactions_id",
-        "summary": "Updates a transaction",
-        "parameters": [
-          {
-            "name": "id",
-            "type": "number",
-            "in": "path",
-            "required": true,
-            "description": "Transaction id",
-            "default": null
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "description": {
-                  "type": "string",
-                  "description": "Transaction description",
-                  "default": null
-                },
-                "amount": {
-                  "type": "string",
-                  "description": "Amount spent",
-                  "default": null
-                },
-                "transaction_type": {
-                  "type": "string",
-                  "enum": [
-                    "income",
-                    "expense",
-                    "transfer"
-                  ],
-                  "description": "Transaction type",
-                  "default": null
-                },
-                "spent_at": {
-                  "type": "string",
-                  "description": "Transaction date in ISO-8601 format",
-                  "default": null
-                },
-                "category_id": {
-                  "type": "number",
-                  "description": "Transaction category ID",
-                  "default": null
-                }
-              },
-              "additionalProperties": false
-            }
-          },
-          {
-            "name": "Authentication",
-            "in": "header",
-            "required": true,
-            "description": "User access token",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          },
-          "200": {
-            "description": "Successful response",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number",
-                  "description": "Transaction id"
-                },
-                "description": {
-                  "type": "string",
-                  "description": "Transaction description"
-                },
-                "amount": {
-                  "type": "string",
-                  "description": "Amount spent"
-                },
-                "transaction_type": {
-                  "type": "string",
-                  "enum": [
-                    "income",
-                    "expense",
-                    "transfer"
-                  ],
-                  "description": "Transaction type"
-                },
-                "spent_at": {
-                  "type": "string",
-                  "description": "Transaction date in ISO-8601 format"
-                },
-                "category": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number",
-                      "description": "Category ID"
-                    },
-                    "description": {
-                      "type": "string",
-                      "description": "Category description"
-                    },
-                    "parent_category_id": {
-                      "type": "number",
-                      "description": "Parent category ID"
-                    },
-                    "parent_category": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "number",
-                          "description": "Category ID"
-                        },
-                        "description": {
-                          "type": "string",
-                          "description": "Category description"
-                        },
-                        "parent_category_id": {
-                          "type": "number",
-                          "description": "Parent category ID"
-                        }
-                      },
-                      "additionalProperties": false,
-                      "required": [
-                        "id",
-                        "description",
-                        "parent_category_id"
-                      ]
-                    },
-                    "child_categories": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "number",
-                            "description": "Category ID"
-                          },
-                          "description": {
-                            "type": "string",
-                            "description": "Category description"
-                          },
-                          "parent_category_id": {
-                            "type": "number",
-                            "description": "Parent category ID"
-                          }
-                        },
-                        "additionalProperties": false,
-                        "required": [
-                          "id",
-                          "description",
-                          "parent_category_id"
-                        ]
-                      }
-                    }
-                  },
-                  "additionalProperties": false,
-                  "required": [
-                    "id",
-                    "description",
-                    "parent_category_id",
-                    "parent_category",
-                    "child_categories"
-                  ]
-                },
-                "account": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number",
-                      "description": "Account id"
-                    },
-                    "name": {
-                      "type": "string",
-                      "description": "Account name"
-                    },
-                    "description": {
-                      "type": "string",
-                      "description": "Account description"
-                    }
-                  },
-                  "additionalProperties": false,
-                  "required": [
-                    "id",
-                    "name",
-                    "description"
-                  ]
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "id",
-                "description",
-                "amount",
-                "transaction_type",
-                "spent_at",
-                "category",
-                "account"
-              ]
-            }
-          }
-        },
-        "description": ""
-      },
-      "delete": {
-        "tags": [
-          "transactions"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "operationId": "delete_v1_transactions_id",
-        "summary": "Delete a transaction",
-        "parameters": [
-          {
-            "name": "id",
-            "type": "number",
-            "in": "path",
-            "required": true,
-            "description": "Transaction id"
-          },
-          {
-            "name": "Authentication",
-            "in": "header",
-            "required": true,
-            "description": "User access token",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "422": {
-            "description": "Unprocessable Entity"
-          },
-          "204": {
-            "description": "Successful response"
-          }
-        },
-        "description": ""
-      }
-    },
     "/v1/users/me": {
       "get": {
         "tags": [
@@ -2323,6 +2150,123 @@
         "id",
         "name",
         "description"
+      ]
+    },
+    "activity_response": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "description": "Activity id"
+        },
+        "description": {
+          "type": "string",
+          "description": "Activity description"
+        },
+        "amount": {
+          "type": "string",
+          "description": "Amount spent"
+        },
+        "paid_at": {
+          "type": "string",
+          "description": "Activity date in ISO-8601 format"
+        },
+        "expires_at": {
+          "type": "string",
+          "description": "Activity expiration date in ISO-8601 format"
+        },
+        "recurrent": {
+          "type": "string",
+          "enum": [
+            "true",
+            "false"
+          ],
+          "description": "Indicates if the activity is recurrent"
+        },
+        "category": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "description": "Category ID"
+            },
+            "description": {
+              "type": "string",
+              "description": "Category description"
+            },
+            "parent_category_id": {
+              "type": "number",
+              "description": "Parent category ID"
+            },
+            "parent_category": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "Category ID"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Category description"
+                },
+                "parent_category_id": {
+                  "type": "number",
+                  "description": "Parent category ID"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "description",
+                "parent_category_id"
+              ]
+            },
+            "child_categories": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "description": "Category ID"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Category description"
+                  },
+                  "parent_category_id": {
+                    "type": "number",
+                    "description": "Parent category ID"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "description",
+                  "parent_category_id"
+                ]
+              }
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "description",
+            "parent_category_id",
+            "parent_category",
+            "child_categories"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "description",
+        "amount",
+        "paid_at",
+        "expires_at",
+        "recurrent",
+        "category"
       ]
     },
     "category_response": {
@@ -2451,166 +2395,6 @@
         "account"
       ]
     },
-    "financial_institution_response": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "number",
-          "description": "Financial Institution id"
-        },
-        "name": {
-          "type": "string",
-          "description": "Financial Institution name"
-        },
-        "logo_url": {
-          "type": "string",
-          "description": "Financial Institution logo url"
-        }
-      },
-      "additionalProperties": false,
-      "required": [
-        "id",
-        "name",
-        "logo_url"
-      ]
-    },
-    "transaction_response": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "number",
-          "description": "Transaction id"
-        },
-        "description": {
-          "type": "string",
-          "description": "Transaction description"
-        },
-        "amount": {
-          "type": "string",
-          "description": "Amount spent"
-        },
-        "transaction_type": {
-          "type": "string",
-          "enum": [
-            "income",
-            "expense",
-            "transfer"
-          ],
-          "description": "Transaction type"
-        },
-        "spent_at": {
-          "type": "string",
-          "description": "Transaction date in ISO-8601 format"
-        },
-        "category": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "number",
-              "description": "Category ID"
-            },
-            "description": {
-              "type": "string",
-              "description": "Category description"
-            },
-            "parent_category_id": {
-              "type": "number",
-              "description": "Parent category ID"
-            },
-            "parent_category": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number",
-                  "description": "Category ID"
-                },
-                "description": {
-                  "type": "string",
-                  "description": "Category description"
-                },
-                "parent_category_id": {
-                  "type": "number",
-                  "description": "Parent category ID"
-                }
-              },
-              "additionalProperties": false,
-              "required": [
-                "id",
-                "description",
-                "parent_category_id"
-              ]
-            },
-            "child_categories": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number",
-                    "description": "Category ID"
-                  },
-                  "description": {
-                    "type": "string",
-                    "description": "Category description"
-                  },
-                  "parent_category_id": {
-                    "type": "number",
-                    "description": "Parent category ID"
-                  }
-                },
-                "additionalProperties": false,
-                "required": [
-                  "id",
-                  "description",
-                  "parent_category_id"
-                ]
-              }
-            }
-          },
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "description",
-            "parent_category_id",
-            "parent_category",
-            "child_categories"
-          ]
-        },
-        "account": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "number",
-              "description": "Account id"
-            },
-            "name": {
-              "type": "string",
-              "description": "Account name"
-            },
-            "description": {
-              "type": "string",
-              "description": "Account description"
-            }
-          },
-          "additionalProperties": false,
-          "required": [
-            "id",
-            "name",
-            "description"
-          ]
-        }
-      },
-      "additionalProperties": false,
-      "required": [
-        "id",
-        "description",
-        "amount",
-        "transaction_type",
-        "spent_at",
-        "category",
-        "account"
-      ]
-    },
     "user_response": {
       "type": "object",
       "properties": {
@@ -2660,6 +2444,10 @@
       "description": ""
     },
     {
+      "name": "activities",
+      "description": ""
+    },
+    {
       "name": "authentication",
       "description": ""
     },
@@ -2669,14 +2457,6 @@
     },
     {
       "name": "credit_cards",
-      "description": ""
-    },
-    {
-      "name": "financial_institutions",
-      "description": ""
-    },
-    {
-      "name": "transactions",
       "description": ""
     },
     {

@@ -22,7 +22,7 @@
 
 class Category < ApplicationRecord
   belongs_to :user
-  has_many :transactions
+  has_many :activities
 
   belongs_to :parent_category,
              class_name: 'Category',

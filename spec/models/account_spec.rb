@@ -65,6 +65,7 @@ RSpec.describe Account, type: :model do
 
   context 'relations' do
     it { should belong_to(:user) }
+    it { should have_many(:reserves).class_name('Reserve') }
   end
 
   describe '#to_response' do
